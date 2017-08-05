@@ -1,0 +1,10 @@
+Proceso Punto_1_A
+	Definir a como entero;
+	a <- 50;
+	Escribir "Los numeros son:";
+	Repetir
+		Escribir a;
+		a <- a - 2;
+	Hasta Que a = 18
+	
+FinProceso

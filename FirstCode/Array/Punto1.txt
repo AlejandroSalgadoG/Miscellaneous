@@ -1,0 +1,31 @@
+Proceso Punto_1
+	dimension num(10), num2(10);
+	definir num, x Como Real ;
+	definir a, b, y, num2, acum Como entero;
+	b<-0;
+	Escribir "Introduzca los valores del conjunto";
+	acum<-1;
+	Para a<-0 Hasta 9 Con Paso 1 Hacer
+		Escribir "Valor ",acum ;
+		Leer num(a);
+		num2(b) <- trunc(num(a));
+		b <- b+1;
+		acum<-acum+1;
+	FinPara
+	Escribir "Introduzca el valor que sera analizado";
+	Leer x;
+	y<-x;
+	Si num(0)<>num2(0) Entonces
+		Si (x<>y) Entonces
+			Escribir "Verdadero, pertenece a los reales";
+		Sino
+			Escribir "Falso, no es un numero real";
+		FinSi
+	Sino
+		Si (x<>y) Entonces
+			Escribir "Falso, no es un numero entero";
+		Sino
+			Escribir "Verdadero, pertenece a los enteros";
+		FinSi
+	FinSi
+FinProceso

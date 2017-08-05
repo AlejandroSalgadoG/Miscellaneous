@@ -1,0 +1,8 @@
+Proceso Codigo_1_A
+	Definir a como Enteros;
+		Escribir "Introdusca el valor que desea para a y presione ENTER.";
+			Leer a;
+				a <- a*10;
+		Escribir "Resultado de a*10.";
+		Escribir a;
+FinProceso

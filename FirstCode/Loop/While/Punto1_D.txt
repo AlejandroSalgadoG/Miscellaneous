@@ -1,0 +1,14 @@
+Proceso Punto_1_D
+	Definir a, b, c como entero; 
+	a <- 1;
+	Mientras a <= 10 Hacer
+		b <- 1;
+		Mientras b <= 10 Hacer
+			c <- a * b;
+			Escribir a,"X", b, "=", c;
+			b <- b +1;
+		FinMientras
+	a <- a+1;
+	Escribir "Fin de la tabla";
+	FinMientras
+FinProceso

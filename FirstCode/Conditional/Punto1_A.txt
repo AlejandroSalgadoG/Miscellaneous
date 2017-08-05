@@ -1,0 +1,10 @@
+Proceso Punto_1_A
+	Definir a como entero;
+	Escribir "Introduzca el valor de a";
+	Leer a;
+	Si a<0 Entonces
+		Escribir "Negativo";
+	Sino
+		Escribir "Positivo o cero";
+	FinSi
+FinProceso

@@ -1,0 +1,10 @@
+Proceso Punto_1_B
+	Definir I, acum como entero;
+	I <- -1;
+	acum <- 0;
+	Para I <- -1 hasta -10 con paso -1 Hacer
+		acum <- acum + (I * I);
+	FinPara
+	Escribir "Resultado:";
+	Escribir acum;
+FinProceso
