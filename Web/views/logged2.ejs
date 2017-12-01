@@ -1,0 +1,40 @@
+115d2136 (Alejandro Salgado G 2017-07-24 17:10:59 -0500   1) <html>
+9c076749 (Alejandro Salgado G 2017-07-30 11:34:36 -0500   2) 
+2f0d7eaa (Alejandro Salgado G 2017-07-30 22:48:46 -0500   5) 
+0779506d (Alejandro Salgado G 2017-07-31 04:49:15 -0500  11) 
+4299575f (Alejandro Salgado G 2017-07-30 08:53:54 -0500  27)         </div>
+4299575f (Alejandro Salgado G 2017-07-30 08:53:54 -0500  29) 
+d0a024b6 (Alejandro Salgado G 2017-08-13 22:29:24 -0500  41)                     <form action='/create_image' method="post" encType="multipart/form-data">
+d0a024b6 (Alejandro Salgado G 2017-08-13 22:29:24 -0500  42)                         <input class="btn btn-primary" type="file" name="img_file" required><br>
+029b52c3 (Alejandro Salgado G 2017-08-20 00:37:11 -0500  46)                         <input type="radio" name="img_private" id="img_private" onclick='radar_handler("private")' checked> Private
+029b52c3 (Alejandro Salgado G 2017-08-20 00:37:11 -0500  47)                         <input type="radio" name="img_public" id="img_public" onclick='radar_handler("public")'> Public <br>
+8cfcd414 (Alejandro Salgado G 2017-08-18 09:24:10 -0500  58)                         <input class="form-control" type="text" name="del_img_name" placeholder="img1" required><br>
+8155b750 (Alejandro Salgado G 2017-08-20 13:56:15 -0500  68)                     <form name="update_form" action='/update_image' onsubmit="return validate_update_form()" method="post">
+8155b750 (Alejandro Salgado G 2017-08-20 13:56:15 -0500  71) 
+8155b750 (Alejandro Salgado G 2017-08-20 13:56:15 -0500  72)                         <p> Only need to modify the values that you want to update: </p>
+8155b750 (Alejandro Salgado G 2017-08-20 13:56:15 -0500  73) 
+8155b750 (Alejandro Salgado G 2017-08-20 13:56:15 -0500  74)                         <label>New name: </label>
+8155b750 (Alejandro Salgado G 2017-08-20 13:56:15 -0500  75)                         <input class="form-control" type="text" name="img_new_name" id="img_new_name"><br>
+8155b750 (Alejandro Salgado G 2017-08-20 13:56:15 -0500  77)                         <input type="radio" name="img_private2" id="img_private2" onclick='radar_handler2("private")'> Private
+8155b750 (Alejandro Salgado G 2017-08-20 13:56:15 -0500  78)                         <input type="radio" name="img_public2" id="img_public2" onclick='radar_handler2("public")'> Public <br>
+e84a15b2 (Alejandro Salgado G 2017-07-30 18:30:27 -0500  84)             </div>
+4299575f (Alejandro Salgado G 2017-07-30 08:53:54 -0500  85) 
+6841ada6 (Alejandro Salgado G 2017-08-17 22:35:05 -0500  94)                         <input class="form-control" type="text" name="img_user_share" required><br>
+6841ada6 (Alejandro Salgado G 2017-08-17 22:35:05 -0500  96)                         <input class="form-control" type="text" name="img_name_share" required><br>
+955c7c82 (Alejandro Salgado G 2017-08-18 06:58:01 -0500 107)                         <form action='/search_images_by_name' method="get">
+955c7c82 (Alejandro Salgado G 2017-08-18 06:58:01 -0500 114)                             <form class="form-inline" action='/search_images_by_type' method="get">
+955c7c82 (Alejandro Salgado G 2017-08-18 06:58:01 -0500 115)                                 <button class="btn btn-outline-primary" type="submit" name="public"> Public </button>
+955c7c82 (Alejandro Salgado G 2017-08-18 06:58:01 -0500 116)                                 <button class="btn btn-outline-primary" type="submit" name="shared"> Shared </button>
+955c7c82 (Alejandro Salgado G 2017-08-18 06:58:01 -0500 117)                                 <button class="btn btn-outline-primary" type="submit" name="private"> My images </button>
+955c7c82 (Alejandro Salgado G 2017-08-18 06:58:01 -0500 118)                             </form>
+0ae1ba84 (Alejandro Salgado G 2017-08-13 23:32:38 -0500 122) 
+0ae1ba84 (Alejandro Salgado G 2017-08-13 23:32:38 -0500 124)                         <% for(var i=0; i<search.length; i++){ %>
+bd1b9bf9 (Alejandro Salgado G 2017-09-08 22:15:53 -0500 125)                             <img src="<%= search[i].path + "/" + search[i].file %>" onerror="this.src='<%= search[i].path + "bk/" + search[i].file %>'" style="width:300px;height:300px;">
+ab617c9a (Alejandro Salgado G 2017-09-08 16:47:37 -0500 126)                             <%= search[i].name %>
+0ae1ba84 (Alejandro Salgado G 2017-08-13 23:32:38 -0500 127)                         <% } %>
+e84a15b2 (Alejandro Salgado G 2017-07-30 18:30:27 -0500 130)             </div>
+e84a15b2 (Alejandro Salgado G 2017-07-30 18:30:27 -0500 131)         </div>
+9c076749 (Alejandro Salgado G 2017-07-30 11:34:36 -0500 132) 
+115d2136 (Alejandro Salgado G 2017-07-24 17:10:59 -0500 133)     </body>
+9c076749 (Alejandro Salgado G 2017-07-30 11:34:36 -0500 134) 
+115d2136 (Alejandro Salgado G 2017-07-24 17:10:59 -0500 136) </html>

@@ -1,0 +1,12 @@
+<html>
+    <body>
+                        <form name="update_pass_form" action='/update_password' onsubmit="return validate_pass_update()" method="post">
+                            <input class="form-control" type="password" name="old_password" required><br>
+                            <input class="form-control" type="password" name="new_password" required><br>
+                            <input class="form-control" type="password" name="new_password2" required><br>
+                            <input class="form-control" type="password" name="password" required><br>
+                        <form action='/logout' method="get">
+            <%= msg %>
+    </body>
+    <script type="text/javascript" src="/scripts/account.js"></script>
+</html>
