@@ -1,0 +1,114 @@
+\begin{frame}
+    \frametitle{Relación con otras distribuciones}
+
+    Sea $X \sim GenGamma(\alpha, \beta, \rho)$
+
+    \begin{itemize}
+        \item Si $\rho = 1$, entonces
+
+        \begin{equation*}
+            f(x) = \frac{x^{\alpha - 1} e^{-(\frac{x}{\beta})}}{\Gamma (\alpha ) \beta^\alpha}
+        \end{equation*}
+
+        Por lo tanto, X tiene una distribución Gamma con parámetros $\alpha$ y $\beta$.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Relación con otras distribuciones}
+
+    Sea $X \sim GenGamma(\alpha, \beta, \rho)$
+
+    \begin{itemize}
+        \item Si $\rho = 1$, entonces
+
+        \begin{equation*}
+            f(x) = \frac{x^{\alpha - 1} e^{-(\frac{x}{\beta})}}{\Gamma (\alpha ) \beta^\alpha}
+        \end{equation*}
+
+        Por lo tanto, X tiene una distribución Gamma con parámetros $\alpha$ y $\beta$.
+
+        \vspace{0.5cm}
+
+        \item Si $\rho = 1$ y $\alpha = n$ con $n \in \mathbb{N}$, entonces
+
+        \begin{equation*}
+            f(x) = \frac{x^{n - 1} e^{-(\frac{x}{\beta})}}{\Gamma (n ) \beta^n}
+        \end{equation*}
+
+        Por lo tanto, X tiene una distribución Erlang con parámetros $n$ y $\frac{1}{\beta}$
+    \end{itemize}
+
+    \cite{class}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Relación con otras distribuciones}
+
+    \begin{itemize}
+        \item Si $\rho = 1$, $\alpha = v/2$ y $\beta = 2$, donde $v \in \mathbb{Z}^+$, entonces
+
+        \begin{equation*}
+            f(x) = \frac{x^{\frac{v}{2} - 1} e^{-(\frac{x}{2})}}{\Gamma (\frac{v}{2} ) 2^\frac{v}{2}}
+        \end{equation*}
+
+        Por lo tanto, X tiene una distribución Chi-cuadrado con $v$ grados de libertad.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Relación con otras distribuciones}
+
+    \begin{itemize}
+        \item Si $\rho = 1$, $\alpha = v/2$ y $\beta = 2$, donde $v \in \mathbb{Z}^+$, entonces
+
+        \begin{equation*}
+            f(x) = \frac{x^{\frac{v}{2} - 1} e^{-(\frac{x}{2})}}{\Gamma (\frac{v}{2} ) 2^\frac{v}{2}}
+        \end{equation*}
+
+        Por lo tanto, X tiene una distribución Chi-cuadrado con $v$ grados de libertad.
+
+        \vspace{0.5cm}
+
+        \item Si $\rho = 1$ y $\alpha = 1$, entonces
+
+        \begin{equation*}
+            f(x) = \frac{e^{-(\frac{x}{\beta})}}{\beta}
+        \end{equation*}
+
+        Por lo tanto, X tiene una distribución Exponencial con parámetro $\beta$.
+    \end{itemize}
+
+    \cite{class}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Relación con otras distribuciones}
+
+    \begin{itemize}
+        \item Si $\rho = \alpha$, entonces
+
+        \begin{equation*}
+            f(x) = \frac{x^{\alpha - 1} e^{-(\frac{x}{\beta})^{\alpha}}}{\Gamma (1) \frac{\beta^\alpha}{\alpha}}
+            = \frac{\alpha}{\beta^\alpha} x^{\alpha - 1} e^{- \left( \frac{x}{\beta}\right) ^ \alpha}
+        \end{equation*}
+
+        Por lo tanto, X tiene una distribución Weibull con parámetros $\alpha$ y $\beta$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Relación con otras distribuciones}
+
+    Sean $X_i \sim GenGamma(\alpha_i, \beta_i, \rho_i)$ con $i=1,...,n$ donde $n \in \mathbb{N}$
+
+    \vspace{0.5cm}
+
+    Sea $Y = \sum_{i=1}^{n} (\frac{X_i}{\beta_i})^{\rho_i}$
+
+    \vspace{0.5cm}
+
+    Entonces, $Y \sim GenGamma(1, \sum_{i=1}^{n} \frac{\alpha_i}{\rho_i} , 1)$
+
+    \cite{theory1}
+\end{frame}

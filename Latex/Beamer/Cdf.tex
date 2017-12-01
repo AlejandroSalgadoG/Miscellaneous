@@ -1,0 +1,183 @@
+\begin{frame}
+    \frametitle{Función de distribución acumulada}
+
+    \begin{equation*}
+        F(x) = \int_{0}^{x} \frac{t^{\alpha - 1} e^{-\left(\frac{t}{\beta}\right)^{\rho}}}{\Gamma \left( \frac{\alpha}{\rho} \right) \frac{\beta^\alpha}{\rho}} dt
+    \end{equation*}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Función de distribución acumulada}
+
+    \begin{equation*}
+        F(x) = \int_{0}^{x} \frac{t^{\alpha - 1} e^{-\left(\frac{t}{\beta}\right)^{\rho}}}{\Gamma \left( \frac{\alpha}{\rho} \right) \frac{\beta^\alpha}{\rho}} dt
+    \end{equation*}
+
+    \hrule
+    \vspace{0.5cm}
+
+    \begin{equation*}
+        \int_{0}^{x} \frac{t^{\alpha - 1} e^{-\left(\frac{t}{\beta}\right)^{\rho}}}{\Gamma \left( \frac{\alpha}{\rho} \right) \frac{\beta^\alpha}{\rho}} dt
+        = \int_{0}^{x} \frac{\rho t^{\alpha - 1} e^{-\left(\frac{t}{\beta}\right)^{\rho}}}{\Gamma \left( \frac{\alpha}{\rho} \right) \beta^\alpha} dt
+        = \frac{1}{\Gamma \left( \frac{\alpha}{\rho} \right)}\int_{0}^{x} \frac{\rho t^{\alpha - 1} e^{-\left(\frac{t}{\beta}\right)^{\rho}}}{\beta^\alpha} dt
+    \end{equation*}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Función de distribución acumulada}
+
+    \begin{equation*}
+        F(x) = \int_{0}^{x} \frac{t^{\alpha - 1} e^{-\left(\frac{t}{\beta}\right)^{\rho}}}{\Gamma \left( \frac{\alpha}{\rho} \right) \frac{\beta^\alpha}{\rho}} dt
+    \end{equation*}
+
+    \hrule
+    \vspace{0.5cm}
+
+    \begin{equation*}
+        \int_{0}^{x} \frac{t^{\alpha - 1} e^{-\left(\frac{t}{\beta}\right)^{\rho}}}{\Gamma \left( \frac{\alpha}{\rho} \right) \frac{\beta^\alpha}{\rho}} dt
+        = \int_{0}^{x} \frac{\rho t^{\alpha - 1} e^{-\left(\frac{t}{\beta}\right)^{\rho}}}{\Gamma \left( \frac{\alpha}{\rho} \right) \beta^\alpha} dt
+        = \frac{1}{\Gamma \left( \frac{\alpha}{\rho} \right)}\int_{0}^{x} \frac{\rho t^{\alpha - 1} e^{-\left(\frac{t}{\beta}\right)^{\rho}}}{\beta^\alpha} dt
+    \end{equation*}
+
+    \begin{equation*}
+        = \frac{1}{\Gamma \left( \frac{\alpha}{\rho} \right)}\int_{0}^{x} \frac{\rho t^{\alpha - 1} e^{-\left(\frac{t}{\beta}\right)^{\rho}}}{\beta \beta^{\alpha-1}} dt
+        = \frac{1}{\Gamma \left( \frac{\alpha}{\rho} \right)}\int_{0}^{x} \frac{\rho}{\beta} \left( \frac{t}{\beta} \right) ^{\alpha - 1} e^{-\left(\frac{t}{\beta}\right)^{\rho}} dt
+    \end{equation*}
+\end{frame}
+
+\begin{frame}
+    \begin{block}{Cambio de variable}
+        \begin{equation*}
+            y = \left( \frac{t}{\beta} \right)^\rho
+            \hspace{1cm}
+            \frac{dy}{dt} = \frac{\rho}{\beta} \left( \frac{t}{\beta} \right)^{\rho-1}
+            \hspace{1cm}
+            {dt} = \frac{\beta}{\rho} \left( \frac{t}{\beta} \right)^{1-\rho} dy
+        \end{equation*}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \begin{block}{Cambio de variable}
+        \begin{equation*}
+            y = \left( \frac{t}{\beta} \right)^\rho
+            \hspace{1cm}
+            \frac{dy}{dt} = \frac{\rho}{\beta} \left( \frac{t}{\beta} \right)^{\rho-1}
+            \hspace{1cm}
+            {dt} = \frac{\beta}{\rho} \left( \frac{t}{\beta} \right)^{1-\rho} dy
+        \end{equation*}
+    \end{block}
+
+    \begin{equation*}
+        = \frac{1}{\Gamma \left( \frac{\alpha}{\rho} \right)}\int_{0}^{\left( \frac{x}{\beta} \right)^\rho}
+          \frac{\rho}{\beta} \left( \frac{t}{\beta} \right) ^{\alpha - 1} e^{-\left(\frac{t}{\beta}\right)^{\rho}} \frac{\beta}{\rho} \left( \frac{t}{\beta} \right)^{1-\rho} dy
+    \end{equation*}
+\end{frame}
+
+\begin{frame}
+    \begin{block}{Cambio de variable}
+        \begin{equation*}
+            y = \left( \frac{t}{\beta} \right)^\rho
+            \hspace{1cm}
+            \frac{dy}{dt} = \frac{\rho}{\beta} \left( \frac{t}{\beta} \right)^{\rho-1}
+            \hspace{1cm}
+            {dt} = \frac{\beta}{\rho} \left( \frac{t}{\beta} \right)^{1-\rho} dy
+        \end{equation*}
+    \end{block}
+
+    \begin{equation*}
+        = \frac{1}{\Gamma \left( \frac{\alpha}{\rho} \right)}\int_{0}^{\left( \frac{x}{\beta} \right)^\rho}
+          \frac{\rho}{\beta} \left( \frac{t}{\beta} \right) ^{\alpha - 1} e^{-\left(\frac{t}{\beta}\right)^{\rho}} \frac{\beta}{\rho} \left( \frac{t}{\beta} \right)^{1-\rho} dy
+    \end{equation*}
+
+    \begin{equation*}
+        = \frac{1}{\Gamma \left( \frac{\alpha}{\rho} \right)}\int_{0}^{\left( \frac{x}{\beta} \right)^\rho}
+          \left( \frac{t}{\beta} \right) ^{\alpha - \rho} e^{-\left(\frac{t}{\beta}\right)^{\rho}} dy
+    \end{equation*}
+\end{frame}
+
+\begin{frame}
+    \begin{block}{Cambio de variable}
+        \begin{equation*}
+            y = \left( \frac{t}{\beta} \right)^\rho
+            \hspace{1cm}
+            \frac{dy}{dt} = \frac{\rho}{\beta} \left( \frac{t}{\beta} \right)^{\rho-1}
+            \hspace{1cm}
+            {dt} = \frac{\beta}{\rho} \left( \frac{t}{\beta} \right)^{1-\rho} dy
+        \end{equation*}
+    \end{block}
+
+    \begin{equation*}
+        = \frac{1}{\Gamma \left( \frac{\alpha}{\rho} \right)}\int_{0}^{\left( \frac{x}{\beta} \right)^\rho}
+          \frac{\rho}{\beta} \left( \frac{t}{\beta} \right) ^{\alpha - 1} e^{-\left(\frac{t}{\beta}\right)^{\rho}} \frac{\beta}{\rho} \left( \frac{t}{\beta} \right)^{1-\rho} dy
+    \end{equation*}
+
+    \begin{equation*}
+        = \frac{1}{\Gamma \left( \frac{\alpha}{\rho} \right)}\int_{0}^{\left( \frac{x}{\beta} \right)^\rho}
+          \left( \frac{t}{\beta} \right) ^{\alpha - \rho} e^{-\left(\frac{t}{\beta}\right)^{\rho}} dy
+    \end{equation*}
+
+    \begin{equation*}
+        = \frac{1}{\Gamma \left( \frac{\alpha}{\rho} \right)}\int_{0}^{\left( \frac{x}{\beta} \right)^\rho}
+          \left( \left[ \frac{t}{\beta} \right]^\rho \right) ^{\frac{\alpha - \rho}{\rho}} e^{-\left(\frac{t}{\beta}\right)^{\rho}} dy
+    \end{equation*}
+\end{frame}
+
+\begin{frame}
+    \begin{equation*}
+        = \frac{1}{\Gamma \left( \frac{\alpha}{\rho} \right)}\int_{0}^{\left( \frac{x}{\beta} \right)^\rho} y^{\frac{\alpha}{\rho} - 1} e^{-y} dy
+    \end{equation*}
+\end{frame}
+
+\begin{frame}
+    \begin{equation*}
+        = \frac{1}{\Gamma \left( \frac{\alpha}{\rho} \right)}\int_{0}^{\left( \frac{x}{\beta} \right)^\rho} y^{\frac{\alpha}{\rho} - 1} e^{-y} dy
+    \end{equation*}
+
+    \begin{block}{Función Gamma incompleta}
+        \begin{equation*}
+            \Gamma(\theta, x) = \int_{0}^{x} y^{\theta - 1} e^{-y} dy
+        \end{equation*}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \begin{equation*}
+        = \frac{1}{\Gamma \left( \frac{\alpha}{\rho} \right)}\int_{0}^{\left( \frac{x}{\beta} \right)^\rho} y^{\frac{\alpha}{\rho} - 1} e^{-y} dy
+    \end{equation*}
+
+    \begin{block}{Función Gamma incompleta}
+        \begin{equation*}
+            \Gamma(\theta, x) = \int_{0}^{x} y^{\theta - 1} e^{-y} dy
+        \end{equation*}
+    \end{block}
+
+    \begin{block}{}
+        \begin{equation*}
+            \Gamma \left(\frac{\alpha}{\rho}, \left(\frac{x}{\beta} \right)^\rho \right) = \int_{0}^{\left( \frac{x}{\beta} \right)^\rho} y^{\frac{\alpha}{\rho} - 1} e^{-y} dy
+        \end{equation*}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \begin{equation*}
+        = \frac{1}{\Gamma \left( \frac{\alpha}{\rho} \right)}\int_{0}^{\left( \frac{x}{\beta} \right)^\rho} y^{\frac{\alpha}{\rho} - 1} e^{-y} dy
+    \end{equation*}
+
+    \begin{block}{Función Gamma incompleta}
+        \begin{equation*}
+            \Gamma(\theta, x) = \int_{0}^{x} y^{\theta - 1} e^{-y} dy
+        \end{equation*}
+    \end{block}
+
+    \begin{block}{}
+        \begin{equation*}
+            \Gamma \left(\frac{\alpha}{\rho}, \left(\frac{x}{\beta} \right)^\rho \right) = \int_{0}^{\left( \frac{x}{\beta} \right)^\rho} y^{\frac{\alpha}{\rho} - 1} e^{-y} dy
+        \end{equation*}
+    \end{block}
+
+    \begin{equation*}
+        F(x) = \frac{\Gamma \left(\frac{\alpha}{\rho}, \left(\frac{x}{\beta} \right)^\rho \right)}{\Gamma \left( \frac{\alpha}{\rho} \right)}
+    \end{equation*}
+\end{frame}
+

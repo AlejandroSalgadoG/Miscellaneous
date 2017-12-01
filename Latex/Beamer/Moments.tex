@@ -1,0 +1,183 @@
+\begin{frame}
+    \frametitle{Momentos}
+    \begin{equation*}
+        E[x^n] = \frac{\Gamma \left (\frac{\alpha+n}{\rho} \right)}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}} \beta^n
+    \end{equation*}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Momentos}
+    \begin{equation*}
+        E[x^n] = \frac{\Gamma \left (\frac{\alpha+n}{\rho} \right)}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}} \beta^n
+    \end{equation*}
+
+    \begin{equation*}
+        E[x] = \frac{\Gamma \left (\frac{\alpha+1}{\rho} \right)}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}} \beta
+        \hspace{2cm}
+        V[x] = \left[ \frac{\Gamma \left (\frac{\alpha+2}{\rho} \right)}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}} \beta^2 -
+                      \frac{\Gamma \left (\frac{\alpha+1}{\rho} \right)^2}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}^2} \beta^2 \right]
+    \end{equation*}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Momentos}
+    \begin{equation*}
+        E[x^n] = \frac{\Gamma \left (\frac{\alpha+n}{\rho} \right)}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}} \beta^n
+    \end{equation*}
+
+    \begin{equation*}
+        E[x] = \frac{\Gamma \left (\frac{\alpha+1}{\rho} \right)}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}} \beta
+        \hspace{2cm}
+        V[x] = \beta^2 \left[ \frac{\Gamma \left (\frac{\alpha+2}{\rho} \right)}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}} -
+                               \frac{\Gamma \left (\frac{\alpha+1}{\rho} \right)^2}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}^2} \right]
+    \end{equation*}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Momentos}
+    \begin{equation*}
+        E[x^n] = \frac{\Gamma \left (\frac{\alpha+n}{\rho} \right)}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}} \beta^n
+    \end{equation*}
+
+    \begin{equation*}
+        E[x] = \frac{\Gamma \left (\frac{\alpha+1}{\rho} \right)}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}} \beta
+        \hspace{2cm}
+        V[x] = \beta^2 \left[ \frac{\Gamma \left (\frac{\alpha+2}{\rho} \right)}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}} -
+                               \frac{\Gamma \left (\frac{\alpha+1}{\rho} \right)^2}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}^2} \right]
+    \end{equation*}
+
+    \vspace{0.5cm}
+
+    \begin{equation*}
+        \alpha_3 = \frac{E[x^3] - 3 E[x] E[x^2] + 2 E[x]^3}{V[x]^{3/2}}
+    \end{equation*}
+
+    \vspace{0.5cm}
+
+    \begin{equation*}
+        \alpha_4 = \frac{E[x^4] - 4 E[x] E[x^3] + 6 E[x]^2 E[x^2] - 3 E[x]^4}{V[x]^2}
+    \end{equation*}
+\end{frame}
+
+\begin{frame}
+    \begin{equation*}
+        \alpha_3 = \frac{
+                        \frac{ \Gamma \left (\frac{\alpha+3}{\rho}\right) }{ \Gamma \left (\frac{\alpha}{\rho} \right) } \beta^3
+                        - 3 \frac{ \Gamma \left (\frac{\alpha+1}{\rho} \right) \Gamma \left (\frac{\alpha+2}{\rho} \right) }{ \Gamma \left ( \frac{\alpha}{\rho} \right)^2 } \beta^3
+                        + 2 \frac{\Gamma \left (\frac{\alpha+1}{\rho} \right)^3}{\Gamma \left ( \frac{\alpha}{\rho} \right)^3} \beta^3
+                    }{
+                        \left( \beta^2 \left[ \frac{\Gamma \left (\frac{\alpha+2}{\rho} \right)}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}} -
+                        \frac{\Gamma \left (\frac{\alpha+1}{\rho} \right)^2}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}^2} \right] \right)^{3/2}
+                    }
+    \end{equation*}
+\end{frame}
+
+\begin{frame}
+    \begin{equation*}
+        \alpha_3 = \frac{ \beta^3 \left[
+                        \frac{ \Gamma \left (\frac{\alpha+3}{\rho}\right) }{ \Gamma \left (\frac{\alpha}{\rho} \right) }
+                        - 3 \frac{ \Gamma \left (\frac{\alpha+1}{\rho} \right) \Gamma \left (\frac{\alpha+2}{\rho} \right) }{ \Gamma \left ( \frac{\alpha}{\rho} \right)^2 }
+                        + 2 \frac{\Gamma \left (\frac{\alpha+1}{\rho} \right)^3}{\Gamma \left ( \frac{\alpha}{\rho} \right)^3}
+                        \right]
+                    }{
+                        \beta^3 \left[ \frac{\Gamma \left (\frac{\alpha+2}{\rho} \right)}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}} -
+                        \frac{\Gamma \left (\frac{\alpha+1}{\rho} \right)^2}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}^2} \right]^{3/2}
+                    }
+    \end{equation*}
+\end{frame}
+
+\begin{frame}
+    \begin{equation*}
+        \alpha_3 = \frac{
+                        \frac{ \Gamma \left (\frac{\alpha+3}{\rho}\right) }{ \Gamma \left (\frac{\alpha}{\rho} \right) }
+                        - 3 \frac{ \Gamma \left (\frac{\alpha+1}{\rho} \right) \Gamma \left (\frac{\alpha+2}{\rho} \right) }{ \Gamma \left ( \frac{\alpha}{\rho} \right)^2 }
+                        + 2 \frac{\Gamma \left (\frac{\alpha+1}{\rho} \right)^3}{\Gamma \left ( \frac{\alpha}{\rho} \right)^3}
+                    }{
+                        \left[ \frac{\Gamma \left (\frac{\alpha+2}{\rho} \right)}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}} -
+                        \frac{\Gamma \left (\frac{\alpha+1}{\rho} \right)^2}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}^2} \right]^{3/2}
+                    }
+    \end{equation*}
+\end{frame}
+
+\begin{frame}
+    \begin{equation*}
+        \alpha_3 = \frac{
+                        \frac{ \Gamma \left (\frac{\alpha+3}{\rho}\right) }{ \Gamma \left (\frac{\alpha}{\rho} \right) }
+                        - 3 \frac{ \Gamma \left (\frac{\alpha+1}{\rho} \right) \Gamma \left (\frac{\alpha+2}{\rho} \right) }{ \Gamma \left ( \frac{\alpha}{\rho} \right)^2 }
+                        + 2 \frac{\Gamma \left (\frac{\alpha+1}{\rho} \right)^3}{\Gamma \left ( \frac{\alpha}{\rho} \right)^3}
+                    }{
+                        \left[ \frac{\Gamma \left (\frac{\alpha+2}{\rho} \right)}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}} -
+                        \frac{\Gamma \left (\frac{\alpha+1}{\rho} \right)^2}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}^2} \right]^{3/2}
+                    }
+    \end{equation*}
+
+    \vspace{1cm}
+
+    \begin{equation*}
+        \alpha_4 = \frac{
+                        \frac{ \Gamma \left (\frac{\alpha+4}{\rho}\right) }{ \Gamma \left (\frac{\alpha}{\rho} \right) } \beta^4
+                        - 4 \frac{ \Gamma \left (\frac{\alpha+1}{\rho}\right) \Gamma \left (\frac{\alpha+3}{\rho} \right)}{ \Gamma \left (\frac{\alpha}{\rho} \right)^2 } \beta^4
+                        + 6 \frac{ \Gamma \left (\frac{\alpha+1}{\rho} \right)^2 \Gamma \left (\frac{\alpha+2}{\rho} \right) }{ \Gamma \left ( \frac{\alpha}{\rho} \right)^3 } \beta^4
+                        - 3 \frac{\Gamma \left (\frac{\alpha+1}{\rho} \right)^4}{\Gamma \left ( \frac{\alpha}{\rho} \right)^4} \beta^4
+                    }{
+                        \left( \beta^2 \left[ \frac{\Gamma \left (\frac{\alpha+2}{\rho} \right)}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}} -
+                        \frac{\Gamma \left (\frac{\alpha+1}{\rho} \right)^2}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}^2} \right] \right)^{3/2}
+                    }
+    \end{equation*}
+\end{frame}
+
+\begin{frame}
+    \begin{equation*}
+        \alpha_3 = \frac{
+                        \frac{ \Gamma \left (\frac{\alpha+3}{\rho}\right) }{ \Gamma \left (\frac{\alpha}{\rho} \right) }
+                        - 3 \frac{ \Gamma \left (\frac{\alpha+1}{\rho} \right) \Gamma \left (\frac{\alpha+2}{\rho} \right) }{ \Gamma \left ( \frac{\alpha}{\rho} \right)^2 }
+                        + 2 \frac{\Gamma \left (\frac{\alpha+1}{\rho} \right)^3}{\Gamma \left ( \frac{\alpha}{\rho} \right)^3}
+                    }{
+                        \left[ \frac{\Gamma \left (\frac{\alpha+2}{\rho} \right)}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}} -
+                        \frac{\Gamma \left (\frac{\alpha+1}{\rho} \right)^2}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}^2} \right]^{3/2}
+                    }
+    \end{equation*}
+
+    \vspace{1cm}
+
+    \begin{equation*}
+        \alpha_4 = \frac{ \beta^4 \left[
+                        \frac{ \Gamma \left (\frac{\alpha+4}{\rho}\right) }{ \Gamma \left (\frac{\alpha}{\rho} \right) }
+                        - 4 \frac{ \Gamma \left (\frac{\alpha+1}{\rho}\right) \Gamma \left (\frac{\alpha+3}{\rho} \right)}{ \Gamma \left (\frac{\alpha}{\rho} \right)^2 }
+                        + 6 \frac{ \Gamma \left (\frac{\alpha+1}{\rho} \right)^2 \Gamma \left (\frac{\alpha+2}{\rho} \right) }{ \Gamma \left ( \frac{\alpha}{\rho} \right)^3 }
+                        - 3 \frac{\Gamma \left (\frac{\alpha+1}{\rho} \right)^4}{\Gamma \left ( \frac{\alpha}{\rho} \right)^4}
+                        \right]
+                    }{
+                        \beta^3 \left[ \frac{\Gamma \left (\frac{\alpha+2}{\rho} \right)}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}} -
+                        \frac{\Gamma \left (\frac{\alpha+1}{\rho} \right)^2}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}^2} \right]^{3/2}
+                    }
+    \end{equation*}
+\end{frame}
+
+\begin{frame}
+    \begin{equation*}
+        \alpha_3 = \frac{
+                        \frac{ \Gamma \left (\frac{\alpha+3}{\rho}\right) }{ \Gamma \left (\frac{\alpha}{\rho} \right) }
+                        - 3 \frac{ \Gamma \left (\frac{\alpha+1}{\rho} \right) \Gamma \left (\frac{\alpha+2}{\rho} \right) }{ \Gamma \left ( \frac{\alpha}{\rho} \right)^2 }
+                        + 2 \frac{\Gamma \left (\frac{\alpha+1}{\rho} \right)^3}{\Gamma \left ( \frac{\alpha}{\rho} \right)^3}
+                    }{
+                        \left[ \frac{\Gamma \left (\frac{\alpha+2}{\rho} \right)}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}} -
+                        \frac{\Gamma \left (\frac{\alpha+1}{\rho} \right)^2}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}^2} \right]^{3/2}
+                    }
+    \end{equation*}
+
+    \vspace{1cm}
+
+    \begin{equation*}
+        \alpha_4 = \frac{ \beta \left[
+                        \frac{ \Gamma \left (\frac{\alpha+4}{\rho}\right) }{ \Gamma \left (\frac{\alpha}{\rho} \right) }
+                        - 4 \frac{ \Gamma \left (\frac{\alpha+1}{\rho}\right) \Gamma \left (\frac{\alpha+3}{\rho} \right)}{ \Gamma \left (\frac{\alpha}{\rho} \right)^2 }
+                        + 6 \frac{ \Gamma \left (\frac{\alpha+1}{\rho} \right)^2 \Gamma \left (\frac{\alpha+2}{\rho} \right) }{ \Gamma \left ( \frac{\alpha}{\rho} \right)^3 }
+                        - 3 \frac{\Gamma \left (\frac{\alpha+1}{\rho} \right)^4}{\Gamma \left ( \frac{\alpha}{\rho} \right)^4}
+                        \right]
+                    }{
+                        \left[ \frac{\Gamma \left (\frac{\alpha+2}{\rho} \right)}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}} -
+                        \frac{\Gamma \left (\frac{\alpha+1}{\rho} \right)^2}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}^2} \right]^{3/2}
+                    }
+    \end{equation*}
+\end{frame}

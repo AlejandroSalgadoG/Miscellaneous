@@ -1,0 +1,201 @@
+\begin{frame}
+    \frametitle{Función generadora de momentos}
+    %a = \beta
+    %d = \alpha
+    %p = \rho
+    \begin{equation*}
+        M(\theta) = \sum_{r=0}^{\infty} \frac{(\theta \beta)^r}{r!}
+        \frac{\Gamma \left (\frac{\alpha+r}{\rho} \right)}{\Gamma \left ( \frac{\alpha}{\rho} \right)}%, \theta \in \mathbb{R}
+    \end{equation*}
+    \cite{theory1}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Función generadora de momentos}
+    %a = \beta
+    %d = \alpha
+    %p = \rho
+    \begin{equation*}
+        M(\theta) = \sum_{r=0}^{\infty} \frac{(\theta \beta)^r}{r!}
+        \frac{\Gamma \left (\frac{\alpha+r}{\rho} \right)}{\Gamma \left ( \frac{\alpha}{\rho} \right)}%, \theta \in \mathbb{R}
+    \end{equation*}
+
+    \hrule
+
+    \vspace{0.5cm}
+    \begin{equation*}
+        \frac{d^n M(\theta)}{d \theta^n} \Big|_{\theta=0} = E[x^n]
+    \end{equation*}
+    \vspace{0.5cm}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Función generadora de momentos}
+    %a = \beta
+    %d = \alpha
+    %p = \rho
+    \begin{equation*}
+        M(\theta) = \sum_{r=0}^{\infty} \frac{(\theta \beta)^r}{r!}
+        \frac{\Gamma \left (\frac{\alpha+r}{\rho} \right)}{\Gamma \left ( \frac{\alpha}{\rho} \right)}%, \theta \in \mathbb{R}
+    \end{equation*}
+
+    \hrule
+
+    \vspace{0.5cm}
+    \begin{equation*}
+        \frac{d^n M(\theta)}{d \theta^n} \Big|_{\theta=0} = E[x^n]
+    \end{equation*}
+    \vspace{0.5cm}
+
+    \hrule
+
+    \vspace{0.5cm}
+    \begin{equation*}
+        \left.\frac{d^n M(\theta)}{d\theta^n}\right\vert_{\theta = 0}
+        = \frac{d^n}{d\theta^n} \sum_{r=0}^{\infty} \frac{(\theta \beta)^r}{r!}
+        \left.\frac{\Gamma \left (\frac{\alpha+r}{\rho} \right)}{\Gamma \left ( \frac{\alpha}{\rho} \right)}\right\vert_{\theta = 0} = E[x^n]
+    \end{equation*}
+    \vspace{0.5cm}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Cálculo de los momentos}
+
+    \begin{equation*}
+        \frac{d^n M(\theta)}{d \theta^n}
+        =  \sum_{r=0}^{\infty} \frac{d^n}{d\theta^n} \frac{(\theta \beta)^r}{r!}
+           \frac{\Gamma \left (\frac{\alpha+r}{\rho} \right)}{\Gamma \left ( \frac{\alpha}{\rho} \right)}
+        = \frac{1}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}} \sum_{r=0}^{\infty} \frac{\Gamma \left (\frac{\alpha+r}{\rho} \right)}{r!}
+          \frac{d^n}{d\theta^n} (\theta \beta)^r
+    \end{equation*}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Cálculo de los momentos}
+
+    \begin{equation*}
+        \frac{d^n M(\theta)}{d \theta^n}
+        =  \sum_{r=0}^{\infty} \frac{d^n}{d\theta^n} \frac{(\theta \beta)^r}{r!}
+           \frac{\Gamma \left (\frac{\alpha+r}{\rho} \right)}{\Gamma \left ( \frac{\alpha}{\rho} \right)}
+        = \frac{1}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}} \sum_{r=0}^{\infty} \frac{\Gamma \left (\frac{\alpha+r}{\rho} \right)}{r!}
+          \frac{d^n}{d\theta^n} (\theta \beta)^r
+    \end{equation*}
+
+    \begin{block}{Solución de la derivada}
+    \setlength\abovedisplayskip{0pt}
+    \begin{equation*}
+        \frac{d^n}{d\theta^n} (\theta \beta)^r = r(r-1)...(r-(n-1)) (\theta \beta)^{r-n} \beta^{n} = \beta^{n} (\theta \beta)^{r-n} \prod_{k=0}^{n-1} r-k
+    \end{equation*}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Cálculo de los momentos}
+
+    \begin{equation*}
+        \frac{d^n M(\theta)}{d \theta^n}
+        =  \sum_{r=0}^{\infty} \frac{d^n}{d\theta^n} \frac{(\theta \beta)^r}{r!}
+           \frac{\Gamma \left (\frac{\alpha+r}{\rho} \right)}{\Gamma \left ( \frac{\alpha}{\rho} \right)}
+        = \frac{1}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}} \sum_{r=0}^{\infty} \frac{\Gamma \left (\frac{\alpha+r}{\rho} \right)}{r!}
+          \frac{d^n}{d\theta^n} (\theta \beta)^r
+    \end{equation*}
+
+    \begin{block}{Solución de la derivada}
+    \setlength\abovedisplayskip{0pt}
+    \begin{equation*}
+        \frac{d^n}{d\theta^n} (\theta \beta)^r = r(r-1)...(r-(n-1)) (\theta \beta)^{r-n} \beta^{n} = \beta^{n} (\theta \beta)^{r-n} \prod_{k=0}^{n-1} r-k
+    \end{equation*}
+    \end{block}
+
+    \begin{block}{Datos interesantes}
+        \begin{itemize}
+            \item $r(r-1)...(r-(n-1))$ anula las primeras n-1 iteraciones
+            \item En la iteración $n$ el término $\prod_{k=0}^{n-1} r-k = n!$
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \begin{equation*}
+        = \frac{1}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}} \sum_{r=n}^{\infty} \frac{\Gamma \left (\frac{\alpha+r}{\rho} \right)}{r!}
+          \beta^{n} (\theta \beta)^{r-n} \prod_{k=0}^{n-1} r-k
+    \end{equation*}
+\end{frame}
+
+\begin{frame}
+    \begin{equation*}
+        = \frac{1}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}} \sum_{r=n}^{\infty} \frac{\Gamma \left (\frac{\alpha+r}{\rho} \right)}{r!}
+          \beta^{n} (\theta \beta)^{r-n} \prod_{k=0}^{n-1} r-k
+    \end{equation*}
+
+    \begin{equation*}
+        = \frac{1}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}} \left
+          [ \frac{\Gamma \left (\frac{\alpha+n}{\rho} \right)}{n!} \beta^n (\theta \beta)^{n-n} n! +
+            \sum_{r=n+1}^{\infty} \frac{\Gamma \left (\frac{\alpha+r}{\rho} \right)}{r!} \beta^{n} (\theta \beta)^{r-n} \prod_{k=0}^{n-1} r-k \right ]
+    \end{equation*}
+\end{frame}
+
+\begin{frame}
+    \begin{equation*}
+        = \frac{1}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}} \sum_{r=n}^{\infty} \frac{\Gamma \left (\frac{\alpha+r}{\rho} \right)}{r!}
+          \beta^{n} (\theta \beta)^{r-n} \prod_{k=0}^{n-1} r-k
+    \end{equation*}
+
+    \begin{equation*}
+        = \frac{1}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}} \left
+          [ \frac{\Gamma \left (\frac{\alpha+n}{\rho} \right)}{n!} \beta^n (\theta \beta)^{n-n} n! +
+            \sum_{r=n+1}^{\infty} \frac{\Gamma \left (\frac{\alpha+r}{\rho} \right)}{r!} \beta^{n} (\theta \beta)^{r-n} \prod_{k=0}^{n-1} r-k \right ]
+    \end{equation*}
+
+    \begin{equation*}
+        = \frac{\Gamma \left (\frac{\alpha+n}{\rho} \right)}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}} \beta^n +
+        \left[
+            \frac{1}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}}
+            \sum_{r=n+1}^{\infty} \frac{\Gamma \left (\frac{\alpha+r}{\rho} \right)}{r!} \beta^{n} (\theta \beta)^{r-n} \prod_{k=0}^{n-1} r-k
+        \right ]
+    \end{equation*}
+\end{frame}
+
+\begin{frame}
+    \begin{equation*}
+        = \frac{1}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}} \sum_{r=n}^{\infty} \frac{\Gamma \left (\frac{\alpha+r}{\rho} \right)}{r!}
+          \beta^{n} (\theta \beta)^{r-n} \prod_{k=0}^{n-1} r-k
+    \end{equation*}
+
+    \begin{equation*}
+        = \frac{1}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}} \left
+          [ \frac{\Gamma \left (\frac{\alpha+n}{\rho} \right)}{n!} \beta^n (\theta \beta)^{n-n} n! +
+            \sum_{r=n+1}^{\infty} \frac{\Gamma \left (\frac{\alpha+r}{\rho} \right)}{r!} \beta^{n} (\theta \beta)^{r-n} \prod_{k=0}^{n-1} r-k \right ]
+    \end{equation*}
+
+    \begin{equation*}
+        = \frac{\Gamma \left (\frac{\alpha+n}{\rho} \right)}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}} \beta^n +
+        \left.\left[ \frac{1}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}}
+            \sum_{r=n+1}^{\infty} \frac{\Gamma \left (\frac{\alpha+r}{\rho} \right)}{r!} \beta^{n} (\theta \beta)^{r-n} \prod_{k=0}^{n-1} r-k
+        \right ] \right \vert_{\theta = 0}
+    \end{equation*}
+\end{frame}
+
+\begin{frame}
+    \begin{equation*}
+        = \frac{1}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}} \sum_{r=n}^{\infty} \frac{\Gamma \left (\frac{\alpha+r}{\rho} \right)}{r!}
+          \beta^{n} (\theta \beta)^{r-n} \prod_{k=0}^{n-1} r-k
+    \end{equation*}
+
+    \begin{equation*}
+        = \frac{1}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}} \left
+          [ \frac{\Gamma \left (\frac{\alpha+n}{\rho} \right)}{n!} \beta^n (\theta \beta)^{n-n} n! +
+            \sum_{r=n+1}^{\infty} \frac{\Gamma \left (\frac{\alpha+r}{\rho} \right)}{r!} \beta^{n} (\theta \beta)^{r-n} \prod_{k=0}^{n-1} r-k \right ]
+    \end{equation*}
+
+    \begin{equation*}
+        = \frac{\Gamma \left (\frac{\alpha+n}{\rho} \right)}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}} \beta^n +
+        \left.\left[ \frac{1}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}}
+            \sum_{r=n+1}^{\infty} \frac{\Gamma \left (\frac{\alpha+r}{\rho} \right)}{r!} \beta^{n} (\theta \beta)^{r-n} \prod_{k=0}^{n-1} r-k
+        \right ] \right \vert_{\theta = 0}
+    \end{equation*}
+
+    \begin{equation*}
+        = \frac{\Gamma \left (\frac{\alpha+n}{\rho} \right)}{{\Gamma \left ( \frac{\alpha}{\rho} \right)}} \beta^n
+    \end{equation*}
+\end{frame}

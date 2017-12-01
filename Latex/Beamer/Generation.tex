@@ -1,0 +1,86 @@
+\begin{frame}
+    \frametitle{Generación de variables aleatorias}
+
+    \begin{itemize}
+        \item Paquete \textbf{flexsurv} del lenguaje R \cite{flexsurv}
+
+        \vspace{0.5cm}
+
+        rgengamma.orig(n, b, a, k)
+
+        \begin{itemize}
+            \item n: cantidad de muestras a generar
+            \item b: $\rho$
+            \item a: $\beta$
+            \item k: $\frac{\alpha}{\rho}$
+        \end{itemize}
+
+        \vspace{0.5cm}
+
+        p.d.f utilizada
+
+        \begin{equation*}
+            P(x) = \frac{b}{\Gamma (k)} \frac{x^{bk-1}}{a^{bk}} e^{- \left( \frac{x}{a} \right)^b}
+        \end{equation*}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Generación de variables aleatorias}
+
+    \begin{itemize}
+        \item Paquete \textbf{rmutil} del lenguaje R \cite{rmutil}
+
+        \vspace{0.5cm}
+
+        rggamma(n, $\sigma$, $\mu$, v)
+
+        \begin{itemize}
+            \item n: cantidad de muestras a generar
+            \item $\sigma$: $\frac{\alpha}{\rho}$
+            \item $\mu$: $\frac{\beta \alpha}{\rho}$
+            \item v: $\rho$
+        \end{itemize}
+
+        \vspace{0.5cm}
+
+        p.d.f utilizada
+
+        \begin{equation*}
+            P(x) = \frac{v x^{v-1}}{\left( \frac{\mu}{\sigma} \right)^{v \sigma} \Gamma (\sigma)} x^{v (\sigma-1)} e^{- \left( \frac{x \sigma}{\mu} \right)^v}
+        \end{equation*}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Generación de variables aleatorias}
+
+    \begin{itemize}
+        \item Lenguaje Mathematica \cite{mathematica}
+
+        \vspace{0.5cm}
+
+        RandomVariate[GammaDistribution[$\theta$, $\beta$, $\rho$, $\mu$], n]
+
+        \begin{itemize}
+            \item n: cantidad de muestras a generar
+            \item $\theta$: $\frac{\alpha}{\rho}$
+            \item $\mu$: parámetro de ubicación, debe cumplir $x>\mu$
+        \end{itemize}
+
+        \vspace{0.5cm}
+
+        p.d.f utilizada
+
+        \begin{equation*}
+            P(x) = \frac{(x-\mu)^{\rho \theta - 1} e^{- \left( \frac{x-\mu}{\beta} \right)^\rho}}{\Gamma (\theta) \frac{\beta^{\rho \theta}}{\rho}}
+        \end{equation*}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Generación de variables aleatorias}
+
+    Una sustentación teórica de la generación de variables aleatorias de la
+    distribución puede ser encontrada en \cite{generation}
+\end{frame}

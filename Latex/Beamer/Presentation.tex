@@ -1,20 +1,40 @@
-\documentclass{beamer}
+\documentclass[t]{beamer}
 
 \usepackage[utf8]{inputenc}
-%\usepackage[spanish]{babel}
+\usepackage[spanish]{babel}
+\usepackage{multicol}
+\usepackage{cite}
+
+\setbeamertemplate{bibliography item}{\insertbiblabel}
 
 \usetheme{AnnArbor}
 
 \usecolortheme{whale}
 \setbeamercolor{frametitle}{fg=white,bg=blue!85}
 
+%\logo{\includegraphics[scale=0.08]{eafit}}
+
 \begin{document}
-\title{My beamer presentation}  
-\author{Alejandro Salgado G}
-\date{\today} 
+\title{Distribución Gamma generalizada}
+\author{Alejandro Salgado Gómez}
+\date{\today}
 
 \begin{frame}
 \titlepage
+\end{frame}
+
+\input{Pdf}
+\input{Cdf}
+\input{MGenerating}
+\input{Moments}
+\input{Relations}
+\input{Generation}
+\input{Application}
+
+\begin{frame}[allowframebreaks]
+    \frametitle{Referencias}
+    \bibliographystyle{unsrt}
+    \bibliography{Presentation}
 \end{frame}
 
 \end{document}
