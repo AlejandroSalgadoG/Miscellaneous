@@ -1,0 +1,79 @@
+ini = 0;
+fin = 1000;
+
+Gini = 90.26415094343648;
+Xini = 0.0004999999999993871;
+
+Subscript[k, 1] = 0.026;
+Subscript[k, 3] = 0.025;
+Subscript[S, 1] = 0.0005;
+Subscript[G, b] = 92;
+Subscript[I, b] = 11;
+
+Gfun = (G'[t] == Subscript[k, 1] (Subscript[G, b ] - G[t]) - X[t] G[t]);
+Xfun[i_] = (X'[t] == Subscript[k, 3] (Subscript[S, 1] (i - Subscript[I, b]) - X[t]));
+
+Manipulate[
+    system = NDSolve[{Gfun, Xfun[i], G[0] == Gini, X[0] == Xini}, {G, X}, {t, ini, fin}];
+    functions = First[{G[t], X[t]} /. system];
+
+    gfun = Part[functions, 1];
+    xfun = Part[functions, 2];
+
+    Plot[{gfun, xfun}, {t, ini, fin},
+        PlotLabel -> "Modelo insulina",
+        PlotLabels -> {"G", "X"},
+        Frame -> {True, True, False, False},
+        FrameLabel -> {"Tiempo", "Valores"},
+        ImageSize -> Large
+    ],
+
+    Style["Entradas", Bold],
+    Delimiter, 
+    {{i, 12, "I"}, 12, 30, Appearance -> "Labeled"},
+    ControlPlacement -> Left
+]
+
+fun = First[{G, X} /. system];
+Part[fun, 1][fin]
+Part[fun, 2][fin]
+
+g = Subscript[k, 1] (Subscript[G, b ] - G) - X G;
+x = Subscript[k, 3] (Subscript[S, 1] (i - Subscript[I, b]) - X);
+F = {g, x};
+
+Xm = {G, X};
+Um = {i};
+Ym = {G, X};
+
+Am = D[F, {Xm}]; Am = Am /. {G -> Gini, X -> Xini};
+Bm = D[F, {Um}];
+Cm = D[Ym, {Xm}];
+Dm = D[Ym, {Um}];
+
+Manipulate[
+    system = OutputResponse[{StateSpaceModel[{Am, Bm, Cm, Dm}], {gini, xini}}, i, {t, ini, fin}];
+
+    gfun = Part[system, 1];
+    xfun = Part[system, 2];
+
+    sys = ParametricPlot[{xfun, gfun}, {t, 0, 1000}, AspectRatio -> 1, PlotRange -> {{-0.0001, 0.0001}, {-5, 5}}];
+
+    sys2 = Plot[{gfun, xfun}, {t, ini, fin},
+        PlotLabel -> "Modelo insulina lineal",
+        PlotLabels -> {"G", "X"},
+        PlotRange -> {-1, 1},
+        Frame -> {True, True, False, False},
+        FrameLabel -> {"Tiempo", "Valores"},
+        ImageSize -> Large
+    ];
+
+    GraphicsGrid[{{sys}, {sys2}}],
+
+    Style["Entradas", Bold],
+    Delimiter,
+    {{i, 0, "I"}, -5, 5, Appearance -> "Labeled"},
+    {{gini, 0, "G inicial"}, -5, 5, Appearance -> "Labeled"},
+    {{xini, 0, "X inicial"}, -0.0001, 0.0001, Appearance -> "Labeled"},
+    ControlPlacement -> Left
+]
