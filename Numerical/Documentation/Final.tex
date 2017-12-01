@@ -1,0 +1,632 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage[]{algorithm2e}
+\usepackage{program}
+\usepackage{listings}
+
+\begin{document}
+
+\title{Numerical}
+\author{Alejandro Salgado Gómez}
+
+\maketitle
+
+\section{Estructura del proyecto}
+
+A continuación se muestra una estructura general del repositorio que
+contiene el código del proyecto.
+
+\begin{itemize}
+    \item \textbf{Error:} Valores agregados del capítulo de teoría
+        de errores.
+
+    \item \textbf{Equations:} Valores agregados del capítulo de
+        solución de sistemas de ecuaciones no lineales.
+
+
+    \item \textbf{Matrix:} Valores agregados del capítulo de solucion
+        de sistemas de ecuaciones lineales.
+
+    \item \textbf{Informs:} Fuentes de los archivos de texto del
+        proyecto.
+
+    \item \textbf{Proyect:} Código fuente del proyecto
+
+\end{itemize}
+
+\subsection{Modo de compilación y ejecución}
+
+Ahora se tratará el tema que hace posible que los métodos sean
+ejecutables, la compilación. La herramienta escogida para compilar
+este proyecto es \textbf{make}, dentro de cada uno de los métodos
+implementados, ya sea un ejemplo, valor agregado, documento de
+texto o parte del proyecto, se encontrará el archivo
+\textbf{Makefile} que contiene las instrucciones necesarias para la
+compilación.\\
+
+A manera de comentario, el compilador escogido es \textbf{mpic++},
+el cual es simplemente una envoltura para llamar a \textbf{g++} con
+parámetros sobre las direcciones de la librería openmpi.\\
+
+Para crear el ejecutable solo se debe ejecutar el comando
+\textbf{make} dentro de la carpeta que contiene el código a ser
+compilado. Luego para ejecutar el programa se puede utilizar el
+comando \textbf{make exe}, el cual ejecutará el binario con
+parámetros por defecto que mostraran el comportamiento del programa
+con un caso estandar.
+
+Es importante aclarar que cada método numérico tiene tambien una
+ayuda para ser ejecutado dentro de su código, para utilizarlo se
+debe llamar al método solo con la bandera \textbf{-h}.
+
+\subsection{Ejecución con MPI}
+
+Esta sección tiene la intención de servir como una breve
+explicación de la manera de ejecutar programas que usen la
+librería MPI tanto en forma distribuída como utilizando una
+sola máquina.
+
+\begin{itemize}
+    \item Ejecución básica
+\end{itemize}
+
+Luego de haber compilado el método deseado con su respectivo
+\textbf{Makefile} el binario debe ser ejecutado de la
+siguiente manera:\\
+
+\input{MpiGrammar}
+
+\textbf{NOTA:} En el caso de utilizar la bandera
+\textbf{-h} se recomienda ejecutarlo de manera convencional.
+
+\begin{itemize}
+    \item Ejecución distribuída
+\end{itemize}
+
+Este tipo de ejecución es muy similar al anterior, la única
+diferencia es el uso de la bandera -machinefile, la cual
+indica la ruta a un archivo que debe contener el nombre de
+las máquinas (hostname) en las que se va a ejecutar en
+conjunto con el número de procesadores en cada una de ellas.
+
+Para ejecutar de manera distribuída se debe utilizar el
+comando de la siguiente manera:
+
+\newpage
+
+\input{MpiDistGrammar}
+
+El archivo de configuración es una lista de lineas cada una
+especificando un procesador con el nombre de máquina deseado,
+por ejemplo\\
+
+\input{MpiFile}
+
+\vspace{0.5cm}
+
+En el ejemplo anterior se esta indicando que en la máquina
+local se van a ejecutar 2 procesos, al igual que en compute-0
+y solo uno en compute-1 para un total de 5 procesos que se
+ejecutarán de manera distribuída.\\
+
+\textbf{NOTA:} En caso de no conocer el nombre de la máquina
+es posible reemplazarlo por su respectiva dirección IP, esto es
+equivalente.
+
+\subsection{Implementaciones básicas de paralelismo}
+
+En esta sección se describirán los ejemplos que se utilizaron como
+base para la creación del proyecto, entre ellos se encuentran
+paralelización con llamadas al sistema, a nivel de hilos y a nivel
+de proceso. Además se incluyeron también ejemplos para manejar
+problemas de programación paralela como la sincronización y el uso
+adecuado de variables compartidas.
+
+\subsubsection{Llamadas al sistema}
+
+En el sistema operativo linux existe sólo una manera de que un
+un proceso pueda crear a otro para lograr asi el paralelismo,
+esta llamada tiene por nombre \textbf{fork}. Es importante aclarar
+que esta sección y sus ejemplos fueron implementados sólo a
+manera de demostración, esto debido a la complejidad que
+implicaría su uso en el proyecto, ya que sería necesario incluir
+mas código y lógica de control en cada uno de los métodos
+trabajados en el proyecto.\\
+
+Los ejemplos implementados fueron:
+
+\begin{itemize}
+    \item \textbf{Basic:} Ejemplo básico para mostrar el
+        funcionamiento de la llamada al sistema.
+
+    \item \textbf{Execv:} Ejemplo que combina la llamada
+        \textbf{fork} con \textbf{execv} para lograr crear
+        no solo instancias del proceso actual sino de cualquier
+        otro proceso.
+
+    \item \textbf{File:} Ejemplo para demostrar el manejo de
+        archivos entre los procesos creados con este método.
+
+    \item \textbf{Var:} Ejemplo para mostrar como funciona el
+        uso de variables después de utilizar la llamada
+        al sistema.
+\end{itemize}
+
+\subsubsection{Hilos}
+
+Otra de las formas más utilizadas para paralelizar un programa
+es el uso de hilos de ejecución, este método tiene varias
+ventajas entre ellas estan el hecho de tener por defecto un
+espacio compartido de variables globales, su rapidez en la
+creación y gran cantidad de documentación.\\
+
+Por otro lado tiene ciertas desventajas como lo son su
+complejidad en código, la continua aparición de problemas
+concurrentes, en especial condiciones de carrera debido a su
+espacio de direcciones compartido, hace complejo programar
+correctamente y principalmente su gran dificultad para lograr
+que el código sea ejecutado por varias máquinas al tiempo, lo
+cual, desde el punto de vista de esta proyecto, supone un
+problema importante ya que uno de sus principales objetivos es
+la implementación de métodos que puedan ser ejecutados de
+manera paralela.\\
+
+Los ejemplos implementados fueron:
+
+\begin{itemize}
+    \item \textbf{Hello:} Ejemplo básico de utilización de hilos
+
+    \item \textbf{Join:} Ejemplo básico de sincronización.
+
+    \item \textbf{Semaphores:} Ejemplo para mostrar el correcto
+        uso de variables compartidas para evitar problemas de
+        concurrencia.
+
+    \item \textbf{Mutex:} Ejemplo para mostrar como crear
+        condiciones de exclusión mutua para evitar condiciones
+        de carrera.
+
+    \item \textbf{CondVar:} Ejemplo que muestra como es la
+        utilización de variables condición para manejar señales
+        y sincronización.
+\end{itemize}
+
+\subsubsection{OpenMp}
+
+OpenMp es una librería que permite manejar los hilos de una
+manera mucho menos compleja, su implementación esta basada en
+pragmas lo cual hace que el código sea mucho mas entendible.\\
+
+Sin embargo, sigue teniendo el mismo problema que los hilos,
+una complejidad alta para lograr ser ejecutado de manera
+distribuída, por esta razón esta sección, al igual que la de
+llamadas al sistema fue implementada de modo ilustrativo.\\
+
+Los ejemplos implementados fueron:
+
+\begin{itemize}
+    \item \textbf{NumThreads:} Ejemplo básico del uso de OpenMp.
+    \item \textbf{For:} Paralelización de ciclos \textbf{for}
+        convencionales.
+\end{itemize}
+
+\subsubsection{MPI}
+
+La interfaz de paso de mensajes (Message passing interface),
+es una de las librerías mas populares en el mundo de la
+programación paralela debido a facilidad que provee en
+comparación con otros métodos de paralelización como lo son las
+llamadas al sistema. Además, como su nombre lo indica, implementa
+la metodología de paso de mensajes y tener soporte para
+programación distribuída, lo cual la hace la librería perfecta
+para este proyecto.\\
+
+Debido a complicaciones técnicas y de tiempo, no fue posible
+explotar todo el potencial de esta librería en el proyecto,
+sin embargo se deja como una tarea para el futuro. Debido a esta
+razón todos los métodos son ejecutados de manera local, pero
+en caso de continuar con el proyecto posteriormente, no sería
+necesario cambiar el código debido a las facilidades que
+proporciona la librería, solamente serían necesarias unas
+cuantas modificaciones en el modo de ejecución. Para más
+información ver la sección 2.3.1.\\
+
+Los ejemplos implementados fueron:
+
+\begin{itemize}
+    \item \textbf{Initialization:} Ejemplo básico del uso de la
+        librería.
+
+    \item \textbf{ListProces:} Ejemplo para mostrar el uso de
+        procesos en paralelo.
+
+    \item \textbf{SendReceive:} Ejemplo para mostrar el uso del
+        paso de mensajes.
+
+    \item \textbf{Distributed:} Ejemplo para mostrar la forma
+        de ejecución distribuída.
+
+    \item \textbf{SendReceiveDistributed:} Ejemplo para mostrar
+        la forma de combinar el paso de mensajes con la
+        ejecución distribuída.
+\end{itemize}
+
+\subsection{Fórmula general de ecuaciones cuadráticas en paralelo}
+
+\subsubsection{Descripción}
+
+Esta sección muestra un programa que calcula en paralelo las dos soluciones
+a una ecuación cuadrática dada. El proceso principal recibe el número de procesos
+a usar y los identificadores de cada uno, luego recibe los coeficientes de la ecuación
+y crea un proceso hijo al que le va a asignar el cálculo de la solución negativa de
+la ecuación, así mismo, el proceso padre calculará la solución positiva. Por último, cada
+proceso imprime su respectiva solución. A continuación se presenta el respectivo pseudocódigo
+del programa, incluidos están el proceso principal y los procesos esclavos.
+
+\subsubsection{Seudocódigo proceso principal}
+
+\begin{program}
+    rnk = Identificador\_de\_proceso
+    rnk\_size = Numero\_de\_procesos\_totales
+
+    | Leer | a \rcomment{Primer coeficiente}
+    | Leer | b \rcomment{Segundo coeficiente}
+    | Leer | c \rcomment{Tercer coeficiente}
+\end{program}
+
+\begin{program}
+    \IF(rank == 0) \rcomment{Si es el proceso padre}
+    sol = cuadratic\_pos(a, b, c) \rcomment{Encuentra la solución positiva}
+    print(sol) \rcomment{Imprime la solución positiva}
+    \ELSE \rcomment{Si es el proceso hijo}
+    sol = cuadratic\_neg(a, b, c) \rcomment{Encuentra la solución negativa}
+    print(sol) \rcomment{Imprime la solución negativa}
+\end{program}
+
+\subsubsection{Seudocódigo proceso esclavo (Positivo)}
+
+\begin{program}
+    internal = b^2-4*a*c \rcomment{Cálculo interno de la raíz}
+    sol = (-b + \sqrt[]{internal}/(2*a) \rcomment{Cálculo de la solución positiva}
+    return(sol)
+\end{program}
+
+\subsubsection{Seudocódigo proceso esclavo (Negativo)}
+
+\begin{program}
+    internal = b^2-4*a*c \rcomment{Cálculo interno de la raíz}
+    sol = (-b - \sqrt[]{internal}/(2*a) \rcomment{Cálculo de la solución negativa}
+    return(sol)
+\end{program}
+
+\subsection{Suma de Matrices en paralelo}
+
+\subsubsection{Descripción}
+
+Esta sección muestra un programa que suma dos matrices de forma paralela, la entrada del programa
+va a recibir el número de procesos totales que se usarán para el cálculo, los identificadores
+de dichos procesos y el tamaño de las matrices (N) que se van a sumar. El proceso padre primero crea e 
+inicializa las matrices A y B de tamaño N con valores aleatorios, luego distribuye la matriz de forma
+que sea equitativa la carga de trabajo para cada proceso. Luego para todos los procesos esclavos, se les
+envía y asigna los valores de A y B que van a procesar, cada proceso devuelve una matriz resultado C. El proceso
+padre vuelve a armar la matriz C con todas las submatrices calculadas por los procesos esclavos y la imprime.
+
+\subsubsection{Seudocódigo proceso principal}
+
+\begin{program}
+    rnk = Identificador\_de\_proceso\\
+    rnk\_size = Numero\_de\_procesos\_totales
+
+    | Leer | n \rcomment{Tamaño de la matriz}
+
+    \IF(rank == 0)\ \rcomment{Si es el proceso padre}
+
+    A = nuevaMatriz(n) \rcomment{Crea una matriz vacía de n x n}
+    B = nuevaMatriz(n) \rcomment{Crea una matriz vacía de n x n}
+    initializeMatrix(A, B, n) \rcomment{Rellena las matrices con valores aleatorios}
+\end{program}
+
+\begin{program}
+    distribution[] = distributeMatrix(n,rnk\_size)
+\end{program}
+
+\begin{program}
+    \FOR (i=0 ; i < rnk\_size-1; i++)\{  \rcomment{Para todos los procesos esclavos}
+    arr\_st = distribution[i]->start
+    arr\_sz = distribution[i]->size
+
+    |send|(A+arr\_st, i+1) \rcomment{Envia el valor de las variables}
+    |send|(B+arr\_st, i+1) \rcomment{Al proceso con id = i+1}
+    |send|(arr\_sz, i+1)
+
+    C = nuevaMatriz(n) \rcomment{Se crea una matriz vacía de tamaño n x n}
+    \}
+\end{program}
+
+\begin{program}
+    \FOR (i=0 ; i < info[0].size; i++)
+    C[i] = A[i] + B[i]
+\end{program}
+
+\begin{program}
+    \FOR (i=0 ; i < rnk\_size-1; i++)\{  \rcomment{Para todos los procesos esclavos}
+    arr\_st = distribution[i]->start
+    arr\_sz = distribution[i]->size
+
+    c = nuevoArreglo(arr\_sz)
+
+    | receive |(c, arr\_sz) \rcomment{Recibe los datos de la nueva matriz}
+    \}
+\end{program}
+
+\begin{program}
+    \FOR (j=0 ; j< arr\_sz; j++)
+    C[arr\_st++] = c[j];
+\end{program}
+
+\begin{program}
+    print(C) \rcomment{Imprime la matriz resultado C}
+\end{program}
+
+\subsubsection{Seudocódigo procesos esclavos}
+
+\begin{program}
+    | receive |(arr\_size) \rcomment{Recibe los tamaños de las matrices}
+    A = nuevaMatriz(arr\_size) \rcomment{Crea las submatrices A y B a procesar}
+    B = nuevaMatriz(arr\_size)
+    | receive |(A, arr\_size)  \rcomment{Recibe los valores de A y B para sumar}
+    | receive |(B, arr\_size)
+    C = nuevaMatriz(arr\_size) \rcomment{Crea la submatriz C para guardar el resultado}
+\end{program}
+
+\begin{program}
+    \FOR (i = 0; i < arr\_size; i++) \rcomment{Calcula y guarda el resultado de la suma en C}
+    C[i] = A[i] + B[i]
+\end{program}
+
+\begin{program}
+    | send |(C, arr\_size) \rcomment{Envia el resultado}
+\end{program}
+
+\subsection{Manejo de matrices de gran dimensión}
+
+\subsubsection{Descripción}
+
+La intención que se tuvo con esta sección es implementar estrategias de tratamiendo de matrices
+que debido a su tamaño, no se pueden tratar en su totalidad puesto que no hay suficiente espacio
+en memoria para ellas. Se introduce entonces el tratamiento por lotes, en el que dividimos la matriz
+en tal forma que podamos trabajarla por partes más pequeñas. La idea es lograr generar submatrices de tamaño N
+a partir de una matriz A de gran dimensión. Por motivos de tiempo, no se pudo implementar el procesamiento
+de dicha matriz a través de la división debido a que los algoritmos hay que reimplementarlos de forma
+que procesen todas las matrices como un todo y no por aparte. A continuación se presentará el pseudocódigo que dará cuenta de
+la creación y la división de las submatrices a partir de la matriz de gran dimensión A.
+
+\subsubsection{Seudocódigo}
+
+\begin{program}
+| Leer | lotSize \rcomment{Tamaño de las submatrices}
+| Leer | bSize \rcomment{Tamaño de la matriz grande}
+
+contSubH = 0 \rcomment{Contador de las submatrices hacia la derecha}
+contSubV = 0 \rcomment{Contador de las submatrices hacia abajo}
+
+file = path \rcomment{Ruta a guardar las sub matrices}
+
+\WHILE(contSubV < bSize)\{ \rcomment{Se leen los valores de cada }
+i = 0 \rcomment{lote partiendo la matriz grande en lotSize }
+\WHILE(contSubH < bSize)\{ 
+values[lotSize][lotSize]; 
+j = 0
+\WHILE(i < lotSize)\{
+    \WHILE(j < lotSize)\{
+        values[i][j] = read(file, lotSize, i, j)
+j++
+\}
+i++
+\}
+contSubH = contSubH + lotSize \rcomment{Se leen bloques de }
+\}    \rcomment{izquierda a derecha}        
+contSubV = contSubV + lotSize \ \rcomment{Y luego de arriba}
+\} \rcomment{ a abajo}
+\end{program}
+
+
+
+\begin{program}
+
+    nuevo\_archivo-i-j = write(new\_path, i, j, values)
+
+\end{program}
+
+\subsection{Jacobi paralelo}
+
+\subsubsection{Seudocódigo proceso principal}
+
+\begin{program}
+    rnk = Identificador\_de\_proceso\\
+    rnk\_size = Numero\_de\_procesos\_totales
+    | Leer | n \rcomment{Tamaño de la matriz}
+    | Leer | toler \rcomment{Tolerancia del método}
+    | Leer | niter \rcomment{Número de iteraciónes}
+    Ab = |readMatrix|(n) \rcomment{Leer matriz}
+    x = |readVector|(n) \rcomment{Leer vector inicial}
+\end{program}
+
+\begin{program}
+    ditribution[] = |distributeMatrix|( n, rnk\_size ) \rcomment{Devuelve la posición inicial}
+    \rcomment{Y el número de columnas}
+    \rcomment{Asignadas a cada proceso}
+\end{program}
+
+\begin{program}
+    \FOR (i=0 ; i < rnk\_size-1; i++)\{  \rcomment{Para todos los procesos esclavos}
+    row\_st = distribution[i]->start
+    row\_cnt = distribution[i]->size
+
+    |send|(n, i+1) \rcomment{Envia el valor de las variables}
+    |send|(row\_st, i+1) \rcomment{Al proceso con id = i+1}
+    |send|(row\_cnt, i+1)
+\end{program}
+
+\begin{program}
+    Ab\_temp = |getSubMatrix|(Ab, distribution[i]); \rcomment{Obtener la submatriz}
+    |send|(Ab\_temp, i+1)                           \rcomment{Correspondiente con}
+    \rcomment{el proceso i+1 y enviarla}
+    \}
+\end{program}
+
+\begin{program}
+    error = toler + 1 \rcomment{Inicializar el error}
+    |print|(x)  \rcomment{Imprimir el vector inicial}
+    x\_n[n]  \rcomment{Espacio reservado para el nuevo vector}
+\end{program}
+
+\begin{program}
+    seguir\_ejecucion = true \rcomment{Indicador de ejecución en esclavos}
+    while(error > toler \&\& cnt < niter)\{
+\end{program}
+
+\begin{program}
+    \FOR (i=1 ; i < rnk\_size-1; i++)\{  \rcomment{Para todos los procesos esclavos}
+    |send|(keep\_going, i); \rcomment{Enviar indicador de continuar ejecución}
+    |send|(x, i); \rcomment{Enviar vector actual}
+    \}
+\end{program}
+
+\begin{program}
+    \FOR (i=1 ; i < rnk\_size-1; i++)  \rcomment{Para todos los procesos esclavos}
+    |receive|(x\_n, i); \rcomment{Recibir nuevo vector}
+\end{program}
+
+\begin{program}
+    error = |maxNorm|(x,x\_n) \rcomment{Calcular el error con la norma máximo}
+    |printInfo|(niter, x\_n, error) \rcomment{Imprimir el estado del método}
+    x = x\_n \rcomment{Actualizar el vector}
+    cnt = cnt + 1
+    \}
+\end{program}
+
+\begin{program}
+    keep\_going = 0
+    \FOR (i=1 ; i < rnk\_size-1; i++)  \rcomment{Para todos los procesos esclavos}
+    |send|(keep\_going, i); \rcomment{Enviar indicador de parar ejecución}
+\end{program}
+
+\begin{program}
+    \IF (error < toler)
+    \COMMENT{Raíz encontrada con tolertancia = toler}
+    \ELSE
+    \COMMENT{No se pudo encontrar una raíz con niter iteraciónes}
+\end{program}
+
+
+\subsubsection{Seudocódigo procesos esclavos}
+
+\begin{program}
+    row\_sz  \rcomment{Variables para manejar}
+    row\_st  \rcomment{correctamente la}
+    row\_cnt \rcomment{submatriz}
+    |receive|(row\_sz , 0)
+    |receive|(row\_st , 0) \rcomment{Recibir dichas variables}
+    |receive|(row\_cnt, 0)
+\end{program}
+
+\begin{program}
+    arr\_sz = (row\_sz+1) * row\_cnt \rcomment{Calcular el tamaño de la submatriz}
+    Ab[arr\_sz] \rcomment{Reservar el tamaño de la submatriz}
+    x[row\_sz] \rcomment{Reservar el tamaño de los vectores}
+    x\_n[row\_cnt]
+    |receive|(Ab, 0) \rcomment{Recibir la submatriz del proceso maestro}
+\end{program}
+
+\begin{program}
+    |receive|(seguir\_ejecucion, 0) \rcomment{Recibir indicador de ejecución del proceso maestro}
+\end{program}
+
+\begin{program}
+    calc\_acum \rcomment{Acumulador de cálculos}
+    \WHILE (seguir\_ejecucion)\{
+\end{program}
+
+\begin{program}
+    |receive|(x, 0) \rcomment{Recibir vector del proceso maestro}
+\end{program}
+
+\begin{program}
+    \FOR ( i=0; i<row\_cnt; i++)\{  \rcomment{Para cada fila}
+    calc\_acum = 0
+\end{program}
+
+\begin{program}
+    \FOR ( j=0; j<row\_cnt; j++)  \rcomment{Calcular acumulado}
+    \IF ( j == i+row\_st) \COMMENT{Ignorar iteración}
+    \ELSE calc\_acum = calc\_acum + Ab[i][j] * x[j]
+\end{program}
+
+\begin{program}
+    x\_n[i] = ( Ab[i][row\_sz] - calc\_acum) / Ab[i][i+row\_st] \rcomment{Calcular nuevo}
+    \rcomment{Valor del vector}
+    \}
+\end{program}
+
+\begin{program}
+    |send|(x\_n,0) \rcomment{Enviar nuevo vector al proceso maestro}
+\end{program}
+
+\begin{program}
+    |receive|(seguir\_ejecucion, 0) \rcomment{Recibir indicador de ejecucion}
+    \rcomment{del proceso maestro}
+    \}
+\end{program}
+
+\subsection{Valores agregados}
+
+En esta sección se enumeran los programas que fueron creados como
+valor agregado, para más información ver la sección 4.
+
+\subsubsection{Implementaciones referentes a la teoría de error}
+
+\begin{itemize}
+    \item Epsilon de la máquina
+    \item Números de punto flotante
+    \item Menor número positivo
+    \item Series de taylor
+
+        \begin{itemize}
+            \item Coseno
+            \item Seno
+            \item Exponencial
+            \item Ln
+        \end{itemize}
+\end{itemize}
+
+\subsubsection{Implementaciones referentes a ecuaciones no lineales}
+
+\begin{itemize}
+    \item Búsqueda incremental
+    \item Bisección
+    \item Punto fijo
+    \item Regla falsa
+    \item Newton
+    \item Secante
+    \item Raíces múltiples
+\end{itemize}
+
+\subsubsection{Implementaciones referentes a sistemas de equaciones
+lineales}
+
+\begin{itemize}
+    \item Jacobi
+\end{itemize}
+
+\section{Información adicional}
+
+Información adicional sobre el proyecto, seudocódigos no incluídos en
+este documento y códigos de todos los programas realizados durante el
+proyecto pueden ser encontrados en el repositorio de github\\
+\textbf{https://github.com/AlejandroSalgadoG/Miscellaneous/Numerical}.
+
+\end{document}
+

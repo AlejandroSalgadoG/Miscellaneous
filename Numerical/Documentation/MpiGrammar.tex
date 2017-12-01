@@ -1,0 +1,16 @@
+\begin{lstlisting}[frame=single]
+mpirun -np <Numero de procesos> ./<Binario> <Parametros>
+
+    <Numero de procesos> = Numero de veces que el programa
+                           mpirun realiza la llamada fork.
+                           Es recomendable crear tantos
+                           procesos como procesadores se
+                           tengan.
+
+    <Binario> = Nombre del binario a ser ejecutado
+
+    <Parametros> = Parametros que se desean pasar a el
+                   programa.
+
+\end{lstlisting}
+
