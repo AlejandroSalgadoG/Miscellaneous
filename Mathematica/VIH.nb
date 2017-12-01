@@ -19,9 +19,12 @@ X2fun[U1_] = (X2'[t] == (1 - U1) \[Beta] X1[t] X3[t] - \[Mu] X2[t]);
 X3fun[U2_] = (X3'[t] == (1 - U2) k X2[t] - c X3[t]);
 
 Manipulate[
-    system = NDSolve[{X1fun[U1], X2fun[U1], X3fun[U2], X1[0] == X1ini, X2[0] == X2ini, X3[0] == X3ini}, {X1, X2, X3}, {t, ini, fin}];
+    system = NDSolve[{X1fun[U1], X2fun[U1], X3fun[U2],
+                X1[0] == X1ini, X2[0] == X2ini, X3[0] == X3ini},
+                {X1, X2, X3}, {t, ini, fin}];
+
     functions = First[{X1[t], X2[t], X3[t]} /. system];
- 
+    
     x1fun = Part[functions, 1];
     x2fun = Part[functions, 2];
     x3fun = Part[functions, 3];
@@ -53,12 +56,44 @@ Manipulate[
         ImageSize -> 400
     ];
     
-    GraphicsGrid[{{x1plot, x2plot}, {x3plot}}],
+    parametricPlot =  ParametricPlot3D[{x1fun, x2fun, x3fun}, {t, ini, fin}, 
+                            AspectRatio -> 0.7, 
+                            PlotRange -> {{0, 1000}, {0, 1500}, {0, 3000}}, 
+                            AxesLabel -> {"X1", "X2", "X3"},
+                            ImageSize -> 400];
     
-    Style["Entradas", Bold],
-    Delimiter,
+    GraphicsGrid[{{x1plot, x2plot}, {x3plot, parametricPlot}}],
+    
+    Style["Entradas", Bold], Delimiter,
     {{U1, 0, "U1"}, 0, 1, Appearance -> "Labeled"},
     {{U2, 0, "U2"}, 0, 1, Appearance -> "Labeled"},
     
     ControlPlacement -> Left
 ]
+
+Subscript[U, 1] = 0;
+Subscript[U, 2] = 0;
+
+X1Rand[] := X1ini + X1ini*RandomReal[{-1, 1}]
+X2Rand[] := X2ini + X2ini*RandomReal[{-1, 1}];
+X3Rand[] := X3ini + X3ini*RandomReal[{-1, 1}];
+
+sim1 = NDSolve[{X1fun[Subscript[U, 1]], X2fun[Subscript[U, 1]], X3fun[Subscript[U, 2]],
+            X1[0] == X1Rand[], X2[0] == X2Rand[], X3[0] == X3Rand[] },
+            {X1, X2, X3}, {t, ini, fin}];
+
+sim2 = NDSolve[{X1fun[Subscript[U, 1]], X2fun[Subscript[U, 1]], X3fun[Subscript[U, 2]],
+            X1[0] == X1Rand[], X2[0] == X2Rand[], X3[0] == X3Rand[] },
+            {X1, X2, X3}, {t, ini, fin}];
+
+pPlot1 = ParametricPlot3D[{X1[t], X2[t], X3[t]} /. sim1, {t, ini, fin},
+            AspectRatio -> 0.7,
+            PlotRange -> {{0, 500}, {0, 500}, {0, 3000}},
+            AxesLabel -> {"X1", "X2", "X3"}, ImageSize -> 600];
+
+pPlot2 = ParametricPlot3D[{X1[t], X2[t], X3[t]} /. sim2, {t, ini,fin}, 
+            AspectRatio -> 0.7,
+            PlotRange -> {{0, 500}, {0, 500}, {0, 3000}},
+            AxesLabel -> {"X1", "X2", "X3"}, ImageSize -> 600];
+
+Show[pPlot1, pPlot2]
