@@ -67,52 +67,36 @@ antecedentes los siguientes modelos generales.
 \newpage
 
     \subsection{Modelo SIR}
+
         \Large
         $$\dot{s} = -b s(t) i(t)$$
         $$\dot{i} = b s(t) i(t) - k i(t)$$
         $$\dot{r} = k i(t)$$
         \normalsize
 
-        \vspace{1cm}
+        \vspace{0.5cm}
 
-        \begin{wraptable}[0]{r}{7cm}
-            \begin{tabular}{|p{3.5cm} p{3.5cm}|}
-                \hline
-                Variables de estado & Unidades \\
-                \hline
-                $s$ & Número de individuos\\
-                $i$ & Número de individuos\\
-                $r$ & Número de individuos\\
-                \hline
-            \end{tabular}
-            \newline
-            \vspace{0.5cm}
-            \newline
-            \begin{tabular}{|p{2cm} p{5cm}|}
-                \hline
-                Parámetro & Unidades \\
-                \hline
-                $b$ & $1/(individuos * tiempo)$\\
-                $k$ & $1/tiempo$\\
-                \hline
-            \end{tabular}
-        \end{wraptable}
-
-        \large{\bf{Variables de estado}}\\
-
-        \noindent
-        $s$: Población suceptible\\
-        $i$: Población infectada\\
-        $r$: Población recuperada\\
-
-        \large{\bf{Parámetros}}\\
-
-        \noindent
-        $b$: tasa de infección\\
-        $k$: tasa de recuperación
+        \begin{tabular}[t]{|p{4cm} p{3.5cm}|}
+            \hline
+            \textbf{Variables de estado} & \textbf{Unidades} \\
+            \hline
+            $s$: Población suceptible & Número de individuos\\
+            $i$: Población infectada  & Número de individuos\\
+            $r$: Población recuperada & Número de individuos\\
+            \hline
+        \end{tabular}
+        \hspace{0.5cm}
+        \begin{tabular}[t]{|p{4cm} p{4cm}|}
+            \hline
+            \textbf{Parámetros} & \textbf{Unidades} \\
+            \hline
+            $b$: tasa de infección    & $1/(individuos * tiempo)$\\
+            $k$: tasa de recuperación & $1/tiempo$\\
+            \hline
+        \end{tabular}
         \cite{sir}
 
-        \vspace{1cm}
+        \vspace{0.5cm}
 
         En este modelo se busca plasmar la dinámica de tres poblaciones de
         individuos, los suceptibles, quienes todavía no han sido contagiados
@@ -127,53 +111,36 @@ antecedentes los siguientes modelos generales.
         de los individuos infectados.
 
     \subsection{Modelo predador-presa}
+
         \Large
         $$\dot{p} = \alpha p(t) - \beta p(t) d(t)$$
         $$\dot{d} = \lambda p(t) d(t) - \gamma d(t)$$
         \normalsize
 
-        \begin{wraptable}[0]{r}{7cm}
-            \begin{tabular}{|p{3.5cm} p{3.5cm}|}
-                \hline
-                Variables de estado & Unidades \\
-                \hline
-                $p$ & Número de individuos\\
-                $d$ & Número de individuos\\
-                \hline
-            \end{tabular}
-            \newline
-            \vspace{0.5cm}
-            \newline
-            \begin{tabular}{|p{2cm} p{5cm}|}
-                \hline
-                Parámetro & Unidades \\
-                \hline
-                $\alpha$  & $1/tiempo$\\
-                $\beta$   & $1/(individuos * tiempo)$\\
-                $\lambda$ & $1/(individuos * tiempo)$\\
-                $\gamma$  & $1/tiempo$\\
-                \hline
-            \end{tabular}
-        \end{wraptable}
+        \vspace{0.5cm}
 
-        \vspace{1cm}
-
-        \large{\bf{Variables de estado}}\\
-
-        \noindent
-        $p$: Población de presas\\
-        $d$: Población de depredadores\\
-
-        \large{\bf{Parámetros}}\\
-
-        \noindent
-        $\alpha$:  tasa de nacimiento de las presas\\
-        $\beta$:   tasa de caza\\
-        $\lambda$: tasa de alimentación\\
-        $\gamma$:  tasa de muerte de los depredadores
+        \begin{tabular}[t]{|p{4cm} p{3.5cm}|}
+            \hline
+            \textbf{Variables de estado} & \textbf{Unidades} \\
+            \hline
+            $p$: Población presas       & Número de individuos\\
+            $d$: Población depredadores & Número de individuos\\
+            \hline
+        \end{tabular}
+        \hspace{0.5cm}
+        \begin{tabular}[t]{|p{4.5cm} p{4cm}|}
+            \hline
+            \textbf{Parámetro} & \textbf{Unidades} \\
+            \hline
+            $\alpha$:  tasa nacimiento presas   & $1/tiempo$\\
+            $\beta$:   tasa caza                & $1/(individuos * tiempo)$\\
+            $\lambda$: tasa alimentación        & $1/(individuos * tiempo)$\\
+            $\gamma$:  tasa muerte depredadores & $1/tiempo$\\
+            \hline
+        \end{tabular}
         \cite{predator}
 
-        \vspace{1cm}
+        \vspace{0.5cm}
 
         En este modelo se tienen dos poblaciones, presas y depredadores, los
         cuales presentan un comportamiento de crecimiento exponencial en
@@ -187,87 +154,49 @@ antecedentes los siguientes modelos generales.
 
 \section{Modelo escogido}
 
-\begin{alignat*}{2}
-    & \begin{aligned}
-        \text{\textbf{\large Modelo completo}}\\\\
-        \dot{x_1} = s -dx_1 - (1-u_1) \beta x_1 x_3\\
-        \dot{x_2} = (1-u_1) \beta x_1 x_3 - \mu x_2\\
-        \dot{x_3} = (1-u_2) k x_2 - c x_3
-    \end{aligned}
-    & \hspace{2cm}
-    & \begin{aligned}
-        \text{\textbf{\large Modelo reducido}}\\\\
-        \dot{x_1} = s -dx_1 - (1-u) \frac{\beta k}{c} x_1 x_2\\
-        \dot{x_2} = (1-u) \frac{\beta k}{c} x_1 x_2 - \mu x_2
-    \end{aligned}
-\end{alignat*}
+    \Large
+    $$\dot{x_1} = s -dx_1 - (1-u_1) \beta x_1 x_3$$
+    $$\dot{x_2} = (1-u_1) \beta x_1 x_3 - \mu x_2$$
+    $$\dot{x_3} = (1-u_2) k x_2 - c x_3$$
+    \normalsize
 
 \vspace{1cm}
 
-\begin{wraptable}[0]{r}{6cm}
-    \begin{tabular}{|p{3.5cm} p{2.5cm}|}
+    \begin{tabular}{|p{6cm} p{2.5cm}|}
         \hline
-        Variables de estado & Unidades \\
+        \textbf{Variables de estado} & \textbf{Unidades} \\
         \hline
-        $x_1$ & $celulas / mm^3$\\
-        $x_2$ & $celulas / mm^3$\\
-        $x_3$ & $copias / mm^3$\\
+        $x_1$: Concentración de células saludables & $celulas / mm^3$\\
+        $x_2$: Concentración de células infectadas & $celulas / mm^3$\\
+        $x_3$: Concentración de virus libre        & $copias / mm^3$\\
         \hline
     \end{tabular}
-    \newline
+
     \vspace{0.5cm}
-    \newline
-    \begin{tabular}{|p{3cm} p{3cm}|}
+
+    \begin{tabular}{|p{8cm} p{2.5cm}|}
         \hline
-        Entrada & Unidades \\
+        \textbf{Entradas} & \textbf{Unidades} \\
         \hline
-        $u_1$ & Adimensional \\
-        $u_2$ & Adimensional \\
-        $u$   & Adimensional \\
+        $u_1$: Eficiencia para prevenir la infección              & Adimensional \\
+        $u_2$: Eficiencia para evitar la creacion de virus libres & Adimensional \\
         \hline
     \end{tabular}
-    \newline
+
     \vspace{0.5cm}
-    \newline
-    \begin{tabular}{|p{2cm} p{2cm} c|}
+
+    \begin{tabular}{|p{7cm} p{2cm} c|}
         \hline
-        Parámetro & Valor & Unidades \\
+        \textbf{Parámetro} & \textbf{Valor} & \textbf{Unidades} \\
         \hline
-        $d$     & 0.02            & $s^{-1}$\\
-        $k$     & 100             & $s^{-1}$\\
-        $s$     & 10              & $mm^{-3} s^{-1}$\\
-        $\beta$ & $2.4 * 10^{-5}$ & $mm^3 s^{-1}$\\
-        $\mu$   & 0.24            & $s^{-1}$\\
-        $c$     & 2.4             & $s^{-1}$\\
+        $d$: tasa de muerte natural de las células      & 0.02            & $s^{-1}$\\
+        $k$: tasa de producción de virus libres         & 100             & $s^{-1}$\\
+        $s$: tasa de producción de células sanas        & 10              & $mm^{-3} s^{-1}$\\
+        $\beta$: tasa de infección                      & $2.4 * 10^{-5}$ & $mm^3 s^{-1}$\\
+        $\mu$: tasa de muerte de las células infectadas & 0.24            & $s^{-1}$\\
+        $c$: tasa de muerte de los virus libres         & 2.4             & $s^{-1}$\\
         \hline
     \end{tabular}
-\end{wraptable}
-
-\large{\bf{Variables de estado}}\\
-
-\noindent
-$x_1$: Concentración de células saludables\\
-$x_2$: Concentración de células infectadas\\
-$x_3$: Concentración de virus libre\\
-
-\large{\bf{Entradas}}\\
-
-\noindent
-$u_1$: Eficiencia para prevenir la infección \\
-$u_2$: Eficiencia para evitar la creacion de virus libres\\
-$u$: esta entrada es usada para simplificar las ecuaciones del\\
-     modelo, tiene un valor de $u_1+u_2-u_1 u_2$\\
-
-\large{\bf{Parámetros}}\\
-
-\noindent
-$d$: tasa de muerte natural de las células \\
-$k$: tasa de producción de virus libres \\
-$s$: tasa de producción de células sanas \\
-$\beta$: tasa de infección\\
-$\mu$: tasa de muerte de las células infectadas \\
-$c$: tasa de muerte de los virus libres\\
-\cite{model}
 
 \vspace{1cm}
 
@@ -277,24 +206,21 @@ concentración de células libres en el cuerpo.\\
 
 En la primera ecuación se muestra la dinámica de las células sanas y como su
 disminución se ve afectada tanto por su muerte natural como por la influencia
-del virus, en la segunda ecuación se expresa el cambio en las células
+del virus, en la segunda se expresa el cambio en las células
 contaminadas como el contagio de células sanas menos una tasa de muerte natural
-de células infectas y por último en la tercera ecuación se plasma el proceso
+de células infectas y por último en la tercera se plasma el proceso
 por el cual las células contaminadas liberan mas virus en el sistema, los
 cuales a su vez también tienen una tasa de muerte natural que los disminuye.\\
 
-Algunos de los aspectos más importantes a destacar del modelo son, en primer
-lugar, la similitud con los modelos propuestos como antecedentes,
-específicamente cuando se tiene en cuenta una reducción de las poblaciones
-debido a la infección, su contagio y la muerte de los virus, tal como en el
-modelo SIR, y en la decaída de la poblaciones por una tasa de muerte, donde se
-puede ver cierta similitud con el modelo predador-presa.\\
-        
-En segundo lugar es importante resaltar como las tasa de infección de las
-células sanas y la tasa de creación de virus libres pueden ser influenciadas
-con el efecto de drogas que afecten el desarrollo del virus.\\
-
-Dicha influencia esta reprecentada por la variables de entrada, donde $u_1$
+Uno de los aspectos a destacar del modelo es la similitud con los modelos
+propuestos como antecedentes, específicamente en aspectos como la reducción de
+las poblaciones debido a la infección, su contagio y la muerte de los virus,
+tal como en el modelo SIR, y en la decaída de la poblaciones por una tasa
+de muerte, donde se puede ver cierta similitud con el modelo
+predador-presa. En segundo lugar es importante resaltar como las tasa de
+infección de las células sanas y la tasa de creación de virus libres pueden
+ser influenciadas con el efecto de drogas que afecten el desarrollo del
+virus. Dicha influencia esta reprecentada por la variables de entrada, donde $u_1$
 toma valores entre 0 y 1, reprecentando la eficiencia de drogas ITR
 (Inhibidores de la Transcriptasa Inversa) que pueden reducir la propagacion del
 virus. Y la variable $u_2$, que toma valores en el mismo intervalo y representa
@@ -304,7 +230,65 @@ control sobre el desarrollo del virus en el cuerpo.\\
 
 Es importante resaltar que  en la actualidad ninguna droga llega a una
 eficiencia del 100\% por lo cual un valor cercano a 1 en estas variables
-ocaciona que la simulación tome una condición cada vez más teorica.\\
+ocaciona que la simulación tome una condición cada vez más teorica.\cite{model}\\
+
+    \subsection{Modelo reducido}
+
+    \Large
+    $$\dot{x_1} = s -dx_1 - (1-u) \frac{\beta k}{c} x_1 x_2$$
+    $$\dot{x_2} = (1-u) \frac{\beta k}{c} x_1 x_2 - \mu x_2$$
+    \normalsize
+
+    \vspace{0.5cm}
+
+    \begin{tabular}{|p{6cm} p{2.5cm}|}
+        \hline
+        \textbf{Variables de estado} & \textbf{Unidades} \\
+        \hline
+        $x_1$: Concentración de células saludables & $celulas / mm^3$\\
+        $x_2$: Concentración de células infectadas & $celulas / mm^3$\\
+        \hline
+    \end{tabular}
+
+    \vspace{0.5cm}
+
+    \begin{tabular}{|p{8.5cm} p{2.5cm}|}
+        \hline
+        \textbf{Entradas} & \textbf{Unidades} \\
+        \hline
+        $u$: esta entrada es usada para simplificar las ecuaciones del modelo,
+             tiene un valor de $u_1+u_2-u_1 u_2$ & Adimensional \\
+        \hline
+    \end{tabular}
+
+    \vspace{0.5cm}
+
+    \begin{tabular}{|p{7cm} p{2cm} c|}
+        \hline
+        \textbf{Parámetro} & \textbf{Valor} & \textbf{Unidades} \\
+        \hline
+        $d$: tasa de muerte natural de las células      & 0.02            & $s^{-1}$\\
+        $k$: tasa de producción de virus libres         & 100             & $s^{-1}$\\
+        $s$: tasa de producción de células sanas        & 10              & $mm^{-3} s^{-1}$\\
+        $\beta$: tasa de infección                      & $2.4 * 10^{-5}$ & $mm^3 s^{-1}$\\
+        $\mu$: tasa de muerte de las células infectadas & 0.24            & $s^{-1}$\\
+        $c$: tasa de muerte de los virus libres         & 2.4             & $s^{-1}$\\
+        \hline
+    \end{tabular}
+
+    \cite{model}
+
+    \vspace{0.5cm}
+
+Este modelo es bastante similar al anterior, tanto en estructura como en
+aplicación, se puede ver basicamente como su simplifación. Los cambios
+realizados son, en primer lugar, la eliminacion de $x_3$ como variable de
+estado al encontrar que su cambio respecto a las variaciones de $x_2$ sucede de
+manera casi instantanea, lo que permite prescindir de $x_3$ como variable de
+estado al expresarla como una ecuación algebraica, reduciendo asi el modelo a
+segundo orden.  Y en segundo lugar, la combinación de $u_1$ y $u_2$ para formar una
+nueva entrada, con el objetivo simplificar las ecuaciones y facilitar el
+entendimiento del modelo.
 
 \bibliographystyle{unsrt}
 \bibliography{Anteproyecto}
