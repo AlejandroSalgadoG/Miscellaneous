@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/screen1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="38dp"
+        android:text="@string/screen1" />
+
+    <Button
+        android:id="@+id/screen2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/screen1"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="56dp"
+        android:text="@string/screen2" />
+
+    <FrameLayout
+        android:id="@+id/frame"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/screen1"
+        android:layout_marginTop="20dp" >
+
+        <LinearLayout
+            android:id="@+id/fr_linear1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="#00ff00"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textView11"
+                style="@style/font2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/screen1" />
+
+        </LinearLayout>
+        
+        <LinearLayout
+            android:id="@+id/fr_linear2"
+            android:layout_width="match_parent"
+            android:layout_height="356dp"
+            android:background="#0000ff"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textView22"
+                style="@style/font2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/screen2" />
+
+        </LinearLayout>
+        
+
+        
+    </FrameLayout>
+
+</RelativeLayout>

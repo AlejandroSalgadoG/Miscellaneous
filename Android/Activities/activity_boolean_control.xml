@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <RadioGroup
+            android:id="@+id/radioGroup1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <RadioButton
+                android:id="@+id/bool_radio11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/option1" />
+
+            <RadioButton
+                android:id="@+id/bool_radio12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/option2" />
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@+id/radioGroup2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp" >
+
+            <RadioButton
+                android:id="@+id/bool_radio21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/verdadero" />
+
+            <RadioButton
+                android:id="@+id/bool_radio22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/falso" />
+        </RadioGroup>
+
+        <CheckBox
+            android:id="@+id/bool_checkBox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@string/optionA" />
+
+        <CheckBox
+            android:id="@+id/bool_checkBox2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/optionb" />
+
+        <ToggleButton
+            android:id="@+id/bool_toggleButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@string/special_button"
+            android:textOff="@string/deactivated"
+            android:textOn="@string/activated" />
+
+        <Switch
+            android:id="@+id/bool_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp" />
+
+        <Button
+            android:id="@+id/bool_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="30dp"
+            android:background="#00ff00"
+            android:onClick="onClic"
+            android:text="@string/ready" />
+
+        <TextView
+            android:id="@+id/bool_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</ScrollView>

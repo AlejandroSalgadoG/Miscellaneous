@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Aplication1</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="firstButton">Add image</string>
+    <string name="secondButton">Remove image</string>
+    <string name="thirdButton">Show text</string>
+    <string name="editHint">Type something</string>
+
+</resources>

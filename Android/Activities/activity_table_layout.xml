@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lin"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TableLayout
+        android:id="@+id/TableLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/t_btn1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".33"
+                android:onClick="setText"
+                android:tag="@string/one"
+                android:text="@string/one" />
+
+            <Button
+                android:id="@+id/t_btn2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".33"
+                android:onClick="setText"
+                android:tag="@string/two"
+                android:text="@string/two" />
+
+            <Button
+                android:id="@+id/t_btn3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".33"
+                android:onClick="setText"
+                android:tag="@string/three"
+                android:text="@string/three" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/t_btn4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".33"
+                android:onClick="setText"
+                android:tag="@string/four"
+                android:text="@string/four" />
+
+            <Button
+                android:id="@+id/t_btn5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".33"
+                android:onClick="setText"
+                android:tag="@string/five"
+                android:text="@string/five" />
+
+            <Button
+                android:id="@+id/t_btn6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".33"
+                android:onClick="setText"
+                android:tag="@string/six"
+                android:text="@string/six" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/t_btn7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".33"
+                android:onClick="setText"
+                android:tag="@string/seven"
+                android:text="@string/seven" />
+
+            <TextView
+                android:id="@+id/numText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".33"
+                android:gravity="center"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/t_btn8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".33"
+                android:onClick="setText"
+                android:tag="@string/eight"
+                android:text="@string/eight" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/t_btn9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="setText"
+                android:tag="@string/nine"
+                android:text="@string/nine" />
+        </TableRow>
+    </TableLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Activities</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="top">Top</string>
+    <string name="bottom">Bottom</string>
+    <string name="image">Image</string>
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="four">4</string>
+    <string name="five">5</string>
+    <string name="six">6</string>
+    <string name="seven">7</string>
+    <string name="eight">8</string>
+    <string name="nine">9</string>
+    <string name="texto">Proclama mi alma la grandeza del Señor, 
+         				 se alegra mi espíritu en Dios mi Salvador, 
+         				 porque ha mirado la humillación de su esclava.
+						 Desde ahora me felicitarán todas las generaciones 
+						 porque el Poderoso ha hecho obras grandes por mí. 
+						 Su nombre es Santo y su misericordia llega a sus 
+						 fieles de generación en generación.\n\n
+
+						 Él hace proezas con su brazo, 
+						 dispersa a los soberbios de corazón. 
+						 Derriba del trono a los poderosos y enaltece a 
+						 los humildes. A los hambrientos los colma de bienes 
+						 y a los ricos despide vacíos.\n\n
+
+						 Auxilia a Israel su siervo, 
+						 acordándose de su santa alianza según lo había 
+						 prometido a nuestros padres en favor de Abrahán 
+						 y su descendencia por siempre.\n\n
+
+						 Gloria al Padre y al Hijo y al Espíritu Santo 
+						 como era en principio ahora y siempre por los 
+						 siglos de los siglos.\n\n
+
+						 Amen.\n\n\n
+						 Señor, haz de mi un instrumento de tu paz.
+						 Que allá donde hay odio, yo ponga el amor. 
+						 Que allá donde hay ofensa, yo ponga el perdón. 
+						 Que allá donde hay discordia, yo ponga la unión. 
+						 Que allá donde hay error, yo ponga la verdad. 
+						 Que allá donde hay duda, yo ponga la Fe. 
+						 Que allá donde desesperación, yo ponga la esperanza. 
+						 Que allá donde hay tinieblas, yo ponga la luz. 
+						 Que allá donde hay tristeza, yo ponga la alegría.\n\n 
+						
+						 Oh Señor, que yo no busque tanto ser consolado, cuanto consolar, 
+						 ser comprendido, cuanto comprender, 
+						 ser amado, cuanto amar. \n\n
+						
+						 Porque es dándose como se recibe, 
+						 es olvidándose de sí mismo como uno se encuentra a sí mismo, 
+						 es perdonando, como se es perdonado, 
+						 es muriendo como se resucita a la vida eterna.\n\n
+						 
+						 amen.</string>
+    <string name="prayers">PRAYERS</string>
+    <string name="screen1">Screen1</string>
+    <string name="screen2">Screen2</string>
+    <string name="button1">Button # 1</string>
+    <string name="button2">Button # 2</string>
+    <string name="button3">Button # 3</string>
+    <string name="button4">Button # 4</string>
+    <string name="ready">Ready</string>
+    <string name="option1">Option1</string>
+    <string name="option2">Option2</string>
+    <string name="verdadero">Verdadero</string>
+    <string name="falso">Falso</string>
+    <string name="optionA">Option A</string>
+    <string name="optionb">Option B</string>
+    <string name="special_button">Special button</string>
+    <string name="activated">Activated</string>
+    <string name="deactivated">Deactivated</string>
+    <string name="main">Main</string>
+
+</resources>

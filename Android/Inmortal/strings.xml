@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Inmortal</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="button">Add comment</string>
+    <string name="hint">Type a comment</string>
+    <string name="textview">TextView</string>
+
+</resources>
