@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <title>Image manager</title>
+    </head>
+    <body>
+        <h1> Welcome to image_manager </h1>
+
+        <h2> Log in </h2>
+        <form action='/login' method="post">
+            User: <input type="text" name="user"><br>
+            Password: <input type="password" name="password"><br>
+
+            <button type="submit"> Enter </button>
+        </form>
+
+        <h2> Register </h2>
+        <form action='/register' method="post">
+            User: <input type="text" name="ruser"><br>
+            Password: <input type="password" name="rpassword"><br>
+            Retype Password: <input type="password" name="rpassword2"><br>
+
+            <button type="submit"> Register </button>
+        </form>
+
+        <h2> Consult existing users </h2>
+        <form action='/read_users'>
+            <button type="submit"> Consult </button>
+        </form>
+
+        <%= msg %>
+    </body>
+</html>
