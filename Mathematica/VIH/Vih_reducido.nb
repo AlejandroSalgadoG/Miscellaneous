@@ -1,0 +1,86 @@
+ClearAll["Global`*"]
+
+ini = 0;
+fin = 500;
+
+X1ini = 450;
+X2ini = 1;
+
+d = 0.02;
+k = 100;
+s = 10;
+\[Beta] = 0.000024;
+\[Mu] = 0.24;
+c = 2.4;
+
+X1fun[U_] = (X1'[t] == s - d X1[t] - (1 - U) (\[Beta] k)/c X1[t] X2[t]);
+X2fun[U_] = (X2'[t] == (1 - U) (\[Beta] k)/c X1[t] X2[t] - \[Mu] X2[t]);
+
+Manipulate[
+    system =NDSolve[{X1fun[U], X2fun[U],
+               X1[0] == X1ini, X2[0] == X2ini},
+               {X1, X2}, {t, ini, fin}];
+
+    functions = First[{X1[t], X2[t]} /. system];
+
+    x1fun = Part[functions, 1];
+    x2fun = Part[functions, 2];
+
+    x1plot = Plot[x1fun, {t, ini, fin},
+        PlotLabel -> "X1",
+        PlotLabels -> {"X1"},
+        PlotRange -> {0, 500},
+        Frame -> {True, True, False, False},
+        FrameLabel -> {"Tiempo", "Valores"},
+        ImageSize -> 400
+    ];
+
+    x2plot = Plot[x2fun, {t, ini, fin},
+        PlotLabel -> "X2",
+        PlotLabels -> {"X2"},
+        PlotRange -> {0, 100},
+        Frame -> {True, True, False, False},
+        FrameLabel -> {"Tiempo", "Valores"},
+        ImageSize -> 400
+    ];
+
+    parametricPlot = ParametricPlot[{x1fun, x2fun}, {t, ini, fin},
+                        AspectRatio -> 0.7,
+                        PlotRange -> {{0, 500}, {0, 100}},
+                        AxesLabel -> {"X1", "X2"},
+                        ImageSize -> 400];
+
+    GraphicsGrid[{{x1plot, x2plot}, { parametricPlot}}],
+
+    Style["Entradas", Bold], Delimiter,
+    {{U, 0, "U"}, 0, 1, Appearance -> "Labeled"},
+
+    ControlPlacement -> Left
+]
+
+U = 0;
+
+X1Rand[] := X1ini + X1ini*RandomReal[{-1, 1}];
+X2Rand[] := X2ini + X2ini*RandomReal[{-1, 1}];
+
+sim1 = NDSolve[{X1fun[U], X2fun[U], X1[0] == X1Rand[],
+            X2[0] == X2Rand[]},
+            {X1, X2}, {t, ini, fin}];
+
+sim2 = NDSolve[{X1fun[U], X2fun[U], X1[0] == X1Rand[],
+            X2[0] == X2Rand[]},
+            {X1, X2}, {t, ini, fin}];
+
+pPlot1 = ParametricPlot[{X1[t], X2[t]} /. sim1, {t, ini, fin},
+            AspectRatio -> 0.7,
+            PlotRange -> {{0, 1000}, {0, 100}},
+            AxesLabel -> {"X1", "X2"},
+            ImageSize -> 400];
+
+pPlot2 = ParametricPlot[{X1[t], X2[t]} /. sim2, {t, ini, fin},
+            AspectRatio -> 0.7,
+            PlotRange -> {{0, 1000}, {0, 100}},
+            AxesLabel -> {"X1", "X2"},
+            ImageSize -> 400];
+
+Show[pPlot1, pPlot2]
