@@ -19,16 +19,15 @@ X2fun[U1_] = (X2'[t] == (1 - U1) \[Beta] X1[t] X3[t] - \[Mu] X2[t]);
 X3fun[U2_] = (X3'[t] == (1 - U2) k X2[t] - c X3[t]);
 
 Manipulate[
-    system = NDSolve[{X1fun[U1], X2fun[U1], X3fun[U2],
-                X1[0] == X1ini, X2[0] == X2ini, X3[0] == X3ini},
-                {X1, X2, X3}, {t, ini, fin}];
-
-    functions = First[{X1[t], X2[t], X3[t]} /. system];
-    
+    system = ParametricNDSolve[{X1fun[u1], X2fun[u1], X3fun[u2], X1[0] == X1ini, X2[0] == X2ini, X3[0] == X3ini,
+                WhenEvent[t == tmod, {u1 -> u1mod, u2 -> u2mod}]}, {X1, X2, X3}, {t, ini, fin}, {u1, u2, u1mod, u2mod}];
+ 
+    functions = {X1[U1, U2, U1Mod, U2Mod][t], X2[U1, U2, U1Mod, U2Mod][t], X3[U1, U2, U1Mod, U2Mod][t]} /. system;
+ 
     x1fun = Part[functions, 1];
     x2fun = Part[functions, 2];
     x3fun = Part[functions, 3];
-    
+ 
     x1plot = Plot[x1fun, {t, ini, fin}, 
         PlotLabel -> "X1",
         PlotLabels -> {"X1"},
@@ -37,7 +36,7 @@ Manipulate[
         FrameLabel -> {"Tiempo", "Valores"},
         ImageSize -> 400
     ];
-    
+ 
     x2plot = Plot[x2fun, {t, ini, fin}, 
         PlotLabel -> "X2",
         PlotLabels -> {"X2"},
@@ -46,7 +45,7 @@ Manipulate[
         FrameLabel -> {"Tiempo", "Valores"},
         ImageSize -> 400
     ];
-    
+ 
     x3plot = Plot[x3fun, {t, ini, fin}, 
         PlotLabel -> "X3",
         PlotLabels -> {"X3"},
@@ -55,18 +54,24 @@ Manipulate[
         FrameLabel -> {"Tiempo", "Valores"},
         ImageSize -> 400
     ];
-    
-    parametricPlot =  ParametricPlot3D[{x1fun, x2fun, x3fun}, {t, ini, fin}, 
-                            AspectRatio -> 0.7, 
-                            PlotRange -> {{0, 1000}, {0, 1500}, {0, 3000}}, 
-                            AxesLabel -> {"X1", "X2", "X3"},
-                            ImageSize -> 400];
-    
+ 
+    parametricPlot = ParametricPlot3D[{x1fun, x2fun, x3fun}, {t, ini, fin}, 
+                        AspectRatio -> 0.7, 
+                        PlotRange -> {{0, 1000}, {0, 1500}, {0, 3000}}, 
+                        AxesLabel -> {"X1", "X2", "X3"}, ImageSize -> 400];
+ 
     GraphicsGrid[{{x1plot, x2plot}, {x3plot, parametricPlot}}],
-    
+ 
     Style["Entradas", Bold], Delimiter,
     {{U1, 0, "U1"}, 0, 1, Appearance -> "Labeled"},
     {{U2, 0, "U2"}, 0, 1, Appearance -> "Labeled"},
+    
+    Style["Tiempo de modificacion", Bold], Delimiter,
+    {{tmod, 500, "T"}, ini, fin, Appearance -> "Labeled"},
+    
+    Style["Entradas modificadas", Bold], Delimiter,
+    {{U1Mod, 0, "U1"}, 0, 1, Appearance -> "Labeled"},
+    {{U2Mod, 0, "U2"}, 0, 1, Appearance -> "Labeled"},
     
     ControlPlacement -> Left
 ]
