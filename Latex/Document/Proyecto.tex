@@ -1,12 +1,13 @@
 \documentclass{article}
 
 \usepackage[utf8]{inputenc}
-\usepackage[spanish]{babel}
+\usepackage[spanish,es-tabla]{babel}
 \usepackage{babelbib}
 \usepackage{geometry}
 \usepackage{mathtools}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{multicol}
 
 \geometry{letterpaper,tmargin=2cm,bmargin=2cm,lmargin=2cm,rmargin=2cm}
 
@@ -51,7 +52,7 @@ estudiada en clase.
     \item Simular el sistema.
     \item Estudiar el acoplamiento de ecuaciones.
     \item Realizar un análisis completo de las gráficas.
-    \item Análisis del sistema al variar entradas y condiciones iniciales.
+    \item Análizar el sistema al variar entradas y condiciones iniciales.
     \item Hallar los puntos de equilibrio del sistema.
     \item Linealizar el sistema y hacer un análisis de estabilidad en los puntos de equilibrio.
 \end{itemize}
@@ -75,25 +76,19 @@ antecedentes los siguientes modelos generales.
 
         \vspace{0.5cm}
 
-        \begin{tabular}[t]{|p{4cm} p{3.5cm}|}
+        \begin{table}[H]
+        \begin{tabular}[t]{|p{4cm} p{3.5cm}|p{4cm} p{4cm}|}
             \hline
-            \textbf{Variables de estado} & \textbf{Unidades} \\
+            \textbf{Variables de estado} & \textbf{Unidades} & \textbf{Parámetros} & \textbf{Unidades} \\
             \hline
-            $s$: Población susceptible & Número de individuos\\
-            $i$: Población infectada  & Número de individuos\\
-            $r$: Población recuperada & Número de individuos\\
-            \hline
-        \end{tabular}
-        \hspace{0.5cm}
-        \begin{tabular}[t]{|p{4cm} p{4cm}|}
-            \hline
-            \textbf{Parámetros} & \textbf{Unidades} \\
-            \hline
-            $b$: tasa de infección    & $1/(individuos * tiempo)$\\
-            $k$: tasa de recuperación & $1/tiempo$\\
+            $s$: Población susceptible & Número de individuos & $b$: tasa de infección    & $1/(individuos * tiempo)$\\
+            $i$: Población infectada   & Número de individuos & $k$: tasa de recuperación & $1/tiempo$\\
+            $r$: Población recuperada  & Número de individuos &  & \\
             \hline
         \end{tabular}
-        \cite{sir}
+        \caption{Información modelo SIR \cite{sir}}
+        \label{table:sir}
+        \end{table}
 
         \vspace{0.5cm}
 
@@ -118,26 +113,20 @@ antecedentes los siguientes modelos generales.
 
         \vspace{0.5cm}
 
-        \begin{tabular}[t]{|p{4cm} p{3.5cm}|}
+        \begin{table}[H]
+        \begin{tabular}[t]{|p{4cm} p{3.5cm}|p{4.5cm} p{4cm}|}
             \hline
-            \textbf{Variables de estado} & \textbf{Unidades} \\
+            \textbf{Variables de estado} & \textbf{Unidades} & \textbf{Parámetro} & \textbf{Unidades} \\
             \hline
-            $p$: Población presas       & Número de individuos\\
-            $d$: Población depredadores & Número de individuos\\
-            \hline
-        \end{tabular}
-        \hspace{0.5cm}
-        \begin{tabular}[t]{|p{4.5cm} p{4cm}|}
-            \hline
-            \textbf{Parámetro} & \textbf{Unidades} \\
-            \hline
-            $\alpha$:  tasa nacimiento presas   & $1/tiempo$\\
-            $\beta$:   tasa caza                & $1/(individuos * tiempo)$\\
-            $\lambda$: tasa alimentación        & $1/(individuos * tiempo)$\\
-            $\gamma$:  tasa muerte depredadores & $1/tiempo$\\
+            $p$: Población presas       & Número de individuos & $\alpha$: tasa nacimiento presas    & $1/tiempo$\\
+            $d$: Población depredadores & Número de individuos & $\beta$: tasa caza                  & $1/(individuos * tiempo)$\\
+                                        &                      & $\lambda$: tasa alimentación        & $1/(individuos * tiempo)$\\
+                                        &                      & $\gamma$:  tasa muerte depredadores & $1/tiempo$\\
             \hline
         \end{tabular}
-        \cite{predator}
+        \caption{Información modelo predador-presa \cite{predator}}
+        \label{table:predator}
+        \end{table}
 
         \vspace{0.5cm}
 
@@ -154,13 +143,21 @@ antecedentes los siguientes modelos generales.
 \section{Modelo escogido}
 
     \Large
-    $$\dot{x_1} = s -dx_1 - (1-u_1) \beta x_1 x_3$$
-    $$\dot{x_2} = (1-u_1) \beta x_1 x_3 - \mu x_2$$
-    $$\dot{x_3} = (1-u_2) k x_2 - c x_3$$
+    \begin{equation}
+    \dot{x_1} = s -dx_1 - (1-u_1) \beta x_1 x_3
+    \end{equation}
+    \begin{equation}
+    \dot{x_2} = (1-u_1) \beta x_1 x_3 - \mu x_2
+    \end{equation}
+    \begin{equation} \label{eq:3}
+    \dot{x_3} = (1-u_2) k x_2 - c x_3
+    \end{equation}
     \normalsize
 
 \vspace{1cm}
 
+    \begin{table}[H]
+    \centering
     \begin{tabular}{|p{6cm} p{2.5cm}|}
         \hline
         \textbf{Variables de estado} & \textbf{Unidades} \\
@@ -196,8 +193,11 @@ antecedentes los siguientes modelos generales.
         $c$: Tasa de muerte de los virus libres         & 2.4             & $s^{-1}$\\
         \hline
     \end{tabular}
+    \caption{Información del modelo escogido completo \cite{model}}
+    \label{table:modelComplete}
+    \end{table}
 
-\vspace{1cm}
+\vspace{0.5cm}
 
 En este modelo se busca plasmar la dinámica del virus VIH con el uso de tres
 variables de estado que representan las células saludables, las infectadas y la
@@ -211,6 +211,8 @@ de células infectadas y por último en la tercera, se plasma el proceso
 por el cual las células contaminadas liberan más virus en el sistema, los
 cuales a su vez también tienen una tasa de muerte natural que los disminuye.\\
 
+\newpage
+
     \subsection{Modelo reducido}
 
     \Large
@@ -220,6 +222,8 @@ cuales a su vez también tienen una tasa de muerte natural que los disminuye.\\
 
     \vspace{0.5cm}
 
+    \begin{table}[H]
+    \centering
     \begin{tabular}{|p{6cm} p{2.5cm}|}
         \hline
         \textbf{Variables de estado} & \textbf{Unidades} \\
@@ -254,8 +258,9 @@ cuales a su vez también tienen una tasa de muerte natural que los disminuye.\\
         $c$: tasa de muerte de los virus libres         & 2.4             & $s^{-1}$\\
         \hline
     \end{tabular}
-
-    \cite{model}
+    \caption{Información modelo escogido reducido \cite{model}}
+    \label{table:modelReduced}
+    \end{table}
 
     \vspace{0.5cm}
 
@@ -272,15 +277,16 @@ entendimiento del modelo.
 \section{Análisis de las ecuaciones}
 
 En esta sección se discutirá con mas detalle la estructura del modelo escogido
-en su versión reducida, ya que es esta la que se usará para el resto del trabajo.
+en su versión reducida, ya que es esta la que se usará para el resto del trabajo,
+debido a que representa el sistema que se desea estudiar de una manera más simple.
 
     \subsection{Proceso de reducción}
 
-    el modelo pudo ser reducido al observar la relación que existe
+    El modelo pudo ser reducido al observar la relación que existe
     entre las variables $x_2$ y $x_3$, donde después de un periodo corto de
-    tiempo se vuelven proporcionales, tal como se muestra en la figura \ref{fig:relacion}.
+    tiempo se vuelven proporcionales, tal como se muestra en la Figura \ref{fig:relacion}.
 
-    Ahora, la ecuación 3 puede ser vista como un sistema lineal estable con
+    Ahora, en (\ref{eq:3}) puede ser vista como un sistema lineal estable con
     $x_2$ como entrada, en donde la estabilidad se alcanza rápidamente, por lo
     que al hacer $\dot{x_3} = 0$ se obtiene
 
@@ -306,9 +312,9 @@ en su versión reducida, ya que es esta la que se usará para el resto del traba
     párametros como constantes, tal como la tasa de producción y muerte de las
     células sanas e infectadas, o las tasas de produccion y muerte de virus libres.
 
-    Además de esto, aunque no es una suposición, el modelo plantea que no es
-    posible eliminar la infección por completo, característica que se esperaría
-    en un caso real de la enfermad.\\
+    Además de esto, el modelo plantea que no es posible eliminar la infección
+    por completo, característica que se esperaría en un caso real de la
+    enfermad.\\
 
     Es importante mencionar que el modelo se puede trabajar tanto para
     individuos infectados como para aquellos que se ecuentran sanos, esto dependiendo
@@ -333,9 +339,7 @@ en su versión reducida, ya que es esta la que se usará para el resto del traba
     representa la acción de drogas PI (Inhibidores de proteasa), las cuales
     previenen que las células infectadas produzcan más virus libres,
     permitiendo así ejercer un control sobre el desarrollo del virus en el
-    cuerpo.\\
-
-    Cabe resaltar también, que en la actualidad ninguna droga llega a una
+    cuerpo. Cabe resaltar también, que en la actualidad ninguna droga llega a una
     eficiencia del 100\% por lo cual un valor cercano a 1 en las entradas que
     representan su efecto ocasiona que la simulación tome una condición cada vez
     más teórica.\cite{model}\\
@@ -379,8 +383,6 @@ en su versión reducida, ya que es esta la que se usará para el resto del traba
     de céluas infectadas en la segunda, generando así una fuerte dependencia entre
     las dos ecuaciones.
 
-\newpage
-
 \section{Diagrama de estados}
 
 \begin{figure}[h!]
@@ -398,7 +400,7 @@ multiplicación de dos entradas y $\frac{1}{s}$ representa un integrador.
 
 Las siguientes simulaciones fueron realizadas con la ayuda del software Mathematica
 \cite{mathematica}, el código usado puede ser encontrado en
-https://github.com/AlejandroSalgadoG/Miscellaneous/tree/master/Mathematica/VIH.
+https://github.com/AlejandroSalgadoG/Miscellaneous/tree/master/Mathematica/Vih.
 
 \begin{itemize}
     \item Modelo con entrada constante.
@@ -414,8 +416,6 @@ corresponde a la entrada, y finalmente el tercer campo da información sobre el
 tiempo en el cual la entrada sufre la modificación especificada en el último
 campo de la ventana. Es importante mencionar que este último campo corresponde al valor
 total de la entrada, no a una desviación.
-
-\newpage
 
 \begin{figure}[H]
     \includegraphics[width=\textwidth]{Images/Vih-u-constante}
@@ -501,10 +501,290 @@ y el número de células infectadas se incrementa.
 Por último, en esta simulación se puede observar el caso en el que se
 suministran medicamentos desde el principio y luego de un tiempo se incrementa
 la dosis, los resultados muestran que, de nuevo, en un principio el sistema se
-estabiliza hasta que llega el nuevo valor de la entrada, la cual 
+estabiliza hasta que llega el nuevo valor de la entrada, la cual
 tiene, después de su oscilación, el efecto de aumentar el número de
 células sanas que son producidas y diezma el número de las células infectadas
 en el sistema.
+
+\section{Linealización}
+
+En esta sección se discutir la linealización del modelo, es importante aclarar
+que a partir de este punto todas las simulaciones fueron realizadas con ayuda
+del software MATLAB y Simulink. En la Tabla \ref{table:linearInfo} se muestra
+la información acerca de la linealización que se realizó.
+
+\begin{table}[H]
+\begin{equation*}
+    \begin{cases}
+       X1 = 266.677 & \text{Cantidad inicial de células sanas} \\
+       X2 = 19.4406 & \text{Cantidad inicial de células infectadas}\\
+       u = 0.1      & \text{Efectividad del medicamento suministrado}
+    \end{cases}
+\end{equation*}
+
+\begin{multicols}{4}
+    \begin{equation*}
+        A = \begin{bmatrix}
+                -0.0375 & -0.2400\\[0.25cm]
+                0.0175 & 0.0000
+            \end{bmatrix}
+    \end{equation*}
+
+    \begin{equation*}
+        B = \begin{bmatrix}
+                5.1844\\[0.25cm]
+                -5.1844
+            \end{bmatrix}
+    \end{equation*}
+
+    \begin{equation*}
+        C = \begin{bmatrix}
+                1 & 0\\[0.25cm]
+                0 & 1
+            \end{bmatrix}
+    \end{equation*}
+
+    \begin{equation*}
+        D = \begin{bmatrix}
+                0\\[0.25cm]
+                0
+            \end{bmatrix}
+    \end{equation*}
+
+\end{multicols}
+\caption{Información sobre la linealización}
+\label{table:linearInfo}
+\end{table}
+
+Al buscar los valores propios de la matriz $A$ se encontró que corresponden a
+$-0.0187 + 0.0620i$ y $-0.0187 - 0.0620i$, los cuales corresponden a números
+complejos conjugados con parte real negativa, implicando que el punto de equilibrio
+escogido es del tipo espiral, el cual presenta un comportamiento asintóticamente
+estable.
+
+\subsection{Simulaciones}
+
+Se realizaron diferentes simulaciones variando el valor de la entrada para
+observar el comportamiento del sistema lineal y compararlo con su versión no
+lineal. En la Figura \ref{sim:linear1} se puede observar como al incrementar la
+entrada solo un poco, el sistema lineal sigue representado de manera casi
+perfecta el comportamiento de su contraparte no lineal, sin embargo, tal como
+se puede ver en la Figura \ref{sim:linear2}, a medida que la entrada se aleja
+cada vez más de su valor original, la similiridad que caracterizaba ambos
+modelos empieza a disiparse cada vez más, hasta llegar a un punto donde dicha
+similitud se pierde, debido a la lejania del punto de operación seleccionado,
+tal como lo sugiere la Figura \ref{sim:linear3}, donde los dos
+modelos exhiben un comportamiento diferente, especialmente en la
+dinámica de las células infectadas.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.7]{Images/LinealU15.png}
+    \caption{Simulación con entrada incrementada en 0.05 unidades de su valor inicial}
+    \label{sim:linear1}
+\end{figure}
+
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{Images/LinealU20.png}
+    \caption{Simulación con entrada incrementada en 0.1 unidades de su valor inicial}
+    \label{sim:linear2}
+\end{figure}
+
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{Images/LinealU35.png}
+    \caption{Simulación con entrada incrementada en 0.25 unidades de su valor inicial}
+    \label{sim:linear3}
+\end{figure}
+
+\section{Control}
+
+Posteriormente se comenzó a realizar un sistema de control que permitiera
+controlar la cantidad de células sanas e infectadas del modelo. Para la construcción
+de dicho controlador se hizo uso del modelo lineal construido en la sección anterior,
+con el objetivo de crear un control lineal por retroalimentación de
+estados que puediese ser usado para este fin. El primer paso fue el cálculo de
+la matriz de controlabilidad, la cual arrojó como resultado la siguiente matriz.
+
+\begin{equation*}
+    Q = \begin{bmatrix}
+            5.1844  & 1.0499 \\[0.25cm]
+            -5.1844 & 0.0907
+        \end{bmatrix}
+\end{equation*}\\
+
+La cual resultó tener un rango igual a 2, implicando que el sistema es controlable.
+Luego de conocer esta información se procedió a encontrar los valores de los polos
+que permitirían controlar cada uno de las variables de estado y la ganancia necesaria
+para que el controlador tuviese un comportamiento adecuado, todo esto con el objetivo de
+realizar la implementación del controlador lineal sobre el modelo no lineal.
+Dicho proceso se logró con el uso de las siguientes expresiones.\\
+
+\begin{equation}\label{eq:newA}
+    A' = A-BK
+\end{equation}
+
+\begin{equation}\label{eq:gain}
+    G = \frac{-1}{C1 (A-BK)^{-1} * B}
+\end{equation}
+
+\subsection{Control de X1}
+
+Para este caso se encontró que los polos $-0.4$ y $-0.2$ permiten que el
+controlador manipule la cantidad de células sanas en el modelo sin presentar
+sobrepicos muy pronunciados. Dichos polos fueron alcanzados al reemplazar la
+matriz $A$ por una nueva matriz calculada con (\ref{eq:newA}) donde $K=[0.0566,
+-0.0519]$, y de manera similar la ganacia necesaria para que el
+controlador pudiese llegar a un valor de referencia establecido, fue
+calculada con (\ref{eq:gain}) donde $C1 = [1, 0]$, con el objetivo de
+especificar que es X1 la variable que se desea controlar, dicho proceso
+arrojó como resultado una ganancia de 0.0643.\\
+
+Se realizaron 3 simulaciones para esta variable, dos mostrando como es el
+comportamiento del sistema cuando el controlador intenta aumentar la cantidad
+de células sanas en el modelo y una mostrando el comportamiento en
+caso de tratar de disminuir las células sanas. Es importante resaltar que este
+último caso es únicamente para ilustrar el comportamiento del sistema, ya que
+disminuir la cantidad de células sanas en el cuerpo empeoraría la salud de las
+personas infectadas con la efermedad.\\
+
+El primer caso que se simuló fue tratar de llevar la cantidad de células sanas
+a un valor un poco mayor que el estado inicial, en la Figura \ref{fig:x1to320} se
+puede observar como el controlador comienza a variar la entrada para generar el
+cambio deseado en el sistema, es importante recordar que dicha entrada solo puede
+tomar valores entre 0 y 1, por lo cual el cambio demora un poco más para llegar
+al punto deseado que en el caso en el que no se tuviese esta restricción, además
+presenta un pico alrededor del tiempo 120 debido a que la entrada
+no puede tomar valores negativos, sin embargo gracias a esta
+restricción el modelo se comporta de manera más realista.
+
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{Images/ControlX1Up.png}
+    \caption{Controlador tratando de llevar X1 a 320 células sanas}
+    \label{fig:x1to320}
+\end{figure}
+
+En la Figura \ref{fig:x1to450} se puede observar la segunda simulación
+realizada, la cual consistió en incrementar aun más el número de células sanas
+en el modelo, se puede obervar como el controlador empieza a variar la entrada
+para tratar de llevar el sistema al estado deseado, en este caso se hacen más
+notorias las características mencionadas anteriormente, como la demora en
+llegar al estado deseado o la restricción de la entrada, evidenciada en la
+saturación que se presenta debido a la necesidad de seguir incrementando la
+cantidad de células sanas en el cuerpo para luego suspender su uso y reducirlas
+hasta llegar al punto deseado.
+
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{Images/ControlX1Up2.png}
+    \caption{Controlador tratando de llevar X1 a 450 células sanas}
+    \label{fig:x1to450}
+\end{figure}
+
+Finalmente se simuló un caso para observar el comportamiento del sistema cuando
+se reduce el valor de la primera variable de estado, tal como se muestra en la
+Figura \ref{fig:x1to200}, es importante mencionar que este caso busca
+simplemente ilustrar el comportamiento, ya que no es aplicable en la vida real.
+En este caso se encontró un comportamiento bastante particular, ya que no se
+logro llegar al punto especificado como referencia, sin embargo, dicho
+comportamiento puede explicarse si se considera la restricción impuesta sobre
+la entrada, la cual puede tomar como mínimo un valor de 0, lo que genera que
+las células sanas disminuyan por un tiempo, pero debido a las dinámicas del
+sistema en ausencia de la droga suministrada, este se estabiliza antes de
+llegar al punto deseado.
+
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{Images/ControlX1Down.png}
+    \caption{Controlador tratando de llevar X1 a 200 células sanas}
+    \label{fig:x1to200}
+\end{figure}
+
+\subsection{Control de X2}
+
+Luego, en este caso se encontró que los polos $-0.1$ y $-0.05$ permiten que
+el controlador manipule la cantidad de células infectadas en el modelo sin
+presentar sobrepicos. De manera análoga al caso anterior, dichos polos fueron
+alcanzados al reemplazar la matriz $A$ por una nueva matriz calculada con
+(\ref{eq:newA}) donde $K=[-0.0013, -0.0230]$, y la ganacia
+necesaria para que el controlador pudiese llegar a un valor de referencia
+establecido fue calculada con (\ref{eq:gain}) donde, ahora, $C1 = [0, 1]$, con el
+objetivo de especificar que es X2 la variable que se desea controlar, dicho
+proceso arrojó como resultado una ganancia de -0.0482.\\
+
+Se realizaron dos simulaciones, la primera con el objetivo de reducir la cantidad
+de células infectadas en el modelo y otro caso, netamente ilustrativo, en el que
+se aumentan la cantidad de estas células para observar el comportamiento del
+sistema. \\
+
+En la Figura \ref{fig:x2to13} se muestra la primera simulación, el
+comportamiento es bastante normal, el controlador varía la entrada dentro del
+rango permitido, es decir no hubo necesidad de saturar la entrada, para
+ocacionar una disminución en la cantidad de células infectadas hasta llegar al
+nivel deseado y en consecuencia se genera un aumento en la cantidad de células sanas.
+
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{Images/ControlX2Down.png}
+    \caption{Controlador tratando de llevar X2 a 13 células infectadas}
+    \label{fig:x2to13}
+\end{figure}
+
+Posteriormente se simuló un caso en el que controlador tratara de aumentar
+el valor de la segunda variable de estado, en este caso se encontró un resultado
+bastante similar al mostrado en la Figura \ref{fig:x1to200}, ya que no se logra
+llegar al valor deseado debido a la restricción de valores que la entrada puede
+tomar. En esta simulación la cantidad de células infectadas se incrementa por un momento
+pero luego se estabiliza en un punto defirente al deseado debido a la dinámica
+propia del sistema.
+
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{Images/ControlX2Up.png}
+    \caption{Controlador tratando de llevar X2 a 30 células infectadas}
+\end{figure}
+
+\section{Estimación de parámetros}
+
+Por último, se realizó una estimación de parámetros, el procedimiento que se realizó
+fue tomar una versión del modelo no lineal con los parámetros utilizados en \cite{model}
+para simular las salidas del sistema real, y se utilizó otra copia del mismo modelo
+pero con los valores de los parámetros $d$, $k$ y $s$ igualados a 0 con el objetivo
+de estimarlos. Las condiciones iniciales usadas corresponden a $X1 = 450$
+y $X2 = 1$, con una entrada $u = 0.1$. Las simulaciones de ambos modelos pueden
+ser observadas en la Figura \ref{plot:befEstimation}, donde se puede observar
+un comportamiento completamente diferente en ambos modelos.\\
+
+Luego de la estimación de parámetros se llego a un muy buen resultado, los valores
+reales y los resultados obtenidos pueden ser consultados en la
+Tabla \ref{table:paramInfo}, y en la Figura \ref{plot:aftEstimation} se puede
+observar la nueva simulación utilizando los valores encontrados con la estimación.
+
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{Images/BeforeEstimated.png}
+    \caption{Simulación antes de la estimación de parámetros}
+    \label{plot:befEstimation}
+\end{figure}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        Parámetro & Valor real & Valor estimado\\
+        \hline
+        $d$       & 0.02       & 0.02\\
+        $k$       & 100        & 100.0004\\
+        $s$       & 10         & 10.0119\\
+        \hline
+        \multicolumn{3}{|c|}{Error total (suma de cuadrados)}\\
+        \hline
+        \multicolumn{3}{|c|}{$3.3110$ x$10^{-07}$}\\
+        \hline
+    \end{tabular}
+    \caption{Información sobre la estimación de parámetros}
+    \label{table:paramInfo}
+\end{table}
+
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{Images/Estimated.png}
+    \caption{Resultados de la estimación de parámetros}
+    \label{plot:aftEstimation}
+\end{figure}
 
 \section{Conclusiones}
 
@@ -519,11 +799,24 @@ en el sistema.
     de VIH real, tal como se ve reflejado en el hecho de no poder curar totalmente
     a una persona, pero si reducir los efectos del virus con la ayuda de medicamentos.
 
-    \item Por último, se considera que la reducción del modelo fue realizada de
+    \item Se considera que la reducción del modelo fue realizada de
     una manera correcta, ayuda a lograr un entendimiento más rápido y sigue
     presentado las dinámicas de sistema de manera completa, ya que no se pierde
     información en su proceso debido a la facilidad de encontrar los valores de
     la tercera variable de estado por medio de su ecuación algebráica.
+
+    \item Se considera que el modelo lineal encontrado fue de gran utilidad ya
+    que no solo permite representar el sistema no lineal cerca del punto de
+    operación, sino que permitió la implementación de un controlador para el sistema
+    no lineal que funciona de una manera bastante buena.
+
+    \item Por último, aunque se encontró que el sistema lineal construido es
+    controlable, se descubrió que debido a las restricciones impuestas sobre la
+    entrada al sistema y las dinámicas que rigen el comportamiento del modelo
+    no es posible llevar el sistema a cualquier valor de las variables de
+    estado, sin embargo aquellos casos corresponden a acciones que empeorarían
+    la salud del paciente, como lo es el incremento de las células infectadas o
+    el decremento de las sanas.
 \end{itemize}
 
 \bibliographystyle{unsrt}
