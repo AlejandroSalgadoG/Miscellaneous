@@ -1,0 +1,89 @@
+ClearAll["Global`*"]
+
+ini = 0;
+fin = 500;
+
+d = 0.02;
+k = 100;
+s = 10;
+\[Beta] = 0.000024;
+\[Mu] = 0.24;
+c = 2.4;
+
+X1fun[U_] = (X1'[t] == s - d X1[t] - (1 - U) (\[Beta] k)/c X1[t] X2[t]);
+X2fun[U_] = (X2'[t] == (1 - U) (\[Beta] k)/c X1[t] X2[t] - \[Mu] X2[t]);
+
+Manipulate[
+    system = ParametricNDSolve[{X1fun[u], X2fun[u],
+                                X1[0] == X1ini, X2[0] == X2ini,
+                                WhenEvent[t == tmod, u -> umod]},
+                                {X1, X2}, {t, ini, fin}, {u, umod}];
+ 
+    functions = {X1[U, UMod][t], X2[U, UMod][t]} /. system;
+ 
+    x1fun = Part[functions, 1];
+    x2fun = Part[functions, 2];
+ 
+    x1plot = Plot[x1fun, {t, ini, fin}, 
+                  PlotLabel -> "X1",
+                  PlotLabels -> {"X1"},
+                  PlotRange -> {0, 500},
+                  Frame -> {True, True, False, False}, 
+                  FrameLabel -> {"Tiempo", "Valores"},
+                  ImageSize -> 400];
+    
+    x2plot = Plot[x2fun, {t, ini, fin}, 
+                  PlotLabel -> "X2",
+                  PlotLabels -> {"X2"},
+                  PlotRange -> {0, 100},
+                  Frame -> {True, True, False, False}, 
+                  FrameLabel -> {"Tiempo", "Valores"},
+                  ImageSize -> 400];
+    
+    parametricPlot = ParametricPlot[{x1fun, x2fun}, {t, ini, fin},
+                                    AspectRatio -> 0.7, 
+                                    PlotRange -> {{0, 500}, {0, 100}},
+                                    AxesLabel -> {"X1", "X2"}, 
+                                    ImageSize -> 400];
+    
+    GraphicsGrid[{{x1plot, x2plot}, {parametricPlot}}],
+    
+    Style["Valores iniciales", Bold], Delimiter,
+    {{X1ini, 450, "X1"}, 400, 500, Appearance -> "Labeled"},
+    {{X2ini, 1, "X2"}, 0, 10, Appearance -> "Labeled"},
+    
+    Style["Entrada", Bold], Delimiter,
+    {{U, 0, "U"}, 0, 1, Appearance -> "Labeled"},
+    
+    Style["Tiempo de modificacion", Bold], Delimiter,
+    {{tmod, 500, "T"}, ini, fin, Appearance -> "Labeled"},
+    
+    Style["Entrada modificada", Bold], Delimiter,
+    {{UMod, 0, "U"}, 0, 1, Appearance -> "Labeled"},
+    
+    ControlPlacement -> Left
+]
+
+x1ini = 450;
+x2ini = 1;
+
+X1Rand[] := x1ini + x1ini*RandomReal[{-1, 1}];
+X2Rand[] := x2ini + x2ini*RandomReal[{-1, 1}];
+
+n = 5;
+iniU = 0;
+
+functions = {};
+For[i = 0, i < n, i++,
+    sim = NDSolve[{X1fun[iniU], X2fun[iniU],
+                   X1[0] == X1Rand[], X2[0] == X2Rand[]},
+                   {X1, X2}, {t, ini, fin}];
+
+    functions = Append[functions, First[{X1[t], X2[t]} /. sim]]
+];
+
+ParametricPlot[functions, {t, ini, fin}, 
+               AspectRatio -> 0.7,
+               PlotRange -> {{0, 500}, {0, 100}},
+               AxesLabel -> {"X1", "X2"},
+               ImageSize -> 600]

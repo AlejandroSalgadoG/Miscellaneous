@@ -1,0 +1,45 @@
+ClearAll["Global`*"]
+
+(*Inputs*)
+Dini = 0.5; (*Initial infection rate*)
+Hini = 0.3; (*Initial healing rate*)
+
+(*Time*)
+ini = 0; 
+fin = 100;
+
+(*Initial configurations*)
+Sini = 1;
+Iini = 1.27 *10^-6;
+Rini = 0;
+
+(*Equations*)
+suceptible[d_]   = (s'[t] == -d s[t] i[t]);
+infected[d_, h_] = (i'[t] == d s[t] i[t] - h i[t]);
+recovered[h_]    = (r'[t] == h i[t]);
+
+(*Simulation*)
+Manipulate[
+    system = NDSolve[{suceptible[d], infected[d, h], recovered[h], s[0] == Sini, 
+                     i[0] == Iini, r[0] == Rini}, {s, i, r}, {t, ini, fin}];
+
+    functions = First[{s[t], i[t], r[t]} /. system];
+    
+    sfun = Part[functions, 1];
+    ifun = Part[functions, 2];
+    rfun = Part[functions, 3];
+    
+    Plot[{sfun, ifun, rfun}, {t, ini, fin}, 
+        PlotLabel -> "Sir model",
+        PlotLabels -> {"S", "I", "R"},
+        Frame -> {True, True, False, False}, 
+        FrameLabel -> {"Time", "Portion of population"},
+        ImageSize -> Large
+    ],
+    
+    Style["Rates", Bold], Delimiter,
+    {{d, Dini, "Infection rate"}, 0, 1, Appearance -> "Labeled"},
+    {{h, Hini, "Healing rate"}, 0, 1, Appearance -> "Labeled"},
+    
+    ControlPlacement -> Left
+]

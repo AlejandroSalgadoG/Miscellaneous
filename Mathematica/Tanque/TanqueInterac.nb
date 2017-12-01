@@ -1,0 +1,52 @@
+ClearAll["Global`*"]
+
+(*Constantes*)
+cp  = 4181.3; (*calor especifico*)
+ro  = 1000;   (*densidad del agua*)
+u   = 15000;  (*coeficiente de conduccion*)
+ac  = 9.596;  (*area de contacto entre el tanque y la chaqueta*)
+vt  = 3;      (*volumen del fluido en el tanque*)
+vc  = 0.5047; (*volumen de la chaqueta*)
+fmc = 120;    (*flujo maximo de agua fria*)
+fmh = 180     (*flujo maximo de agua caliente*)
+
+(*Entradas*)
+av = 0.55178424;
+tc = 2;
+th = 95;
+f  = 40;
+ti = 17.5;
+
+(*Variables auxiliares*)
+fc  = fmc * (1 - av);
+fh  = fmh * av;
+foj = fc + fh;
+
+(*Ecuaciones*)
+one = ro cp vt T'[t] == f cp ti - f cp T[t] + u ac (Tj[t] - T[t]);
+two = ro cp vc Tj'[t] == fc cp tc + fh cp th - foj cp Tj[t] + u ac (T[t] - Tj[t]);
+
+(*Condiciones iniciales*)
+Tini  = 36;
+Tjini = 57.49625527;
+
+(*Tiempo*)
+ini = 0;
+fin = 100;
+
+(*Simulacion*)
+Manipulate[
+    system = NDSolve[{one[f, ti], two[av, tc, th], T[0] == Tini, Tj[0] == Tjini}, {T, Tj}, {t, ini, fin}];
+
+    functions = {T[t], Tj[t]} /. system;
+    
+    Plot[functions, {t, ini, fin}, PlotRange -> {0, 100}],
+
+    {{av, avini}, 0, 1,   Appearance -> "Labeled"},
+    {{tc, tcini}, 0, 10,  Appearance -> "Labeled"},
+    {{th, thini}, 0, 200, Appearance -> "Labeled"},
+    {{f, fini},   0, 100, Appearance -> "Labeled"},
+    {{ti, tiini}, 0, 50,  Appearance -> "Labeled"},
+
+    ControlPlacement -> Left
+]

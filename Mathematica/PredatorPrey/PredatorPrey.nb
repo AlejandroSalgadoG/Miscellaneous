@@ -1,0 +1,46 @@
+ClearAll["Global`*"]
+
+(*Inputs*)
+B = 0.1; (*Initial born rate*)
+H = 0.02; (*Initial hunting rate*)
+F = 0.02; (*Initial feed rate*)
+M = 0.4; (*Initial death rate*)
+
+(*Time*)
+ini = 0; 
+fin = 100;
+
+(*Initial configurations*)
+Dini = 10;
+Pini = 100;
+
+(*Equations*)
+predator[f_, m_] = (d'[t] == f p[t] d[t] - m d[t]);
+prey[b_, h_] = (p'[t] == b p[t] - h d[t] p[t]);
+
+(*Simulation*)
+Manipulate[
+    system = NDSolve[{predator[f, m], prey[b, h], d[0] == Dini, p[0] == Pini}, {d, p}, {t, ini, fin}];
+
+    functions = First[{d[t], p[t]} /. system];
+    
+    dfun = Part[functions, 1];
+    pfun = Part[functions, 2];
+    
+    Plot[{dfun, pfun}, {t, ini, fin}, 
+        PlotLabel -> "Predator-Prey model",
+        PlotLabels -> {"D", "P"},
+        PlotRange -> {0, 100},
+        Frame -> {True, True, False, False}, 
+        FrameLabel -> {"Time", "Population"},
+        ImageSize -> Large
+    ],
+    
+    Style["Rates", Bold], Delimiter,
+    {{f, F, "Feed rate"}, 0, 1, Appearance -> "Labeled"},
+    {{m, M, "Predator death rate"}, 0, 1, Appearance -> "Labeled"},
+    {{b, B, "Prey born rate"}, 0, 1, Appearance -> "Labeled"},
+    {{h, H, "Hunting rate"}, 0, 1, Appearance -> "Labeled"},
+    
+    ControlPlacement -> Left
+]
