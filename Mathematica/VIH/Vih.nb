@@ -76,6 +76,15 @@ Manipulate[
     ControlPlacement -> Left
 ]
 
+Plot[x2fun/x3fun, {t, ini, fin},
+     PlotLabel -> "Relacion entre X2 y X3",
+     PlotLabels -> {"X2/X3"},
+     PlotRange -> {0, 0.05},
+     Frame -> {True, True, False, False},
+     FrameLabel -> {"Tiempo", "x2/x3"},
+     ImageSize -> 500
+]
+
 x1ini = 450;
 x2ini = 0;
 x3ini = 1;
