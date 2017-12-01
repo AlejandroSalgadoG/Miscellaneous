@@ -12,6 +12,7 @@ int main(int argc, char *argv[]){
     uchar4 *h_inputImageRGBA, *d_inputImageRGBA;
     uchar4 *h_outputImageRGBA, *d_outputImageRGBA;
     unsigned char *d_red, *d_green, *d_blue;
+    unsigned char *d_red_blurred, *d_green_blurred, *d_blue_blurred;
 
     string input_file = string(argv[1]);
     string output_file = string(argv[2]);
@@ -46,11 +47,11 @@ int main(int argc, char *argv[]){
     cudaMalloc(&d_green, sizeof(uchar4) * numPixels);
     cudaMalloc(&d_blue, sizeof(uchar4) * numPixels);
 
-    separate_channels(d_inputImageRGBA, d_red, d_green, d_blue);
+    cudaMalloc(&d_red_blurred, sizeof(uchar4) * numPixels);
+    cudaMalloc(&d_green_blurred, sizeof(uchar4) * numPixels);
+    cudaMalloc(&d_blue_blurred, sizeof(uchar4) * numPixels);
 
-    blur_image(d_red, d_green, d_blue, d_filter, filter_size);
-
-    recombine_channels(d_outputImageRGBA, d_red, d_green, d_blue);
+    blur_image(d_inputImageRGBA, d_outputImageRGBA, d_red, d_red_blurred, d_green, d_green_blurred, d_blue, d_blue_blurred, d_filter, filter_size);
 
     cudaMemcpy(h_outputImageRGBA, d_outputImageRGBA, sizeof(uchar4) * numPixels, cudaMemcpyDeviceToHost);
 

@@ -16,7 +16,7 @@ My_cuda_kernels.o: My_cuda_kernels.cu My_cuda_kernels.h
 	nvcc -c My_cuda_kernels.cu $(NVCC_OPTS)
 
 clean:
-	rm -f *.o Main MarioB.png
+	rm -f *.o Main Image*
 
 exe:
 	./Main image.png

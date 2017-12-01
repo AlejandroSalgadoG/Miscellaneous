@@ -1,6 +1,7 @@
 #pragma once
 
-void separate_channels(uchar4 *input_image, unsigned char *red, unsigned char *green, unsigned char *blue);
-void recombine_channels(uchar4 *output_image, unsigned char *red, unsigned char *green, unsigned char *blue);
-
-void blur_image(unsigned char *red, unsigned char *green, unsigned char *blue, float *filter, int filter_size);
+void blur_image(uchar4 *input_image, uchar4 *output_image,
+                unsigned char *red_in, unsigned char *red_out,
+                unsigned char *green_in, unsigned char * green_out,
+                unsigned char *blue_in, unsigned char *blue_out,
+                float *filter, int filter_size);
