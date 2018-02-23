@@ -4,16 +4,20 @@ to setup
   ca
   reset-ticks
 
-  crt 1 [
-    setxy 0 16
+  create-car 1
+  create-obstacles 5
+end
+
+to create-obstacles [ obstacles-num ]
+  ask n-of obstacles-num patches [ set pcolor red ]
+end
+
+to create-car [ car-num ]
+  crt car-num [
+    setxy random-xcor random-ycor
     set color blue
-    set heading 180
     set velocity 1
   ]
-
-  ask n-of 5 patches [ set pcolor red ]
-
-  ask patch 0 -9 [ set pcolor red ]
 end
 
 to go
