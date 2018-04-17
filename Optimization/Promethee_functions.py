@@ -1,57 +1,80 @@
 import sys
 
-def function1(criteria, x):
-    if x <= 0:
-        return 0
-    else:
-        return 1 
+from Promethee_preference_functions import *
 
-def function2(criteria, x):
-    if criteria == 3:
-        l = 0.75
-    else:
-        l = 1.5
+minimize = 0
+maximize = 1
 
-    if x <= l:
-        return 0
-    else:
-        return 1
+def get_0_matrix(height, width):
+    return [ [ 0 for j in range(width) ] for i in range(height) ]
 
-def function3(criteria, x):
-    if criteria == 3:
-        m = 0.75
-    else:
-        m = 1.5
-
-    if x <= m:
-        if x < 0:
-            return 0
-        return x/m
-    else:
-        return 1
-
-
-def display_output(pi_table, phi_plus, phi_minus, phi_total):
-    options_num = len(pi_table)
-    criteria_num = len(pi_table[0])
-
-    print("Pi table")
-    for i in range(options_num):
-        for j in range(criteria_num):
-            if i == j:
-                sys.stdout.write("  x  ")
-                continue
-            sys.stdout.write("%.2f " % pi_table[i][j])
-        print()
-
-    print()
-
-    print("Promethee 1")
-    for option in range(options_num):
-        print("%.2f, %.2f" % (phi_plus[option], phi_minus[option]))
+def print_matrix(title, A):
+    height = len(A)
+    width = len(A[0])
     
-    print()
+    print(title)
+    for i in range(height):
+        for j in range(width):
+            sys.stdout.write( " %.2f " % A[i][j])
+        print( "" )
 
-    print("Promethee 2")
-    for option in range(options_num):
-        print("%.2f" % phi_total[option])
+def print_vector(title, b):
+    length = len(b)
+
+    print(title)
+    for i in range(length):
+        sys.stdout.write( " %.2f " % b[i])
+    print( "" )
+
+def get_transpose(A):
+    alt_num = len(A)
+    criteria_num = len(A[0])
+
+    transpose = []
+
+    for j in range(criteria_num):
+        column = [ A[i][j] for i in range(alt_num) ]
+        transpose.append(column)
+    return transpose
+
+def calculate_pi(i,j, A, w, min_max, preference_fun):
+    criteria_num = len(A[0])
+
+    pi = 0
+    for k in range(criteria_num):
+        if min_max[k] == maximize:
+            x = A[i][k] - A[j][k]
+        else:
+            x = A[j][k] - A[i][k]
+        pi += w[k] * preference_fun(k, x)
+    return pi
+
+def calc_pi_table(A, w, min_max, preference_fun):
+    alt_num = len(A)
+    criteria_num = len(A[0])
+    
+    pi_matrix  = get_0_matrix(alt_num, criteria_num)
+
+    for i in range(alt_num):
+        for j in range(criteria_num):
+            pi_matrix[i][j] = calculate_pi(i,j, A, w, min_max, preference_fun)
+    return pi_matrix
+
+def calc_phi_plus(A, alt):
+    alt_num = len(A)
+    criteria_num = len(A[0])
+    n_1 = alt_num - 1
+    total_pi = 0
+
+    for j in range(criteria_num):
+        total_pi += A[alt][j]
+    return total_pi/n_1
+
+def calc_phi_minus(A, alt):
+    alt_num = len(A)
+    n_1 = alt_num - 1
+    total_pi = 0
+
+    for i in range(alt_num):
+        total_pi += A[i][alt]
+    return total_pi/n_1
