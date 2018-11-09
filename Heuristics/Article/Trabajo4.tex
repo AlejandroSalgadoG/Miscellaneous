@@ -1,0 +1,389 @@
+\documentclass[10pt, twoside]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{adjustbox}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{amsmath}
+\usepackage[]{todonotes}
+\usepackage{fancyhdr}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage[spanish,onelanguage]{algorithm2e}
+\usepackage{caption}
+\captionsetup[table]{skip=10pt}
+
+\usepackage[spanish, es-tabla]{babel}
+
+\title{Problema del flujo de trabajos}
+\author{\emph{Alejandro Salgado Gómez} y \emph{Juan Carlos Rivera}\\
+\vspace{0.3cm}
+\small{\tt{asalgad2@eafit.edu.co, jrivera6@eafit.edu.co}}\\
+Departamento de Ciencias Matemáticas\\
+Escuela de Ciencias\\
+Universidad EAFIT\\
+Medellín -- Colombia}
+\date{}
+
+\usepackage{anysize}
+\marginsize{3cm}{2cm}{2cm}{3cm}
+
+\pagestyle{fancy}
+\lfoot[\date{\today}]{\date{\today}}
+\rfoot[\thepage]{\thepage}
+\cfoot[]{}
+\rhead[Rivera et al. (2017)]{Problema del flujo de trabajos}
+\lhead[]{}
+
+\fancypagestyle{firststyle}
+{
+   \fancyhf{}
+   \fancyfoot[R]{Última actualización: Julio de 2017}
+}
+
+\sloppy
+
+\begin{document}
+
+    \maketitle
+
+    \thispagestyle{firststyle}
+
+\begin{abstract}
+En este trabajo se propenen diversos algoritmos para encontrar
+soluciones a problemas de flujo de trabajos. Dichos métodos fueron ejecutados 
+con diferentes instancias de problemas encontradas en la literatura, con el
+objetivo de comparar su desempeño y conocer sus fortalezas y debilidades a
+la hora de resolver este tipo de problemas. Se encontró que las diferencias en
+los tiempos de ejecución que estos métodos presentan son muy notorias,
+especialmente cuando el número de trabajos es incrementado a 100. También
+se encontró que existe una marcada distinción entre la calidad de las
+soluciones que estos algoritmos pueden llegar a producir.\\
+
+\noindent \textbf{Palabras Clave:}
+Heurística, Optimización, Modelación, Flujo de trabajos.
+\end{abstract}
+
+\section{Introducción}
+
+El problema de flujo de trabajos ha atraído la atención de un gran número de
+investigadores del área de optimización desde que fue propuesto por primera vez
+en 1954, y a impulsado la implementación de un número importante de
+aproximaciones que buscan dar una solución a este problema. Desde su primera
+formulación han surgido diversas variaciones del problema, por ejemplo, se puede 
+permitir que los trabajos tomen un orden distinto en cada una de las máquinas,
+generando un total de $(n!)^m$ posibles combinaciones. Sin embargo, en este
+trabajo se utilizará la versión en la que los trabajos se encuentran en una linea
+de producción y por lo tanto su orden no puede ser variado de una máquina a otra,
+reduciendo las posibles combinaciones a $n!$. Finalmente, aunque a primera
+vista parece un problema sencillo de resolver después de realizar esta
+simplificación, en \cite{complex} se demostró que es un problema
+NP-Hard.\\
+
+Se han utilizado diferentes aproximaciones para resolver este problema, tal como
+estrategias exactas, pero también de métodos heurísiticos, puesto que las 
+instancias de este problema pueden llegar a representar una alta complejidad
+cuando se trabaja con una cantidad considerable de trabajos. Esto debido a su
+crecimiento factorial en cuanto al número de secuencias posibles que se deben
+considerar. En \cite{heuristico4}, \cite{heuristico1}, \cite{heuristico2} y
+\cite{heuristico3} se pueden encontrar diferentes propuestas para usar una
+variedad de métodos heurísticos que buscan encontrar una solución eficiente
+para esta y otras posibles variaciones del problema.\\
+
+Esta trabajo está organizado de la siguiente manera, en primer lugar
+se da una explicación del problema en cuestion y se describirán algunas
+características importantes, posteriormente se especificará el modelo
+matemático del problema, luego se procederá a detallar la implementación de los
+algoritmos utilizados para encontrar las soluciones y su respectiva ejecución,
+por último se detallan algunas conclusiones.\\
+
+\section{Descripción del problema y formulación matemática}\label{sec_mathmod}
+
+El problema de flujo de trabajos fue formulado por primera vez por \cite{original}
+como un problema compuesto por 2 elementos principales, el primero es una serie
+de trabajos, estos, debido a su gran parecido tienen un proceso que puede ser
+asumido como igual, y el segundo componente es conjunto de máquinas ordenadas,
+por las cuales los trabajos deben pasar para poder ser completados. En el problema,
+los trabajos deben ser procesados por una línea de producción, lo que significa
+que la secuencia de trabajos no puede ser cambiada durante el proceso.
+Finalmente, el objetivo consiste en buscar una secuencia de trabajos que
+minimice alguna medida de costo productivo, tal como puede ser el tiempo total
+de producción, máximo tiempo para completar un trabajo, entre otros.
+\\
+
+Es importante mencionar que en la propuesta original del problema la cantidad
+de máquinas estaba limitada a un total de 3, sin embargo, la cantidad de trabajos
+podría ser un número $n$ arbitrario. Esta idea luego se extendió a un problema
+donde se tuvieran $n$ trabajos y $m$ máquinas, esto con el objetivo de tener una
+descripción más general que pudiera ser utilizada en una variedad
+más grande de aplicaciones. Un modelo de programación lineal entera para el tipo
+de problema original puede ser encontrado en \cite{old_model}, sin embargo, en
+\cite{model} se puede encontrar un modelo matemático que se puede utilizar para
+resolver el problema generalizado. El siguiente es una descripción de dicho
+modelo generalizado.\\
+
+\noindent
+\textbf{Indices}\\
+$i$: Representa trabajos (1...$n$)\\
+$j$: Representa la posición en la secuencia (1...$n$)\\
+$k$: Representa máquinas (1...$m$)\\
+
+\noindent
+\textbf{Variables}\\
+$z_{ij}$: 1 si el trabajo $i$ es asignado en la posición $j$, 0 en otro caso\\
+$x_{jk}$: Tiempo inactivo de la máquina $k$ por esperar el trabajo $j$\\
+$y_{jk}$: Tiempo inactivo del trabajo $j$ mientras que espera a la máquina $k+1$\\
+$f$: Tiempo total consumido para procesar los trabajos\\
+
+\noindent
+\textbf{Datos}\\
+$t_{ki}$: Tiempo de procesamiento en la máquina $k$ para el trabajo $i$\\
+
+\noindent
+\textbf{Función objetivo}
+\begin{center}
+$\min f$
+\end{center}
+
+\noindent
+\textbf{Restricciones}
+
+\begin{align}
+    \label{eq_1} \sum_{j=1}^{n} z_{ij} &= 1 \quad i=1...n \\
+    \label{eq_2} \sum_{i=1}^{n} z_{ij} &= 1 \quad j=1...n \\
+    \label{eq_3} \sum_{l=1}^{n}t_{kl} * z_{l,j+1} + y_{j+1,k} + x_{j+1,k} = \sum_{l=1}^{n} t_{k+1,l} * z_{lj} + &y_{jk} + x_{j+1,k+1} \quad j=1...n-1 \quad k=1...m-1\\
+    \label{eq_4} f = \sum_{j=1}^{n} \sum_{l=1}^{n} t_{ml} &* z_{lj} + \sum_{j=1}^{n} x_{jm}\\
+    \label{eq_5} y_{ik} = 0& \quad k=1...m-1
+\end{align}
+\begin{align}
+    \label{eq_6} x_{ik} = z_1 &\sum_{p=1}^{k-1} t_p \quad k=2...m
+\end{align}
+
+En este modelo las restricciones \ref{eq_1} y \ref{eq_2} establecen las condiciones
+de un problema de asignación convencional, en el que a cada trabajo debe ser
+asignado a una posición y a su vez cada una de las posiciones tiene que tener
+asignado solo un trabajo específico. Por otro lado, la restricción número \ref{eq_3}
+establece las reglas para determinar si una serie de tiempo es valida y puede
+ser utilizada como una solución factible para el problema. Luego, la restricción
+\ref{eq_4} establece como se debe calcular el valor que será utilizado
+como función objetivo, la cual en este caso es tomada como el tiempo consumido para
+procesar los trabajos, sin embargo, en \cite{model} también se puede encontrar
+una variedad de otro tipo de funciones que pueden ser utilizadas para optimizar
+diferentes partes del proceso. Finalmente las restricciones \ref{eq_5} y \ref{eq_6}
+son utilizadas para que los valores de las variables que describen los tiempos
+de espera relacionados con el primer trabajo de la secuencia tengan una
+inicialización correcta.\\
+
+\section{Algoritmos de solución}
+
+Para buscar las soluciones del problema se utilizaron 5 aproximaciones, un
+método constructivo de mejor inserción, el cual fue utilizado con y sin
+ruido en los datos de entrada, una construcción GRASP, un algoritmo de busqueda
+local y uno de vecindarios variables.\\
+
+Todas las implementaciones utilizan el algoritmo \ref{algorithm1} para calcular
+los tiempos de finalización de un trabajo en cada una de las máquinas teniendo
+en cuenta las restricciones de ocupación, la cual es una de las partes
+fundamentales del cómputo.\\
+
+\RestyleAlgo{boxruled}
+\begin{algorithm}[H]
+    \For{ cada máquina que falte por ser utilizada }{
+        fin\_uso = max(fin\_uso\_anterior, fin\_uso\_predecesor) + tiempo\_uso\;
+    }
+    \caption{Cálculo de tiempos de terminación para un trabajo en cada máquina}
+    \label{algorithm1}
+\end{algorithm}
+
+\vspace{0.5cm}
+
+Ahora, el primer método, es decir, el algoritmo de mejor inserción, encuentra
+una solución al buscar cual sería la mejor posición para insertar un trabajo,
+siempre tatando de mantener el incremento de tiempo lo menor posible. Este
+procedimiento, toma como elemento inicial a aquel trabajo que presente un tiempo de
+procesamiento más corto, luego calcula los valores de la función objetivo
+al insertar dicho elemento en todas las posiciones posibles, con la intención
+de quedarse con la mejor opción. Finalmente, agrega dicho trabajo a la
+secuencia y repite el proceso hasta que todos los trabajos han sido
+asignados.\\
+
+Por otro lado, esta primera aproximación puede descartar combinaciones de
+trabajos que podrían tener un costo menor, debido a la secuencia estricta que el
+algoritmo va construyendo. Por este motivo, en el segundo método, se cambian los
+tiempos de procesasamiento de los trabajos con la ayuda una distribución
+uniforme centrada en 0, y se vuelve a encontrar una solución por medio de la
+mejor inserción. Esto con el objetivo de permitir que esta nueva construcción
+acepte distintas combinaciones de trabajos y pueda analizar un espacio de la
+región factible más diverso, generando la posibilidad de llegar a un mejor
+resultado.\\
+
+También se utilizó una construcción GRASP, este método consiste en la
+construcción de una lista de candidatos, los cuales son un subconjunto
+de trabajos que representan las mejores elecciones posibles que se pueden hacer
+con la solución que se ha construido hasta el momento. Luego, se selecciona un
+trabajo de la lista aleatoriamente y se utiliza como el siguiente elemento. Por
+ultimo, se vuelve a calcular una lista de candidatos con las opciones restantes
+y se repite el procedimiento hasta obtener una solución completa.\\
+
+Adicionalmente se implementó el algoritmo Ils tomando como referencia la
+experiencia de \cite{ils}, en la que se obtuvieron buenos resultados con esta
+aproximación. Este método consiste en realizar una busqueda local iterativa en
+la que se genera una perturbación a la solución en cada una de las iteraciones.
+Para este caso el vecindario de la busqueda fue definido tomando como referencia
+a \cite{localsearch}, donde se elimina un elemento de la solución y se intenta 
+buscar una nueva posición que mejore la función objetivo. En segundo lugar, el
+método de perturbación escogido consiste en intercambiar dos elementos de la solución
+aleatoriamente. Por ultimo, el algoritmo se ejecuta hasta que se llega a un
+número de iteraciones definido al inicio del programa.\\
+
+Para el último método se implementó un algoritmo de busqueda por vecindarios. Este
+algoritmo consiste en buscar la mejor solución posible al ejecutar busquedas
+locales sobre distintos vecindarios, con el objetivo de solucionar el problema
+de los optimos locales al utilizar diversas tecnicas de busqueda. Para este método
+se utlizaron dos vecindarios, el primero fue también utilizado en la aproximación
+descrita anteriormente, el segundo es una modificación de ese vecindario en donde
+no solo se elimina uno de los trabajos de la secuencia, sino que se extraen dos
+trabajos y luego se busca la mejor inserción considerando uno después del otro. 
+
+\section{Experimentación computacional}
+
+Se utilizaron los algoritmos anteriores para resolver los problemas
+propuestos en \cite{dataset}. Para crear las instancias de dicho articulo se desarrollo
+un algoritmo en C y se implementó un programa en Python para comprobar que dichas
+instancias fueran correctas. En las tablas \ref{table:1}, \ref{table:2} y
+\ref{table:3} se comparan diferentes criterios de los resultados obtenidos con
+cada uno de los algoritmos propuestos con las mejores soluciones encontradas en
+\cite{literature}, donde se recogieron las mejores soluciones de la literatura para este
+conjunto de instancias. Vale la pena aclarar que en la tabla \ref{table:2} se
+muestra el error porcentual que se obtuvo con cada uno de los algoritmos al tomar la mejor
+solución de la literatura como el valor óptimo. También es importante mencionar 
+que en el caso de los métodos que contienen un componente aleatorio, se repitió
+cada ejecución cinco veces y se escogio la mejor respuesta encontrada.
+Finalmente, se encontró que uno de los algoritmos requiere de un tiempo de
+ejecución demasiado alto, y debido a esto no fue posible encontrar una
+respuesta a algunas instancias, para estos casos se utiliza la notación N/A. 
+
+    \begin{table}[H]
+        \centering
+        \caption{Comparaciones de la calidad de las soluciones}
+        \resizebox{\textwidth}{!}{
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+            \hline
+            Instancia & Mejor inserción &  \multicolumn{3}{c|}{Construcción GRASP}   &        \multicolumn{3}{c|}{Ruido}       &  \multicolumn{3}{c|}{Ils}  &  Vnd   & Literatura \\
+            \hline
+                      &                 & $\alpha$=0.2 & $\alpha$=0.5 & $\alpha$=0.8 &   $r$=20   &    $r$=50   &    $r$=80    & $n$=50 & $n$=100 & $n$=150 &        &            \\
+            \hline
+            20x5      &      14355      &    15149     &     16181    &     17124    &   14327    &    15670    &    15833     & 14098  & 14055   &  14033  & 14041  &  14033     \\
+            \hline
+            20x10     &      21285      &    24803     &     24256    &     25486    &   22228    &    23118    &    23828     & 21124  & 21058   &  21112  & 21187  &  21187     \\
+            \hline
+            20x20     &      34564      &    36087     &     36607    &     38019    &   34859    &    36494    &    36437     & 34005  & 34005   &  34005  & 34050  &  33623     \\
+            \hline
+            50x5      &      67361      &    82527     &     82046    &     80865    &   69116    &    74622    &    79553     & 66704  & 66258   &  66375  & 66266  &  64980     \\
+            \hline
+            50x10     &      91510      &    107244    &     107457   &     110893   &   94927    &    101266   &    106719    & 90882  & 90318   &  90372  & 90520  &  87979     \\
+            \hline
+            50x20     &      131306     &    149801    &     149917   &     150322   &   134516   &    141701   &    143894    & 129679 & 129046  &  129270 & 128645 &  126338    \\
+            \hline
+            100x5     &      262371     &    309234    &     322253   &     321560   &   270820   &    291362   &    296366    & 261260 & 260983  &  260111 & 258253 &  256061    \\
+            \hline
+            100x10    &      312914     &    378962    &     375931   &     381073   &   320916   &    344729   &    349935    & 311261 & 308779  &  310942 & 307438 &  301453    \\
+            \hline
+            100x20    &      390176     &    447530    &     450123   &     452952   &   398672   &    420575   &    432199    & 385060 & 381777  &  380227 & 381902 &  370035    \\
+            \hline
+        \end{tabular}}
+        \label{table:1}
+    \end{table}
+    \begin{table}[H]
+        \centering
+        \caption{Comparaciones relativas de calidad de las soluciones}
+        \resizebox{\textwidth}{!}{
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+            \hline
+            Instancia & Mejor inserción &  \multicolumn{3}{c|}{Construcción GRASP}   &     \multicolumn{3}{c|}{Ruido}    &  \multicolumn{3}{c|}{Ils}  &  Vnd  \\
+            \hline
+                      &                 & $\alpha$=0.2 & $\alpha$=0.5 & $\alpha$=0.8 &  $r$=20  &    $r$=50  &   $r$=80  & $n$=50 & $n$=100 & $n$=150 &       \\
+            \hline
+            20x5      &      2.29       &    7.95      &     15.31    &     22.03    &   2.10   &    11.67   &    12.83  &  0.46  &  0.16   &   0.00  & 0.06 \\
+            \hline
+            20x10     &      0.46       &    17.07     &     14.49    &     20.29    &   4.91   &    9.11    &    12.47  & -0.30  & -0.61   &  -0.35  & 0.00 \\
+            \hline
+            20x20     &      2.80       &    7.33      &     8.87     &     13.07    &   3.68   &    8.54    &    8.37   &  1.14  &  1.14   &   1.14  & 1.27 \\
+            \hline
+            50x5      &      3.66       &    27.00     &     26.26    &     24.45    &   6.37   &    14.84   &    22.43  &  2.65  &  1.97   &   2.15  & 1.98 \\
+            \hline
+            50x10     &      4.01       &    21.90     &     22.14    &     26.04    &   7.90   &    15.10   &    21.30  &  3.30  &  2.66   &   2.72  & 2.89 \\
+            \hline
+            50x20     &      3.93       &    18.57     &     18.66    &     18.98    &   6.47   &    12.16   &    13.90  &  2.64  &  2.14   &   2.32  & 1.83 \\
+            \hline
+            100x5     &      2.46       &    20.77     &     25.85    &     25.58    &   5.76   &    13.79   &    15.74  &  2.03  &  1.92   &   1.58  & 0.86 \\
+            \hline
+            100x10    &      3.80       &    25.71     &     24.71    &     26.41    &   6.46   &    14.36   &    16.08  &  3.25  &  2.43   &   3.15  & 1.99 \\
+            \hline
+            100x20    &      5.44       &    20.94     &     21.64    &     22.41    &   7.74   &    13.66   &    16.80  &  4.06  &  3.17   &   2.75  & 3.21 \\
+            \hline
+        \end{tabular}}
+        \label{table:2}
+    \end{table}
+
+    \begin{table}[H]
+        \centering
+        \caption{Comparaciones de tiempo}
+        \resizebox{\textwidth}{!}{
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+            \hline
+            Instancia & Mejor inserción &  \multicolumn{3}{c|}{Construcción GRASP}   &     \multicolumn{3}{c|}{Ruido}    & \multicolumn{3}{c|}{Ils}   &   Vnd  \\
+            \hline
+                      &                 & $\alpha$=0.2 & $\alpha$=0.5 & $\alpha$=0.8 &  $r$=20  &   $r$=50  &    $r$=80  & $n$=50 & $n$=100 & $n$=150 &        \\
+            \hline
+            20x5      &      0.11       &  $<$ 0.01    &   $<$ 0.01   &   $<$ 0.01   &   0.08   &    0.08   &    0.08    &  2.17  &    4.44 &    6.47 & 0.59 \\
+            \hline
+            20x10     &      0.15       &  $<$ 0.01    &   $<$ 0.01   &   $<$ 0.01   &   0.11   &    0.11   &    0.11    &  3.38  &    6.03 &    8.97 & 0.32 \\
+            \hline
+            20x20     &      0.25       &  $<$ 0.01    &   $<$ 0.01   &   $<$ 0.01   &   0.17   &    0.17   &    0.17    &  5.54  &    9.78 &   14.53 & 0.62 \\
+            \hline
+            50x5      &      2.97       &    0.01      &     0.01     &     0.01     &   2.49   &    2.23   &    2.31    &  33.19 &   61.24 &   90.85 & 15.79 \\
+            \hline
+            50x10     &      4.39       &    0.02      &     0.02     &     0.02     &   3.27   &    3.02   &    3.01    &  49.59 &   92.00 &  140.67 & 14.32 \\
+            \hline
+            50x20     &      7.41       &    0.03      &     0.03     &     0.03     &   4.56   &    4.72   &    4.86    &  80.53 &  153.37 &  225.64 & 30.68 \\
+            \hline
+            100x5     &      41.93      &    0.05      &     0.05     &     0.05     &   31.99  &    36.99  &    36.96   & 268.95 &  509.40 &  726.47 & 389.86 \\
+            \hline
+            100x10    &      63.69      &    0.06      &     0.07     &     0.07     &   50.91  &    50.26  &    51.97   & 407.07 &  760.98 & 1191.70 & 287.35 \\
+            \hline
+            100x20    &      107.56     &    0.10      &     0.10     &     0.10     &   63.90  &    63.78  &    64.36   & 687.57 & 1286.21 & 1876.94 & 309.12 \\
+            \hline
+        \end{tabular}}
+        \label{table:3}
+    \end{table}
+
+\section{Conclusiones}
+
+En este trabajo se realizó una descripción del problema de flujo de trabajos
+clásico y se encontró que dicho problema pertenece a la categoría de problemas
+NP-Hard. Debido a su complejidad se implementaron cinco métodos heurísticos
+para encontrar una solución a distintas instancias del problema. En cuanto a
+los experimentos realizados, se puedo observar que el método de construcción
+GRASP no es muy apropiado para este tipo de problema, ya que presento los
+peores rendimientos en cuanto a calidad, aunque con un tiempo de ejecución muy
+bajo.  Esto sugiere que un método constructivo del tipo vecino más cercano, así
+como una construcción aleatoria, no son buenas aproximaciónes para resolver el
+problema en cuestión.  Por otro lado, se encontró que los algoritmos de mejor
+inserción y ruido resultan en soluciones aceptables que se pueden encontrar con
+un tiempo de ejecución excelente. En contraste con estas aproximaciones, se
+tienen los métodos de busqueda local y por vecindarios, los cuales resultan en
+soluciones de excelente calidad, llegando incluso al óptimo en un caso, pero
+requieren una cantidad considerable de tiempo para ser ejecutados a medida que
+el tamaño del problema va aumentando. Esto se ve especialmente reflejado en el
+caso del algoritmo Vnd, donde no se pudo encontrar una solución a los casos más
+grandes debido a que excedió la cantidad de tiempo de cómputo disponible.
+
+{\small
+\bibliographystyle{authordate1}
+
+\bibliography{Trabajo4}}
+
+\end{document}
