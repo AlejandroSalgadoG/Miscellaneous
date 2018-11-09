@@ -11,7 +11,7 @@ def main():
     end = time()
 
     print( "Solution:", solution )
-    print( "Objective function: %.1f" % cost )
+    print( "Objective function: %d" % cost )
     print( "Bound: %.1f" % bound )
     print( "Gap: %f" % ((cost - bound) / bound * 100) )
     print( "Time elapsed: %.2f seconds" % (end - start) )
