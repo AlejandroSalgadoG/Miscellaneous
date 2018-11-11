@@ -56,7 +56,21 @@ def update_population(population, costs, new_population, new_costs):
 
     return join_population[:num_elem], join_costs[:num_elem]
 
-def genetic(num_iter, num_sampl, mut_prob):
+def local_search(solution):
+    best_cost = calc_cost(solution)
+    best_sol = solution
+    for job_idx in range(num_jobs):
+        sub_sol = np.delete(solution,job_idx)
+        for idx in range(num_jobs):
+            if job_idx != idx:
+                sol = np.insert(sub_sol, idx, solution[job_idx])
+                sol_cost = calc_cost(sol)
+                if sol_cost < best_cost:
+                    best_cost = sol_cost
+                    best_sol = sol
+    return best_sol
+
+def genetic(num_iter, num_sampl, mut_prob, local_prob):
     population = build_initial_pop(num_sampl, num_jobs)
     costs = calc_costs(population)
 
@@ -69,6 +83,8 @@ def genetic(num_iter, num_sampl, mut_prob):
             son = crossover(parent1, parent2)
             if random() < mut_prob:
                 son = mutate(son)
+            if random() < local_prob:
+                son = local_search(son)
 
             new_costs[j] = calc_cost(son)
             new_population[j] = son
