@@ -83,7 +83,7 @@ simplificación, en \cite{complex} se demostró que es un problema
 NP-Hard.\\
 
 Se han utilizado diferentes aproximaciones para resolver este problema, tal como
-estrategias exactas, pero también de métodos heurísiticos, puesto que las
+estrategias exactas, pero también de métodos heurísticos, puesto que las
 instancias de este problema pueden llegar a representar una alta complejidad
 cuando se trabaja con una cantidad considerable de trabajos. Esto debido a su
 crecimiento factorial en cuanto al número de secuencias posibles que se deben
@@ -94,16 +94,18 @@ para esta y otras posibles variaciones del problema. Adicionalmente se
 pueden utilizar métodos bioinspirados, tal como el propuesto en \cite{genetic1},
 donde se plantea la base de los algoritmos genéticos. Esta clase de algoritmos
 han sidos utlizados para resolver este tipo de problemas desde hace ya varios
-años, un ejemplo puede ser observado en \cite{genetic3}.\\
+años, un ejemplo puede ser observado en \cite{genetic3}.
 
-Esta trabajo está organizado de la siguiente manera, en primer lugar
+\newpage
+
+Este trabajo está organizado de la siguiente manera, en primer lugar
 se da una explicación del problema en cuestion y se describirán algunas
 características importantes, posteriormente se especificará el modelo
 matemático del problema, luego se procederá a detallar la implementación de los
 algoritmos utilizados para encontrar las soluciones y su respectiva ejecución,
-por último se detallan algunas conclusiones.\\
+por último se detallan algunas conclusiones.
 
-\section{Descripción del problema y formulación matemática}\label{sec_mathmod}
+\section{Descripción del problema y formulación matemática}
 
 El problema de flujo de trabajos fue formulado por primera vez por \cite{original}
 como un problema compuesto por 2 elementos principales, el primero es una serie
@@ -114,8 +116,7 @@ los trabajos deben ser procesados por una línea de producción, lo que signific
 que la secuencia de trabajos no puede ser cambiada durante el proceso.
 Finalmente, el objetivo consiste en buscar una secuencia de trabajos que
 minimice alguna medida de costo productivo, tal como puede ser el tiempo total
-de producción, máximo tiempo para completar un trabajo, entre otros.
-\\
+de producción, máximo tiempo para completar un trabajo, entre otros.\\
 
 Es importante mencionar que en la propuesta original del problema la cantidad
 de máquinas estaba limitada a un total de 3, sin embargo, la cantidad de trabajos
@@ -157,12 +158,12 @@ $\min f$
 \begin{align}
     \label{eq_1} \sum_{j=1}^{n} z_{ij} &= 1 \quad i=1...n \\
     \label{eq_2} \sum_{i=1}^{n} z_{ij} &= 1 \quad j=1...n \\
-    \label{eq_3} \sum_{l=1}^{n}t_{kl} * z_{l,j+1} + y_{j+1,k} + x_{j+1,k} = \sum_{l=1}^{n} t_{k+1,l} * z_{lj} + &y_{jk} + x_{j+1,k+1} \quad j=1...n-1 \quad k=1...m-1\\
-    \label{eq_4} f = \sum_{j=1}^{n} \sum_{l=1}^{n} t_{ml} &* z_{lj} + \sum_{j=1}^{n} x_{jm}\\
-    \label{eq_5} y_{ik} = 0& \quad k=1...m-1
+    \label{eq_3} \sum_{l=1}^{n}t_{kl} * z_{l,j+1} + y_{j+1,k} + x_{j+1,k} = \sum_{l=1}^{n} t_{k+1,l} * z_{lj} + &y_{jk} + x_{j+1,k+1} \quad j=1...n-1 \quad k=1...m-1
 \end{align}
 \begin{align}
-    \label{eq_6} x_{ik} = z_1 &\sum_{p=1}^{k-1} t_p \quad k=2...m
+    \label{eq_4} f = \sum_{j=1}^{n} \sum_{l=1}^{n} t_{ml} &* z_{lj} + \sum_{j=1}^{n} x_{jm}\\
+    \label{eq_5} y_{ik} = 0& \quad k=1...m-1\\
+    \label{eq_6} x_{ik} &= z_1 \sum_{p=1}^{k-1} t_p \quad k=2...m
 \end{align}
 
 En este modelo las restricciones \ref{eq_1} y \ref{eq_2} establecen las condiciones
@@ -221,7 +222,9 @@ uniforme centrada en 0, y se vuelve a encontrar una solución por medio de la
 mejor inserción. Esto con el objetivo de permitir que esta nueva construcción
 acepte distintas combinaciones de trabajos y pueda analizar un espacio de la
 región factible más diverso, generando la posibilidad de llegar a un mejor
-resultado.\\
+resultado.
+
+\newpage
 
 También se utilizó una construcción GRASP, este método consiste en la
 construcción de una lista de candidatos, los cuales son un subconjunto
@@ -253,7 +256,7 @@ intercambios entre cada cada uno de los trabajos. El método es ejecutado hasta
 que se encuentra una solución que sea considerada óptimo local en todos los
 vecindarios.\\
 
-Finalmente el ultimo método utilizado fue un algoritmo genético. Este método
+El último método utilizado fue un algoritmo genético. Este método
 fue implementado tomando algunas de las ideas propuestas en \cite{genetic2}.
 En el algoritmo utilizado la población inicial es creada aleatoriamente,
 el método de selección escogido fue por ruleta, la estrategia para generar
@@ -263,7 +266,7 @@ tomando los elementos faltantes en el orden en el que aparescan en el segundo pa
 Por otro lado, con un $5\%$ de probabilidad se intercambian aleatoriamente 2
 posiciones de una solucion generada y también con un $5\%$ de probabilidad se
 selecciona un hijo para ser mejorado con el mismo método de busqueda local
-utilizado en el algoritmo ILS. Finalmente en cada iteración la nueva población
+utilizado en el algoritmo Ils. Finalmente en cada iteración la nueva población
 es escogida utilizando las mejores soluciones encontradas hasta ese momento. 
 
 \section{Experimentación computacional}
@@ -278,7 +281,7 @@ cada uno de los algoritmos propuestos con las mejores soluciones encontradas en
 conjunto de instancias. Vale la pena aclarar que en la tabla \ref{table:2} se
 muestra el error porcentual que se obtuvo con cada uno de los algoritmos al tomar la mejor
 solución de la literatura como el valor óptimo. También es importante mencionar
-que en el caso de los métodos que contienen un componente aleatorio, se repitió
+que en el caso de los métodos que tienen un componente aleatorio, se repitió
 cada ejecución cinco veces y se escogio la mejor respuesta encontrada. Finalmente
 en el caso del método genetico, el número de iteraciones fue fijado en 50 y 
 el parámetro que fue variado fue el número de hijos creados en cada iteración.
@@ -291,56 +294,56 @@ el parámetro que fue variado fue el número de hijos creados en cada iteración
             \hline
 Instancia &     Inserción   &  \multicolumn{3}{c|}{Construcción GRASP}   &    \multicolumn{3}{c|}{Ruido}  &  \multicolumn{3}{c|}{Ils}  &  Vnd   & \multicolumn{3}{c|}{Genético} & Literatura \\
 \hline
-          &                 & $\alpha$=0.2 & $\alpha$=0.5 & $\alpha$=0.8 &   $r$=20   &    $r$=50   &   $r$=80    & $n$=50 & $n$=100 & $n$=150 &        & $p$=50 & $p$=100 & $p$=150 &     \\
+          &                 & $\alpha$=0.2 & $\alpha$=0.5 & $\alpha$=0.8 &   $r$=20   &    $r$=50   &   $r$=80    & $n$=50 & $n$=100 & $n$=150 &       & $p$=125 & $p$=175 & $p$=225 &     \\
 \hline
-20x5      &      14355      &    15149     &     16181    &     17124    &   14327    &    15670    &   15833     & 14098  & 14055   &  14033  & 14041  & 14403  & 14194   & 14197   & 14033 \\
+20x5      &      14355      &    15149     &     16181    &     17124    &   14327    &    15670    &   15833     & 14098  & 14055   &  14033  & 14041  & 14033  & 14043   & 14060   & 14033 \\
 \hline
-20x10     &      21285      &    24803     &     24256    &     25486    &   22228    &    23118    &   23828     & 21124  & 21058   &  21112  & 21187  & 21207  & 21285   & 21004   & 21187 \\
+20x10     &      21285      &    24803     &     24256    &     25486    &   22228    &    23118    &   23828     & 21124  & 21058   &  21112  & 21187  & 20911  & 20911   & 20911   & 21187 \\
 \hline
-20x20     &      34564      &    36087     &     36607    &     38019    &   34859    &    36494    &   36437     & 34005  & 34005   &  34005  & 34050  & 34396  & 34011   & 33961   & 33623 \\
+20x20     &      34564      &    36087     &     36607    &     38019    &   34859    &    36494    &   36437     & 34005  & 34005   &  34005  & 34050  & 33623  & 33623   & 33776   & 33623 \\
 \hline
-50x5      &      67361      &    82527     &     82046    &     80865    &   69116    &    74622    &   79553     & 66704  & 66258   &  66375  & 66266  & 70123  & 69502   & 68930   & 64980 \\
+50x5      &      67361      &    82527     &     82046    &     80865    &   69116    &    74622    &   79553     & 66704  & 66258   &  66375  & 66266  & 67611  & 66922   & 66890   & 64980 \\
 \hline
-50x10     &      91510      &    107244    &     107457   &     110893   &   94927    &    101266   &   106719    & 90882  & 90318   &  90372  & 90520  & 95003  & 93287   & 92970   & 87979 \\
+50x10     &      91510      &    107244    &     107457   &     110893   &   94927    &    101266   &   106719    & 90882  & 90318   &  90372  & 90520  & 91289  & 90262   & 90566   & 87979 \\
 \hline
-50x20     &      131306     &    149801    &     149917   &     150322   &   134516   &    141701   &   143894    & 129679 & 129046  &  129270 & 128645 & 135302 & 133689  & 132261  & 126338\\
+50x20     &      131306     &    149801    &     149917   &     150322   &   134516   &    141701   &   143894    & 129679 & 129046  &  129270 & 128645 & 129922 & 130572  & 128937  & 126338\\
 \hline
-100x5     &      262371     &    309234    &     322253   &     321560   &   270820   &    291362   &   296366    & 261260 & 260983  &  260111 & 258253 & 283687 & 278795  & 276355  & 256061\\
+100x5     &      262371     &    309234    &     322253   &     321560   &   270820   &    291362   &   296366    & 261260 & 260983  &  260111 & 258253 & 272939 & 273023  & 272233  & 256061\\
 \hline
-100x10    &      312914     &    378962    &     375931   &     381073   &   320916   &    344729   &   349935    & 311261 & 308779  &  310942 & 307438 & 330807 & 332547  & 325170  & 301453\\
+100x10    &      312914     &    378962    &     375931   &     381073   &   320916   &    344729   &   349935    & 311261 & 308779  &  310942 & 307438 & 319741 & 320451  & 319541  & 301453\\
 \hline
-100x20    &      390176     &    447530    &     450123   &     452952   &   398672   &    420575   &   432199    & 385060 & 381777  &  380227 & 381902 & 407432 & 400144  & 400947  & 370035\\
+100x20    &      390176     &    447530    &     450123   &     452952   &   398672   &    420575   &   432199    & 385060 & 381777  &  380227 & 381902 & 393724 & 394814  & 391958  & 370035\\
 \hline
         \end{tabular}}
         \label{table:1}
     \end{table}
     \begin{table}[H]
         \centering
-        \caption{Comparaciones relativas de calidad de las soluciones}
+        \caption{Comparaciones relativas de calidad de las soluciones (\%)}
         \resizebox{\textwidth}{!}{
         \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
             \hline
             Instancia & Mejor inserción &  \multicolumn{3}{c|}{Construcción GRASP}   &     \multicolumn{3}{c|}{Ruido}    &  \multicolumn{3}{c|}{Ils}  &  Vnd & \multicolumn{3}{c|}{Genético} \\
             \hline
-                      &                 & $\alpha$=0.2 & $\alpha$=0.5 & $\alpha$=0.8 &  $r$=20  &    $r$=50  &   $r$=80  & $n$=50 & $n$=100 & $n$=150 &      & $p$=50 & $p$=100 & $p$=150 \\
+                      &                 & $\alpha$=0.2 & $\alpha$=0.5 & $\alpha$=0.8 &  $r$=20  &    $r$=50  &   $r$=80  & $n$=50 & $n$=100 & $n$=150 &      & $p$=125 & $p$=175 & $p$=225 \\
             \hline
-            20x5      &      2.29       &    7.95      &     15.31    &     22.03    &   2.10   &    11.67   &    12.83  &  0.46  &  0.16   &   0.00  & 0.06 &   2.64 &   1.15  &  1.17 \\
+            20x5      &      2.29       &    7.95      &     15.31    &     22.03    &   2.10   &    11.67   &    12.83  &  0.46  &  0.16   &   0.00  & 0.06 &   0.00  &   0.07  &  0.19 \\
             \hline
-            20x10     &      0.46       &    17.07     &     14.49    &     20.29    &   4.91   &    9.11    &    12.47  & -0.30  & -0.61   &  -0.35  & 0.00 &   0.09 &   0.46  & -0.86 \\
+            20x10     &      0.46       &    17.07     &     14.49    &     20.29    &   4.91   &    9.11    &    12.47  & -0.30  & -0.61   &  -0.35  & 0.00 &  -1.30  &  -1.30  & -1.30 \\
             \hline
-            20x20     &      2.80       &    7.33      &     8.87     &     13.07    &   3.68   &    8.54    &    8.37   &  1.14  &  1.14   &   1.14  & 1.27 &   2.30 &   1.15  &  1.01 \\
+            20x20     &      2.80       &    7.33      &     8.87     &     13.07    &   3.68   &    8.54    &    8.37   &  1.14  &  1.14   &   1.14  & 1.27 &   0.00  &   0.00  &  0.46 \\
             \hline
-            50x5      &      3.66       &    27.00     &     26.26    &     24.45    &   6.37   &    14.84   &    22.43  &  2.65  &  1.97   &   2.15  & 1.98 &   7.91 &   6.96  &  6.08 \\
+            50x5      &      3.66       &    27.00     &     26.26    &     24.45    &   6.37   &    14.84   &    22.43  &  2.65  &  1.97   &   2.15  & 1.98 &   4.05  &   2.99  &  2.94 \\
             \hline
-            50x10     &      4.01       &    21.90     &     22.14    &     26.04    &   7.90   &    15.10   &    21.30  &  3.30  &  2.66   &   2.72  & 2.89 &   7.98 &   6.03  &  5.67 \\
+            50x10     &      4.01       &    21.90     &     22.14    &     26.04    &   7.90   &    15.10   &    21.30  &  3.30  &  2.66   &   2.72  & 2.89 &   3.76  &   2.59  &  2.94 \\
             \hline
-            50x20     &      3.93       &    18.57     &     18.66    &     18.98    &   6.47   &    12.16   &    13.90  &  2.64  &  2.14   &   2.32  & 1.83 &   7.10 &   5.82  &  4.69 \\
+            50x20     &      3.93       &    18.57     &     18.66    &     18.98    &   6.47   &    12.16   &    13.90  &  2.64  &  2.14   &   2.32  & 1.83 &   2.84  &   3.35  &  2.06 \\
             \hline
-            100x5     &      2.46       &    20.77     &     25.85    &     25.58    &   5.76   &    13.79   &    15.74  &  2.03  &  1.92   &   1.58  & 0.86 &  10.79 &   8.88  &  7.93 \\
+            100x5     &      2.46       &    20.77     &     25.85    &     25.58    &   5.76   &    13.79   &    15.74  &  2.03  &  1.92   &   1.58  & 0.86 &   6.59  &   6.62  &  6.32 \\
             \hline
-            100x10    &      3.80       &    25.71     &     24.71    &     26.41    &   6.46   &    14.36   &    16.08  &  3.25  &  2.43   &   3.15  & 1.99 &   9.74 &  10.31  &  7.87 \\
+            100x10    &      3.80       &    25.71     &     24.71    &     26.41    &   6.46   &    14.36   &    16.08  &  3.25  &  2.43   &   3.15  & 1.99 &   6.07  &   6.30  &  6.00 \\
             \hline
-            100x20    &      5.44       &    20.94     &     21.64    &     22.41    &   7.74   &    13.66   &    16.80  &  4.06  &  3.17   &   2.75  & 3.21 &  10.11 &  8.14   &  8.35 \\
+            100x20    &      5.44       &    20.94     &     21.64    &     22.41    &   7.74   &    13.66   &    16.80  &  4.06  &  3.17   &   2.75  & 3.21 &   6.40  &   6.70  &  5.92 \\
             \hline
         \end{tabular}}
         \label{table:2}
@@ -348,31 +351,31 @@ Instancia &     Inserción   &  \multicolumn{3}{c|}{Construcción GRASP}   &    
 
     \begin{table}[H]
         \centering
-        \caption{Comparaciones de tiempo}
+        \caption{Comparaciones de tiempo (s)}
         \resizebox{\textwidth}{!}{
         \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
             \hline
             Instancia & Mejor inserción &  \multicolumn{3}{c|}{Construcción GRASP}   &    \multicolumn{3}{c|}{Ruido}   & \multicolumn{3}{c|}{Ils}   &   Vnd  & \multicolumn{3}{c|}{Genético} \\
             \hline
-                      &                 & $\alpha$=0.2 & $\alpha$=0.5 & $\alpha$=0.8 &  $r$=20  &   $r$=50  &  $r$=80  & $n$=50 & $n$=100 & $n$=150 &        & $p$=50 & $p$=100 & $p$=150 \\
+                      &                 & $\alpha$=0.2 & $\alpha$=0.5 & $\alpha$=0.8 &  $r$=20  &   $r$=50  &  $r$=80  & $n$=50 & $n$=100 & $n$=150 &        & $p$=125 & $p$=175 & $p$=225 \\
             \hline
-            20x5      &      0.11       &  $<$ 0.01    &   $<$ 0.01   &   $<$ 0.01   &   0.08   &    0.08   &  0.08    &  2.17  &    4.44 &    6.47 & 0.59   &  1.70  &  3.79   &  6.18 \\
+            20x5      &      0.11       &  $<$ 0.01    &   $<$ 0.01   &   $<$ 0.01   &   0.08   &    0.08   &  0.08    &  2.17  &    4.44 &    6.47 & 0.59   &    8.88 &   12.75 &   17.88 \\
+            \hline                                                                                                                                                                  
+            20x10     &      0.15       &  $<$ 0.01    &   $<$ 0.01   &   $<$ 0.01   &   0.11   &    0.11   &  0.11    &  3.38  &    6.03 &    8.97 & 0.32   &   13.55 &   18.01 &   23.14 \\
+            \hline                                                                                                                                                                  
+            20x20     &      0.25       &  $<$ 0.01    &   $<$ 0.01   &   $<$ 0.01   &   0.17   &    0.17   &  0.17    &  5.54  &    9.78 &   14.53 & 0.62   &   18.14 &   28.35 &   36.90 \\
+            \hline                                                                                                                                                                  
+            50x5      &      2.97       &    0.01      &     0.01     &     0.01     &   2.49   &    2.23   &  2.31    &  33.19 &   61.24 &   90.85 & 15.79  &  100.64 &  160.06 &  208.36 \\
+            \hline                                                                                                                                                                  
+            50x10     &      4.39       &    0.02      &     0.02     &     0.02     &   3.27   &    3.02   &  3.01    &  49.59 &   92.00 &  140.67 & 14.32  &  169.63 &  248.08 &  288.66 \\
+            \hline                                                                                                                                                                  
+            50x20     &      7.41       &    0.03      &     0.03     &     0.03     &   4.56   &    4.72   &  4.86    &  80.53 &  153.37 &  225.64 & 30.68  &  275.71 &  344.23 &  486.19 \\
+            \hline                                                                                                                                              
+            100x5     &      41.93      &    0.05      &     0.05     &     0.05     &   31.99  &    36.99  &  36.96   & 268.95 &  509.40 &  726.47 & 389.86 &  779.87 & 1082.34 & 1527.09 \\
             \hline
-            20x10     &      0.15       &  $<$ 0.01    &   $<$ 0.01   &   $<$ 0.01   &   0.11   &    0.11   &  0.11    &  3.38  &    6.03 &    8.97 & 0.32   &  2.09  &  4.56   &  7.51 \\
+            100x10    &      63.69      &    0.06      &     0.07     &     0.07     &   50.91  &    50.26  &  51.97   & 407.07 &  760.98 & 1191.70 & 287.35 & 1316.02 & 1743.71 & 2125.08 \\
             \hline
-            20x20     &      0.25       &  $<$ 0.01    &   $<$ 0.01   &   $<$ 0.01   &   0.17   &    0.17   &  0.17    &  5.54  &    9.78 &   14.53 & 0.62   &  2.83  &  6.82   & 10.82 \\
-            \hline
-            50x5      &      2.97       &    0.01      &     0.01     &     0.01     &   2.49   &    2.23   &  2.31    &  33.19 &   61.24 &   90.85 & 15.79  &  3.24  &  6.72   & 10.69 \\
-            \hline
-            50x10     &      4.39       &    0.02      &     0.02     &     0.02     &   3.27   &    3.02   &  3.01    &  49.59 &   92.00 &  140.67 & 14.32  &  4.17  &  8.66   & 14.47 \\
-            \hline
-            50x20     &      7.41       &    0.03      &     0.03     &     0.03     &   4.56   &    4.72   &  4.86    &  80.53 &  153.37 &  225.64 & 30.68  &  6.31  & 14.60   & 20.61 \\
-            \hline
-            100x5     &      41.93      &    0.05      &     0.05     &     0.05     &   31.99  &    36.99  &  36.96   & 268.95 &  509.40 &  726.47 & 389.86 &  5.17  & 11.43   & 17.76 \\
-            \hline
-            100x10    &      63.69      &    0.06      &     0.07     &     0.07     &   50.91  &    50.26  &  51.97   & 407.07 &  760.98 & 1191.70 & 287.35 &  7.53  & 15.25   & 23.89 \\
-            \hline
-            100x20    &      107.56     &    0.10      &     0.10     &     0.10     &   63.90  &    63.78  &  64.36   & 687.57 & 1286.21 & 1876.94 & 309.12 & 11.84  & 23.37   & 35.95 \\
+            100x20    &      107.56     &    0.10      &     0.10     &     0.10     &   63.90  &    63.78  &  64.36   & 687.57 & 1286.21 & 1876.94 & 309.12 & 2046.40 & 2943.54 & 3823.02 \\
             \hline
         \end{tabular}}
         \label{table:3}
@@ -393,10 +396,17 @@ problema en cuestión.  Por otro lado, se encontró que los algoritmos de mejor
 inserción y ruido resultan en soluciones aceptables que se pueden encontrar con
 un tiempo de ejecución excelente. En contraste con estas aproximaciones, se
 tienen los métodos de busqueda local y por vecindarios, los cuales resultan en
-soluciones de excelente calidad, llegando incluso a mejorar las soluciones optimas
-algunos casos, pero se debe tener en cuenta que requieren una cantidad
+soluciones de excelente calidad, llegando incluso a mejorar las soluciones óptimas
+en algunos casos, pero se debe tener en cuenta que requieren una cantidad
 considerable de tiempo para ser ejecutados a medida que el tamaño del problema
-va aumentando. Finalmente se pudo observar que el algoritmo genético
+va aumentando. Sin embargo, su tiempo puede ser mejorado al considerar diferentes
+tipos de vecindarios, tal como se puede observar en el caso del algoritmo Vnd.
+Finalmente el algoritmo genético demostró ser una buena aproximación para
+resolver el problema, llegando incluso a mejorar algunos óptimos conocidos. 
+No obstante, se debe debe resaltar que esta implementación del algoritmo exige un
+tiempo de ejecución considerable, esto sin mencionar que los resultados
+obtenidos sugieren que sería necesario incrementar el tamaño de la población si
+se desea encontrar mejores resultados en los casos de prueba más grandes.
 
 {\small
 \bibliographystyle{authordate1}
