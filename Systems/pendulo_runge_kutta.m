@@ -1,5 +1,5 @@
 %{
-    metodo pendulo_euler
+    metodo pendulo_runge_kutta
         u: entrada (funcion del tiempo)
         mc : masa carro
         mp : masa pendulo
@@ -24,20 +24,25 @@
         t: vector tiempo
 
     Ejemplo de uso:
-         [x, t] = pendulo_euler(@pendulo_u, mc, mp, l, g, fc, fp, x, h, T);
+         [x, t] = pendulo_runge_kutta(@pendulo_u, mc, mp, l, g, fc, fp, x0, h, T);
 %}
 
-function [x, t] = pendulo_euler(u, mc, mp, l, g, fc, fp, x0, h, T)
+function [x, t] = pendulo_runge_kutta(u, mc, mp, l, g, fc, fp, x0, h, T)
     t0 = 1; % Primera posicion de un vector es 1    
     
     t = 0:h:T;
     nt = size(t,2); % numero de columnas en t 
     
     x = zeros(4, nt);
- 
+   
     x(:,t0) = x0;
-    for k = t0:T/h
-        dx = pendulo_sistema(u(k), mc, mp, l, g, fc, fp, x(:,k));
-        x(:, k+1) = x(:,k) + h*dx;
+    for k = t0:T/h       
+        rk1 = pendulo_sistema(u(k), mc, mp, l, g, fc, fp, x(:,k));
+        rk2 = pendulo_sistema(u(k), mc, mp, l, g, fc, fp, x(:,k) + rk1*h/2);
+        rk3 = pendulo_sistema(u(k), mc, mp, l, g, fc, fp, x(:,k) + rk2*h/2);
+        rk4 = pendulo_sistema(u(k), mc, mp, l, g, fc, fp, x(:,k) + rk3*h);
+        
+        dx = 1/6*(rk1 + 2*rk2 + 2*rk3 + rk4);
+        x(:,k+1) = x(:,k) + h*dx;
     end
 end
