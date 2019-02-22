@@ -24,6 +24,8 @@
         t: vector tiempo
 
     Ejemplo de uso:
+         x0 = [ 0 0 pi/4 0 ];
+         mc=5; mp=1; l=2; g=9.8; fc=0; fp=0.5; h=0.01; T=20;
          [x, t] = pendulo_runge_kutta(@pendulo_u, mc, mp, l, g, fc, fp, x0, h, T);
 %}
 
