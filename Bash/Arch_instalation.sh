@@ -45,6 +45,7 @@ pacman -S wpa_supplicant
 pacman -S dialog
 pacman -S iputils # optional
 pacman -S git
+pacman -s grub
 passwd
 mkdir /boot/efi
 mount /dev/sda2 /boot/efi
@@ -62,6 +63,7 @@ vim /etc/grub.d/40_custom
 		chainloader /EFI/Microsoft/Boot/bootmgfw.efi
 	}
 
+
 grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=grub --boot-directory=/boot/efi --debug
 grub-mkconfig -o /boot/efi/grub/grub.cfg
 
@@ -69,16 +71,6 @@ sudo pacman -S binutils
 sudo pacman -S gcc
 sudo pacman -S make
 sudo pacman -S pkg-config
-sudo pacman -S fakeroot
-sudo pacman -S patch
-
-git clone https://aur.archlinux.org/package-query.git
-cd package-query
-makepkg -si
-
-git clone https://aur.archlinux.org/yaourt.git
-cd yaourt
-makepkg -si
 
 vim /etc/modprobe.d/modprobe.conf # blacklist nouveau
 sudo pacman -S xf86-video-intel
@@ -96,8 +88,8 @@ sudo pacman -S xorg-xinit
 cp /etc/X11/xinit/xinitrc /home/alejandro/.xinitrc
 vim .xinitrc 
 
-	#After the last if delete everything and put
-	exec i3
+#After the last if delete everything and put
+exec i3
 
 vim .bash_profile
 
@@ -114,8 +106,6 @@ cp Bash/Xdefaults ../.Xdefaults
 cd ..
 
 sudo pacman -S ttf-droid
-yaourt -S rxvt-unicode-pixbuf
-
 setxkbmap latam # setxkbmap us -variant altgr-intl 
 sudo localectl set-x11-keymap latam
 
