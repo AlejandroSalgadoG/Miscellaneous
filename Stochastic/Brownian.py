@@ -32,3 +32,9 @@ def drift_brownian(n, k, dt, u, s):
     wt = t*u + s*bt
 
     return wt, t
+
+def geometric_brownian(n, k, dt, a, l):
+    bt, t = standard_brownian(n, k, dt)
+    wt = np.exp(a*t + l*bt)
+
+    return wt, t
