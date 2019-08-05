@@ -35,6 +35,9 @@ theta = [-0.0445, 0.382]
 r_norm = arma_series(T, r_0, phi, theta, norm_numbers, [0, 1])
 r_exp = arma_series(T, r_0, phi, theta, exp_numbers, [3])
 
-plt.plot(np.arange(T+1), r_norm, linewidth=1)
-plt.plot(np.arange(T+1), r_exp, linewidth=1)
+plt.ylim(0,100)
+
+plt.plot(np.arange(T+1), r_norm, 'C0', linewidth=1)
+plt.plot(np.arange(T+1), r_exp, 'C1', linewidth=1,)
+
 plt.show()
