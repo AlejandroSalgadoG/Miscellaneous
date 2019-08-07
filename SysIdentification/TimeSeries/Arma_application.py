@@ -35,9 +35,10 @@ theta = [-0.0445, 0.382]
 r_norm = arma_series(T, r_0, phi, theta, norm_numbers, [0, 1])
 r_stud = arma_series(T, r_0, phi, theta, t_numbers, [2])
 
-plt.ylim(0,100)
+print("mean normal: %.2f" % np.mean(r_norm), "-", "variance normal: %.2f" % np.var(r_norm))
+print("mean student: %.2f" % np.mean(r_stud), "-" , "variance student: %.2f" % np.var(r_stud))
 
+plt.ylim(0,90)
 plt.plot(np.arange(T+1), r_norm, 'C0', linewidth=1)
 plt.plot(np.arange(T+1), r_stud, 'C1', linewidth=1,)
-
 plt.show()
