@@ -5,9 +5,9 @@ def norm_numbers(params, shape):
     mu, sigma = params
     return np.random.normal(mu, sigma, shape)
 
-def exp_numbers(params, shape):
-    l = params
-    return np.random.exponential(l, shape)
+def t_numbers(params, shape):
+    v = params
+    return np.random.standard_t(v, shape)
 
 def arma_series(T, r_0, phi, theta, distribution, params):
     r = np.zeros(T+1)
@@ -33,11 +33,11 @@ phi = [15.5, 0.779]
 theta = [-0.0445, 0.382]
 
 r_norm = arma_series(T, r_0, phi, theta, norm_numbers, [0, 1])
-r_exp = arma_series(T, r_0, phi, theta, exp_numbers, [3])
+r_stud = arma_series(T, r_0, phi, theta, t_numbers, [2])
 
 plt.ylim(0,100)
 
 plt.plot(np.arange(T+1), r_norm, 'C0', linewidth=1)
-plt.plot(np.arange(T+1), r_exp, 'C1', linewidth=1,)
+plt.plot(np.arange(T+1), r_stud, 'C1', linewidth=1,)
 
 plt.show()
