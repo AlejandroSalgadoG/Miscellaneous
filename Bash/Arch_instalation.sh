@@ -3,7 +3,7 @@ wget https://mirrors.kernel.org/archlinux/iso/2016.12.01/archlinux-bootstrap-201
 tar xfz archlinux-bootstrap-2016.12.01-x86_64.tar.gz
 sudo mount --bind root.x86_64 /tmp
 cd /tmp
-cp /etc/resolv.conf /etc
+cp /etc/resolv.conf etc/
 sudo mount -t proc /proc proc
 sudo mount --rbind /sys sys
 sudo mount --rbind /dev dev
