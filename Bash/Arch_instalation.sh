@@ -46,7 +46,8 @@ pacman -S dialog
 pacman -S iputils # optional
 pacman -S git
 pacman -s grub
-passwd
+pacman -s efibootmgr
+
 mkdir /boot/efi
 mount /dev/sda2 /boot/efi
 vim /etc/grub.d/40_custom
@@ -71,6 +72,14 @@ sudo pacman -S binutils
 sudo pacman -S gcc
 sudo pacman -S make
 sudo pacman -S pkg-config
+
+sudo pacman -S i3
+
+sudo pacman -S sudo
+useradd -m alejandro
+passwd
+vim /etc/sudoers
+    alejandro ALL=(ALL) NOPASSWD:ALL
 
 vim /etc/modprobe.d/modprobe.conf # blacklist nouveau
 sudo pacman -S xf86-video-intel
