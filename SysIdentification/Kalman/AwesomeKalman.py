@@ -8,14 +8,14 @@ def get_zero_mean_normal_vars(cov, shape):
 
 T = 20
 
-x_0 = np.array([3e4, 40])
-A = np.array([ [1,1], [0,1] ])
+x_0 = np.array([3e4,10,5])
+A = np.array([ [1,1,0.5], [0,1,1], [0,0,1] ])
 
 F = A
-Q = 10*np.array([[1,0],[0,1e-3]])
+Q = 100*np.array([[1,0,0], [0,1e-3,0], [0,0,1e-3]])
 
-H = np.array([[1,0],[0,1]])
-R = 1000*np.array([[1,0],[0,1e-3]])
+H = np.array([[1,0,0],[0,1,0],[0,0,1]])
+R = 10000*np.array([[1,0,0], [0,1e-3,0], [0,0,1e-3]])
 
 Xi = get_zero_mean_normal_vars(Q, T+1)
 Zeta = get_zero_mean_normal_vars(R, T+1)
