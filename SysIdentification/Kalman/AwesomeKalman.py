@@ -6,21 +6,7 @@ def get_zero_mean_normal_vars(cov, shape):
     mean = np.zeros(n_vars)
     return np.random.multivariate_normal(mean, cov , shape)
 
-T = 20
-
-x_0 = np.array([3e4,10,5])
-A = np.array([ [1,1,0.5], [0,1,1], [0,0,1] ])
-
-F = A
-Q = 100*np.array([[1,0,0], [0,1e-3,0], [0,0,1e-3]])
-
-H = np.array([[1,0,0],[0,1,0],[0,0,1]])
-R = 10000*np.array([[1,0,0], [0,1e-3,0], [0,0,1e-3]])
-
-Xi = get_zero_mean_normal_vars(Q, T+1)
-Zeta = get_zero_mean_normal_vars(R, T+1)
-
-def real_model(A, x_0, T):
+def ideal_model(A, x_0, T):
     _, n_vars = A.shape
     x = np.zeros([T+1, n_vars])
     x[0] = x_0
@@ -66,17 +52,34 @@ def kalman_filter(F, H, R, Q, z_0, y, T):
 
 def plot_simulations(y_real, y, y_kalman, var, T):
     t = np.arange(T+1)
-    plt.scatter(t, y[:,var])
-    plt.plot(t, y[:,var])
     plt.scatter(t, y_real[:,var], color='g')
     plt.plot(t, y_real[:,var], color='g')
+    plt.scatter(t, y[:,var])
+    plt.plot(t, y[:,var])
     plt.scatter(t, y_kalman[:,var], color="r")
     plt.plot(t, y_kalman[:,var], color="r")
-    plt.legend(["Simulation", "Real", "Kalman"])
+    plt.ylabel("Distance")
+    plt.xlabel("Time")
+    plt.legend(["Ideal", "Simulation", "Kalman"])
     plt.show()
 
-x_real = real_model(A, x_0, T)
-y_real = perfect_observer(H, x_real, T)
+T = 20
+
+x_0 = np.array([0,0,2])
+A = np.array([ [1,1,0.5], [0,1,1], [0,0,1] ])
+
+F = A
+Q = np.array([[5,0,0], [0,1,0], [0,0,0.1]])**2
+
+H = np.array([[1,0,0],[0,1,0]])
+R = np.array([[35,0], [0,5]])**2
+
+np.random.seed(37756813)
+Xi = get_zero_mean_normal_vars(Q, T+1)
+Zeta = get_zero_mean_normal_vars(R, T+1)
+
+x_ideal = ideal_model(A, x_0, T)
+y_ideal = perfect_observer(H, x_ideal, T)
 
 x = simulate(A, x_0, Xi, T)
 y = noisy_observer(H, x, Zeta, T)
@@ -84,4 +87,4 @@ y = noisy_observer(H, x, Zeta, T)
 x_kalman = kalman_filter(A, H, R, Q, x_0, y, T)
 y_kalman = perfect_observer(H, x_kalman, T)
 
-plot_simulations(y_real, y, y_kalman, 0, T)
+plot_simulations(y_ideal, y, y_kalman, 0, T)
