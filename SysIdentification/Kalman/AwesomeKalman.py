@@ -48,7 +48,7 @@ def kalman_filter(F, H, R, Q, z_0, y, T):
         delta_y = y[i+1] - np.matmul(H, z_pred[i+1])
         z_hat[i+1] = z_pred[i+1] + np.matmul(M_opt, delta_y)
         s_hat[i+1] = s_pred[i+1] - np.matmul(M_opt, np.matmul(H, s_pred[i+1]))
-    return z_hat
+    return z_hat, s_hat
 
 def plot_simulations(y_real, y, y_kalman, var, T):
     t = np.arange(T+1)
@@ -62,6 +62,20 @@ def plot_simulations(y_real, y, y_kalman, var, T):
     plt.xlabel("Time")
     plt.legend(["Ideal", "Simulation", "Kalman"])
     plt.show()
+
+def plot_variance(sigma, T):
+    t = np.arange(T+1)
+    y = [np.trace(sigma[i]) for i in range(T+1)]
+    plt.scatter(t, y)
+    plt.plot(t, y)
+    plt.ylabel("Value")
+    plt.xlabel("Time")
+    plt.show()
+
+def get_max_deviation(data_1, data_2, var, T):
+    diff = abs(data_1[:,var] - data_2[:,var])
+    max_pos = np.argmax(diff)
+    return max_pos, diff[max_pos]
 
 T = 20
 
@@ -84,7 +98,13 @@ y_ideal = perfect_observer(H, x_ideal, T)
 x = simulate(A, x_0, Xi, T)
 y = noisy_observer(H, x, Zeta, T)
 
-x_kalman = kalman_filter(A, H, R, Q, x_0, y, T)
+x_kalman, s_kalman = kalman_filter(A, H, R, Q, x_0, y, T)
 y_kalman = perfect_observer(H, x_kalman, T)
 
+max_t, max_dev = max_deviation = get_max_deviation(y_ideal, y_kalman, 0, T)
+print("Kalman vs Ideal: max deviation = %f, at time = %d" % (max_dev, max_t))
+
+max_t, max_dev = max_deviation = get_max_deviation(y, y_kalman, 0, T)
+print("Kalman vs Simulation: max deviation = %f, at time = %d" % (max_dev, max_t))
 plot_simulations(y_ideal, y, y_kalman, 0, T)
+plot_variance(s_kalman, T)
