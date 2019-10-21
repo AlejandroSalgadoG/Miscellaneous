@@ -43,9 +43,8 @@ if __name__ == '__main__':
     x_t_e = euler(x_0, u, s, n, b1)
     x_t_m = milstein(x_0, u, s, n, b1)
     
-    plt.plot(time, x_t, linewidth=1)
     plt.plot(time, x_t_m, linewidth=1)
-    plt.legend(["x_t", "milstein"])
+    #plt.legend(["x_t", "milstein"])
     plt.show()
 
     print("euler \t\t milstein \t dt")
@@ -55,7 +54,7 @@ if __name__ == '__main__':
         x_t_e = euler(x_0, u, s, n, b1)
         x_t_m = milstein(x_0, u, s, n, b1)
 
-        error_e = np.mean(x_t - x_t_e)
-        error_m = np.mean(x_t - x_t_m)
+        error_e = np.mean(np.abs(x_t - x_t_e))
+        error_m = np.mean(np.abs(x_t - x_t_m))
 
         print("%f \t %f \t %f" % (error_e, error_m, 1/n) )
