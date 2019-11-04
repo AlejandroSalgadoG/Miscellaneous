@@ -3,12 +3,13 @@ import matplotlib.pyplot as plt
 
 from Brownian import standard_brownian
 
-def homogeneous_equation(x_0, u, s, n, bt, time):
-    x = np.zeros(n)
-    x[0] = x_0
-    for i in range(1,n):
-        x[i] = x_0*np.exp( (u-0.5*s**2)*time[i] + s*bt[i])
+def homogeneous_equation(x_0, u, s, n, m, bt, time):
+    x = np.zeros([m,n])
+    x[:,0] = x_0
 
+    for i in range(m):
+        for j in range(1,n):
+            x[i,j] = x_0*np.exp( (u-0.5*s**2)*time[j] + s*bt[i,j])
     return x
 
 def euler(x_0, u, s, n, b1):
