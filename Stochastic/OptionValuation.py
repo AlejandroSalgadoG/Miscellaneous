@@ -1,8 +1,9 @@
+import time
 import numpy as np
 from scipy.stats import norm
 import matplotlib.pyplot as plt
 
-np.set_printoptions(linewidth=1000, precision=2)
+np.set_printoptions(linewidth=1000, precision=3, suppress=True)
 
 from Brownian import standard_brownian
 from Numerical import homogeneous_equation
@@ -41,41 +42,47 @@ def binomial_tree(x_0, r, s, n):
                 f[i,j] = np.exp(-r*dt) * (p*f[i+1,j+1] + (1-p)*f[i+1,j])
     return f[0,0]
 
-def finite_differences(x_0, r, s, m, T, k):
-    x_max = x_0 * 3
-    dx = x_max / m
-    n = int( T*s**2*m**2 ) + 1
-    dt = T/n
+def finite_differences(vol, int_rate, strike, expiration, nas):
+    ds = 2*strike / nas
+    dt = 0.9 / (vol**2 * nas**2) # for stability
+    nts = int(expiration/dt) + 1
+    dt = expiration / nts
 
-    assert(dt <= (dx**2/ (s*x_max)**2 ))
+    S = np.zeros(nas+1) 
+    v = np.zeros([nas+1, nts+1])
 
-    a = lambda j: dt/(r*dt+1) * (0.5*s**2*j**2 - 0.5*r*j)
-    b = lambda j: dt/(r*dt+1) * (1/dt - s**2*j**2)
-    c = lambda j: dt/(r*dt+1) * (0.5*s**2*j**2 + 0.5*r*j)
+    for i in range(nas+1):
+        S[i] = i*ds
+        v[i,0] = np.maximum(S[i]-strike, 0)
 
-    f = np.zeros([n+1, m+1])
-    f[:, m] = np.maximum(x_max-k, 0)
-    f[n, :] = [np.maximum(j*dx-k, 0) for j in range(m+1)]
+    for k in range(1,nts+1):
+        for i in range(1,nas):
+            delta = (v[i+1, k-1] - v[i-1,k-1]) / (2*ds)
+            gamma = (v[i+1, k-1] - 2*v[i,k-1] + v[i-1,k-1]) / ds**2
+            theta = -0.5 * vol**2 * S[i]**2 * gamma - int_rate * S[i] * delta + int_rate * v[i,k-1]
 
-    for i in range(n-1,-1,-1):
-        for j in range(m-1,0,-1):
-            f[i,j] = a(j)*f[i+1,j-1] + b(j)*f[i+1,j] + c(j)*f[i+1,j+1]
-        print("%d\r" % i, end='')
+            v[i,k] = v[i,k-1] - dt * theta
 
+        v[0,k] = v[0,k-1] * (1 - int_rate * dt)
+        v[nas,k] = 2 * v[nas-1,k] - v[nas-2,k]
+        print("%.2f%%" % (k/nts*100), end='\r')
 
-    print(f)
+    ans_pos = np.argwhere(v[:,0]>0)[0]
+    return v[ans_pos,-1]
 
 if __name__ == '__main__':
     x_0, u, s, n, T, m, w, k = 100, 0.05, 0.3, 500, 1, 100, 100, 100
 
-#    fcall = black_scholes(x_0, u, s, k)
-#    print(fcall)
-#
+    fcall = black_scholes(x_0, u, s, k)
+    print(fcall)
+
 #    fcall_hat, fcalls = montecarlo(x_0, u, s, n, T, m, w, k)
 #    print(fcall_hat)
-#
+
 #    fcall_hat = binomial_tree(x_0, u, s, n)
 #    print(fcall_hat)
 
-    fcall_hat = finite_differences(x_0, 0.05, 0.2, 20, 1, k)
-    print(fcall_hat)
+    start = time.time()
+    fcall_hat = finite_differences(s, u, k, T, 1500)
+    end = time.time()
+    print(fcall_hat, end-start)
