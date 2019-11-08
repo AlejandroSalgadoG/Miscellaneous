@@ -37,15 +37,15 @@ def milstein(x_0, u, s, n, b1):
 
 if __name__ == '__main__':
     np.random.seed(1234567890)
-    x_0, u, s, n = 1, 1.5, 2.5, 500
+    x_0, u, s, n, T = 1, 1.5, 2.5, 500, 1
 
-    [bt], [b1], time = standard_brownian(n, 1, 1/n)
+    bt, [b1], time = standard_brownian(n, 1, 1)
 
-    x_t = homogeneous_equation(x_0, u, s, n, bt, time)
+    x_t = homogeneous_equation(x_0, u, s, n, T, bt, time)
     x_t_e = euler(x_0, u, s, n, b1)
     x_t_m = milstein(x_0, u, s, n, b1)
     
-    plt.plot(time, x_t, linewidth=1)
+    plt.plot(time, x_t[0], linewidth=1)
     plt.plot(time, x_t_e, linewidth=1)
     plt.legend(["x_t", "euler"])
     plt.show()

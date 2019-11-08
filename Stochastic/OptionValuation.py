@@ -5,11 +5,11 @@ import matplotlib.pyplot as plt
 from Brownian import standard_brownian
 from Numerical import homogeneous_equation
 
-def montecarlo(x_0, r, s, n, m, w, k):
+def montecarlo(x_0, r, s, n, T, m, w, k):
     fcall = []
 
     for i in range(w):
-        bt, b1, time = standard_brownian(n, m, 1/n)
+        bt, b1, time = standard_brownian(n, T, m)
         x_t = homogeneous_equation(x_0, r, s, n, m, bt, time)
         fcall_T = np.mean( np.maximum(x_t[:,-1] - k, np.zeros(m)) )
         fcall.append( np.exp(-r) * fcall_T )
@@ -41,12 +41,12 @@ def binomial_tree(x_0, r, s, n):
 
 
 if __name__ == '__main__':
-    x_0, u, s, n, m, w, k = 100, 0.05, 0.3, 500, 10000, 1000, 100
+    x_0, u, s, n, T, m, w, k = 100, 0.05, 0.3, 500, 1, 100, 100, 100
 
     fcall = black_scholes(x_0, u, s, k)
     print(fcall)
 
-    fcall_hat, fcalls = montecarlo(x_0, u, s, n, m, w, k)
+    fcall_hat, fcalls = montecarlo(x_0, u, s, n, T, m, w, k)
     print(fcall_hat)
 
     fcall_hat = binomial_tree(x_0, u, s, n)
