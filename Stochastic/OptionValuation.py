@@ -16,7 +16,7 @@ def montecarlo(x_0, r, s, n, T, m, w, k):
         x_t = homogeneous_equation(x_0, r, s, n, m, bt, time)
         fcall_T = np.mean( np.maximum(x_t[:,-1] - k, np.zeros(m)) )
         fcall.append( np.exp(-r) * fcall_T )
-        print("%.2f%%\r" % (i/w*100), end='')
+        print("Montecarlo: %.2f%%" % (i/w*100), end='\r')
     print()
 
     return np.mean(fcall), fcall
@@ -26,8 +26,8 @@ def black_scholes(x_0, r, s, k, T):
     d2 = d1 - s*np.sqrt(T)
     return x_0 * norm.cdf(d1) - k*np.exp(-r*T)*norm.cdf(d2)
 
-def binomial_tree(x_0, r, s, k, n):
-    dt = 1/n
+def binomial_tree(x_0, r, s, k, T, n):
+    dt = T/n
     u = np.exp(s*np.sqrt(dt))
     d = np.exp(-s*np.sqrt(dt))
     p = (np.exp(r*dt) - d)/(u - d)
@@ -40,11 +40,13 @@ def binomial_tree(x_0, r, s, k, n):
                 f[n,j] = max(x_0*(u**j)*(d**(n-j)) - k, 0)
             else:
                 f[i,j] = np.exp(-r*dt) * (p*f[i+1,j+1] + (1-p)*f[i+1,j])
+        print("Binomial tree: %.2f%%" % ((n-i)/n * 100), end='\r')
+    print()
     return f[0,0]
 
 def finite_differences(vol, int_rate, strike, expiration, nas):
     ds = 2*strike / nas
-    dt = 0.9 / (vol**2 * nas**2) # for stability
+    dt = 0.9 / (vol**2 * nas**2)
     nts = int(expiration/dt) + 1
     dt = expiration / nts
 
@@ -65,9 +67,10 @@ def finite_differences(vol, int_rate, strike, expiration, nas):
 
         f[0,k] = f[0,k-1] * (1 - int_rate * dt)
         f[nas,k] = 2 * f[nas-1,k] - f[nas-2,k]
-        print("%.2f%%" % (k/nts*100), end='\r')
+        print("Finite diff: %.2f%%" % (k/nts*100), end='\r')
+    print()
 
-    ans_pos = np.argwhere(f[:,0]>0)[0]
+    [ans_pos] = np.argwhere(f[:,0]>0)[0]
     return f[ans_pos-1,-1]
 
 if __name__ == '__main__':
@@ -80,8 +83,8 @@ if __name__ == '__main__':
 #    fcall_hat, fcalls = montecarlo(x_0, u, s, n, T, m, w, k)
 #    print(fcall_hat)
 
-#    fcall_hat = binomial_tree(x_0, u, s, k, 5000)
+#    fcall_hat = binomial_tree(x_0, u, s, k, T, 500)
 #    print(fcall_hat)
 
-#    fcall_hat = finite_differences(s, u, k, T, 500)
-#    print(fcall_hat)
+    fcall_hat = finite_differences(s, u, k, T, 500)
+    print(fcall_hat)
