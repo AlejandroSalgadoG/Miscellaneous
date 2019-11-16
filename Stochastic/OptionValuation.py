@@ -44,30 +44,30 @@ def binomial_tree(x_0, r, s, k, T, n):
     print()
     return f[0,0]
 
-def finite_differences(vol, int_rate, strike, expiration, nas):
-    ds = 2*strike / nas
-    dt = 0.9 / (vol**2 * nas**2)
-    nts = int(expiration/dt) + 1
-    dt = expiration / nts
+def finite_differences(s, r, k, T, m):
+    ds = 2*k / m
+    dt = 0.9 / (s**2 * m**2)
+    n = int(T/dt) + 1
+    dt = T / n
 
-    S = np.zeros(nas+1)
-    f = np.zeros([nas+1, nts+1])
+    S = np.zeros(m+1)
+    f = np.zeros([m+1, n+1])
 
-    for i in range(nas+1):
+    for i in range(m+1):
         S[i] = i*ds
-        f[i,0] = np.maximum(S[i]-strike, 0)
+        f[i,0] = np.maximum(S[i]-k, 0)
 
-    for k in range(1,nts+1):
-        for i in range(1,nas):
+    for k in range(1,n+1):
+        for i in range(1,m):
             delta = (f[i+1, k-1] - f[i-1,k-1]) / (2*ds)
             gamma = (f[i+1, k-1] - 2*f[i,k-1] + f[i-1,k-1]) / ds**2
-            theta = -0.5 * vol**2 * S[i]**2 * gamma - int_rate * S[i] * delta + int_rate * f[i,k-1]
+            theta = -0.5 * s**2 * S[i]**2 * gamma - r * S[i] * delta + r * f[i,k-1]
 
             f[i,k] = f[i,k-1] - dt * theta
 
-        f[0,k] = f[0,k-1] * (1 - int_rate * dt)
-        f[nas,k] = 2 * f[nas-1,k] - f[nas-2,k]
-        print("Finite diff: %.2f%%" % (k/nts*100), end='\r')
+        f[0,k] = f[0,k-1] * (1 - r * dt)
+        f[m,k] = 2 * f[m-1,k] - f[m-2,k]
+        print("Finite diff: %.2f%%" % (k/n*100), end='\r')
     print()
 
     [ans_pos] = np.argwhere(f[:,0]>0)[0]
@@ -79,12 +79,12 @@ if __name__ == '__main__':
     fcall = black_scholes(x_0, u, s, k, T)
     print(fcall)
 
-#    m, w = 1000, 100
-#    fcall_hat, fcalls = montecarlo(x_0, u, s, n, T, m, w, k)
-#    print(fcall_hat)
+    m, w = 1000, 100
+    fcall_hat, fcalls = montecarlo(x_0, u, s, n, T, m, w, k)
+    print(fcall_hat)
 
-#    fcall_hat = binomial_tree(x_0, u, s, k, T, 500)
-#    print(fcall_hat)
+    fcall_hat = binomial_tree(x_0, u, s, k, T, 500)
+    print(fcall_hat)
 
     fcall_hat = finite_differences(s, u, k, T, 500)
     print(fcall_hat)
