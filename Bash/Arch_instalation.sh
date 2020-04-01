@@ -122,7 +122,22 @@ sudo pacman -S xorg-xbacklight
 sudo pacman -S pulseaudio
 sudo pacman -S pavucontrol
 
-yaourt -S broadcom-wl
+# download kernel driver for wifi BCM43228 http://www.broadcom.com/support/802.11/linux_sta.php/
+tar -xf hybrid*.tar.gz
+make
+
+rmmod b43
+rmmod ssb
+rmmod bcma
+rmmod wl
+echo "blacklist ssb" >> /etc/modprobe.d/blacklist.conf
+echo "blacklist bcma" >> /etc/modprobe.d/blacklist.conf
+echo "blacklist b43" >> /etc/modprobe.d/blacklist.conf
+modprobe lib80211
+modprobe cfg80211
+mv wl.ko /lib/modules/$(uname -r)/kernel/drivers/net/wireless/
+sudo depmod -ae
+
 sudo pacman -S networkmanager
 sudo pacman -S network-manager-applet
 
