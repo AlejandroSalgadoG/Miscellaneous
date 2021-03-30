@@ -12,6 +12,7 @@ center = (x.mean(), y.mean())
 rad = chi2.ppf( 0.975, 4 )
 
 s = np.cov(x, y)
+
 eig_val, eig_vec = np.linalg.eig(s)
 
 width, height = np.sqrt( np.sort(eig_val) * rad)

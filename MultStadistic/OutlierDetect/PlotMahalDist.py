@@ -9,10 +9,11 @@ n,p = data.shape
 
 u_bar = data.mean()
 s = data.cov()
+
 s_1 = np.linalg.inv( s )
 
 dist = [ mahalanobis( x, u_bar, s_1 ) for _,x in data.iterrows() ]
-threshold = np.sqrt( chi2.ppf(0.975, p) )
+threshold = np.sqrt( chi2.ppf(0.95, p) )
 
 plt.scatter( np.arange( n ), dist )
 plt.hlines(threshold, 0, n)
