@@ -4,8 +4,6 @@ from numpy import linspace, meshgrid
 from scipy.stats import jarque_bera
 import matplotlib.pyplot as plt
 
-# datos sobre presupuesto en canales de publicidad y ventas
-# Unidades en miles de dolares
 data = pd.read_csv("marketing.csv")
 
 data["bias"] = 1
