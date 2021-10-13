@@ -1,0 +1,43 @@
+\subsection*{a - b)}
+
+\begin{enumerate}
+  \item Suponer $\{v_j\}_{j=0}^\infty$ base ortonormal de $V$
+  \item $r \in V \to r = \sum_{i=0}^\infty \alpha_i v_i \quad \alpha_i = <r,v_i>$
+  \item $s \in V \to s = \sum_{i=0}^\infty \beta_i v_i \quad \beta_i = <s,v_i>$
+  \item $<r,s> = <\sum_{i=0}^\infty \alpha_i v_i, \sum_{i=0}^\infty \beta_i v_i> = \sum_{i=0}^\infty \alpha_i \bar{\beta_i} <v_i, v_i>$
+  \item $<v_i, v_i> = ||v_i||^2 = 1^2 = 1$
+  \item $<r,s> = \sum_{i=0}^\infty \alpha_i \bar{\beta_i} = \sum_{i=0}^\infty <r,v_i> \bar{<s,v_i>}$
+\end{enumerate}
+
+\subsection*{b - c)}
+\begin{enumerate}
+  \item Suponer $<r,s> = \sum_{i=0}^\infty <r,v_i> \bar{<s,v_i>}$
+  \item $<r,s> = \sum_{i=0}^\infty \alpha_i \bar{\beta_i} \quad \alpha_i = <r,v_i>$, $\beta_i = <s, v_i>$
+  \item $<r,r> = ||r||^2 = \sum_{i=0}^\infty |\alpha_i|^2$
+\end{enumerate}
+
+\subsection*{a - d)}
+
+\begin{enumerate}
+	\item Suponer $\{v_j\}_{j=0}^\infty$ base ortonormal de $V$
+  \item $A := gen(\{v_j\}_{j=0}^\infty) \to A$ cerrado
+  \item $\{v_j\}_{j=0}^\infty$ ortonormal $\to V^\perp = \{0\} \to A^\perp = \{0\}$
+  \item $A^\perp = \{0\} \land A$ cerrado $\to A = V \to A$ denso en $V$
+\end{enumerate}
+
+\subsection*{c - e)}
+
+\begin{enumerate}
+  \item Suponer $||r||^2 = \sum_{i=0}^\infty |\alpha_i|^2 \quad \alpha_i = <r,v_i>$
+  \item $\forall_{j \in \mathbb{N}} \; <r,v_j> = 0 \to ||r||^2 = 0 \to r = 0$
+\end{enumerate}
+
+\subsection*{e - a)}
+
+\begin{enumerate}
+  \item Suponer $\forall_{j \in \mathbb{N}} \; <u,v_j> = 0 \to u = 0$
+  \item Suponer $\{v_j\}_{j=0}^\infty$ no es base de $V$
+  \item $\{v_j\}_{j=0}^\infty$ ortonormal
+  \item Se pueden encontrar vectores no nulos que completen los $v_j$ para ser base
+  \item El producto interno de los nuevos vectores con los viejos da 0 por ser ortonormal. Contradiccion 
+\end{enumerate}

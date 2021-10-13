@@ -1,0 +1,47 @@
+\begin{enumerate}
+  \item Sean $x^1, x^2, ... , x^n$ Cauchy en $l^p$
+  \item $\forall_{\epsilon > 0} \; \exists_{n \in \mathbb{N}} \; r,s \geq n \to ||x^r - x^s|| < \epsilon$
+  \item $x^i = (x_1^i, x_2^i, ...) \; t.q. \; \sum_{n=1}^\infty |x_n^i|^p < \infty$
+  \item $||x^i||^p = \sum_{n=1}^\infty |x_n^i|^p \to ||x^r - x^s||^p = \sum_{n=1}^\infty |x_n^r - x_n^s|^p$
+  \item $||x^r - x^s|| < \epsilon \to ||x^r - x^s||^p < \epsilon^p \to \sum_{n=1}^\infty |x_n^r - x_n^s|^p < \epsilon^p \to \forall_n \; |x_n^r - x_n^s|^p < \epsilon^p$
+  \item $(x_n^i)_{i=1}^\infty \; Cauchy$
+  \item $x_n^i \to x_n$
+  \item $\mathbb{R} \; \textnormal{completo} \to x_n \in \mathbb{R}$
+\end{enumerate}
+
+Objetivo $x = (x_1, x_2, ...) \in l^p$
+
+\begin{enumerate}
+  \item $||x||_{p,q} = (\sum_{n=1}^q |x_n|^p)^{1/p}$
+  \item $\exists_{i_1} \; i \geq i_1 \to |x_1^{i} - x_1| < \frac{1}{2} \quad$ , $\quad \exists_{i_2} \; i \geq i_2 > i_1 \to |x_2^{i} - x_2| < \frac{1}{4} \quad$ ...
+  \item $\exists_{j \in \mathbb{N}} \; j \geq n \land i \geq i_j \to |x_n^{i} - x_n| < 2^{-j}$
+  \item $x = x - x^{i} + x^{i}$
+  \item $||x||_{p,j} = ||x - x^{i} + x^{i}||_{p,j} \leq ||x - x^{i}||_{p,j} + ||x^{i}||_{p,j}$
+  \item $i \geq i_j \to ||x - x^{i}||_{p,j} = (\sum_{n=1}^j |x_n - x_n^{i}|^p)^{1/p} \leq (\sum_{n=1}^j (2^{-j})^p)^{1/p} = (j2^{-jp})^{1/p} = j^{1/p} \; 2^{-j}$
+  \item $\lim_{j \to \infty} ||x - x^{i}||_{p,j} \leq \lim_{j \to \infty} j^{1/p} \; 2^{-j} = 0$
+  \item $\lim_{j \to \infty} ||x^{i}||_{p,j} = ||x^{i}|| < \infty$
+  \item $\lim_{j \to \infty} ||x||_{p,j} \leq \lim_{j \to \infty} ||x - x^{i}||_{p,j} + \lim_{j \to \infty} ||x^{i}||_{p,j} $
+  \item $||x|| \leq 0 + ||x^{i}||$
+  \item $(\sum_{n=1}^\infty |x_n|^p)^{1/p} \leq (\sum_{n=1}^\infty |x_n^i|^p)^{1/p} $
+  \item $\sum_{n=1}^\infty |x_n|^p \leq \sum_{n=1}^\infty |x_n^i|^p < \infty $
+\end{enumerate}
+
+Objetivo $x^i \to x$
+
+\begin{enumerate}
+  \item Sean $y_n^i = x_n^i$, $y_n = x_n$ para $n < N$ y en otro caso $y_n^i = y_n = 0$
+  \item Sean $z_n^i = x_n^i$, $z_n = x_n$ para $n \geq N$ y en otro caso $z_n^i = z_n = 0$
+  \item $x^i = y_n^i + z_n^i \quad x = y_n + z_n$
+  \item $x^i, x \in l^p \to y_n^i, z_n^i, y_n, z_n\in l^p$
+  \item $||x^i - x|| = ||(y_n^i + z_n^i) - (y_n + z_n)|| = ||(y_n^i - y_n) + (z_n^i - z_n)|| \leq ||y_n^i - y_n|| + ||z_n^i - z_n||$
+  \item $||y_n^i - y_n|| = \left(\sum_{n=1}^{N-1} |x_n^i - x_n|^p \right)^{1/p} \quad ||z_n^i - z_n|| = \left(\sum_{n=N}^\infty |x_n^i - x_n|^p \right)^{1/p}$
+  \item Sea $\epsilon > 0$
+  \item $x_n^i \to x_n \quad \to \quad \forall_{n \leq N} \; \exists_{i_n} \; i \geq i_n \to |x_n^i - x_n| < \epsilon$
+  \item $I = max\{i_1, i_2, ..., i_N\}$
+  \item $i \geq I \to ||y_n^i - y_n|| = \left(\sum_{n=1}^{N-1} |x_n^i - x_n|^p \right)^{1/p} < \left(\sum_{n=1}^{N-1} \epsilon^p \right)^{1/p} = (N-1)^{1/p} \epsilon$
+  \item $||z_n^i - z_n|| \leq ||z_n^i|| + ||z_n||$
+  \item $z_n \in l^p \to ||z_n||^p = \sum_{n=N}^\infty |x_n|^p < \infty \to \exists_{N_1 \in \mathbb{N}} \; \sum_{n=N_1}^\infty |x_n|^p < \epsilon$
+  \item $z_n^i \in l^p \to ||z_n^i||^p = \sum_{n=N}^\infty |x_n^i|^p < \infty \to \exists_{N_2 \in \mathbb{N}} \; \sum_{n=N_2}^\infty |x_n^i|^p < \epsilon$
+  \item $N \geq max\{N_1, N_2\} \to ||z_n^i|| + ||z_n|| < \epsilon + \epsilon$
+
+\end{enumerate}
