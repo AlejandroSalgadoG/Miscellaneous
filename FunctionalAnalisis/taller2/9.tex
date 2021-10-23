@@ -1,0 +1,8 @@
+\begin{enumerate}
+	\item Sea $R(x) = \lambda I(x) - T(x) = \lambda T^0(x) - T(x)$ 
+  \item Sea $S(x) = \sum_{n=0}^\infty \frac{T^n(x)}{\lambda^{n+1}}$
+	\item $R(S(x)) = \lambda I(\sum_{n=0}^\infty \frac{T^n(x)}{\lambda^{n+1}}) - T(\sum_{n=0}^\infty \frac{T^n(x)}{\lambda^{n+1}}) = \lambda \sum_{n=0}^\infty \frac{T^n(x)}{\lambda^{n+1}} - \sum_{n=0}^\infty T(\frac{T^n(x)}{\lambda^{n+1}}) = \sum_{n=0}^\infty \frac{T^n(x)}{\lambda^{n}} - \sum_{n=0}^\infty \frac{T(T^n(x))}{\lambda^{n+1}}$
+	\item $i = n-1 \to \sum_{n=0}^\infty \frac{T(T^n(x))}{\lambda^{n+1}} = \sum_{n=0}^\infty \frac{T^{n+1}(x)}{\lambda^{n+1}} = \sum_{i=1}^\infty \frac{T^i(x)}{\lambda^{i}}$
+	\item $R(S(x)) = \sum_{n=0}^\infty \frac{T^n(x)}{\lambda^{n}} - \sum_{n=1}^\infty \frac{T^n(x)}{\lambda^{n}} = \frac{T^0(x)}{\lambda^0} = I(x) = x$
+	\item $S(R(x)) = \sum_{n=0}^\infty \frac{T^n(\lambda I(x) - T(x))}{\lambda^{n+1}}  = \sum_{n=0}^\infty \frac{\lambda T^n( x) - T^{n+1}(x)}{\lambda^{n+1}} = \sum_{n=0}^\infty \frac{T^n( x)}{\lambda^{n}} - \sum_{n=0}^\infty \frac{T^{n+1}( x)}{\lambda^{n+1}} = R(S(x)) = x$
+\end{enumerate}

@@ -1,0 +1,22 @@
+\begin{enumerate}
+  \item Sean $a \in \mathbb{R}, k = [-a, a]$
+  \item $\int_{-a}^{a} |ln|x|| \; dx = \lim_{e \to 0^-} \int_{-a}^{-e} ln(-x) dx + \lim_{e \to 0^+} \int_{e}^{a} ln(x) dx$ 
+  \item $\int_{-a}^{-e} ln(-x) dx = x(ln(-x) - 1) |_{-a}^{-e} = -e(ln(e) - 1) + a(ln(a) - 1)$
+  \item $\int_{e}^{a} ln(x) dx = x(ln(x) - 1) |_{e}^{a} = a(ln(a) - 1) - e(ln(e) - 1)$
+  \item $\lim_{e \to 0} e \; ln(e) = \lim_{e \to 0}  \frac{ln(e)}{1/e} = \lim_{e \to 0}  \frac{1/e}{-1/e^2} = \lim_{e \to 0}  \frac{-e^2}{e} = \lim_{e \to 0} -e = 0$
+  \item $lim_{e \to 0^-} -\int_{-a}^{-e} ln(-x) dx = a(ln(a) - 1)$
+  \item $lim_{e \to 0^+} \int_{e}^{a} ln(x) dx = a(ln(a) - 1)$
+  \item $\int_{-a}^{a} |ln|x|| \; dx = 2a(ln(a) - 1)$
+  \item $ln|x| \in L_1^{loc}$
+  \item $u=ln|x| \to \forall_{\phi \in D_k(\mathbb{R})} <u, \phi> = \int_\mathbb{R} ln|x| \phi(x) \; dx$
+  \item $<u', \phi> = - <u, \phi'> = - \int_{-\infty}^\infty ln|x| \phi'(x) \; dx = -\lim_{e \to 0} \left[ \int_{-\infty}^{-e} ln(-x) \phi'(x) \; dx + \int_{e}^{\infty} ln(x) \phi'(x) \; dx\right]$
+  \item $\int_{-\infty}^{-e} ln(-x) \phi'(x) \; dx = - \int_{-\infty}^{-e} \frac{\phi(x)}{x} \; dx$
+  \item $\int_{e}^{\infty} ln(x) \phi'(x) \; dx = - \int_{e}^{\infty} \frac{\phi(x)}{x} \; dx$
+  \item $<u', \phi> = - \lim_{e \to 0} \left[ - \int_{-\infty}^{-e} \frac{\phi(x)}{x} \; dx - \int_{e}^{\infty} \frac{\phi(x)}{x} \; dx \right] = \lim_{e \to 0} \left[ \int_{-\infty}^{-e} \frac{\phi(x)}{x} \; dx + \int_{e}^{\infty} \frac{\phi(x)}{x} \; dx \right] = vp \int_{-\infty}^\infty \frac{\phi(x)}{x} \; dx$
+  \item $<u'', \phi> = - <u, \phi''> = -\lim_{e \to 0} \left[ \int_{-\infty}^{-e} \frac{\phi'(x)}{x} \; dx + \int_{e}^{\infty} \frac{\phi'(x)}{x} \; dx \right]$
+  \item $\int_{-\infty}^{-e} \frac{\phi'(x)}{x} \; dx = - \int_{-\infty}^{-e} \frac{-\phi(x)}{x^2} \; dx = \int_{-\infty}^{-e} \frac{\phi(x)}{x^2} \; dx = \int_{-\infty}^{-e} \frac{\phi(x) - \phi(0) + \phi(0) }{x^2} \; dx = \int_{-\infty}^{-e} \frac{\phi(x) - \phi(0)}{x^2} \; dx + \int_{-\infty}^{-e} \frac{\phi(0)}{x^2} \; dx $
+  \item $\int_{e}^{\infty} \frac{\phi'(x)}{x} \; dx = - \int_{e}^{\infty} \frac{-\phi(x)}{x^2} \; dx = \int_{e}^{\infty} \frac{\phi(x)}{x^2} \; dx = \int_{e}^{\infty} \frac{\phi(x) - \phi(0) + \phi(0)}{x^2} \; dx = \int_{e}^{\infty} \frac{\phi(x) - \phi(0)}{x^2} \; dx + \int_{e}^{\infty} \frac{\phi(0)}{x^2} \; dx$
+  \item $\int_{-\infty}^{-e} \frac{\phi(0)}{x^2} \; dx = \phi(0) \int_{-\infty}^{-e} \frac{1}{x^2} \; dx = \phi(0) -\frac{1}{x} |_{-\infty}^{-e} = \frac{\phi(0)}{e}$
+  \item $\int_{e}^{\infty} \frac{\phi(0)}{x^2} \; dx = \phi(0) \int_{e}^{\infty} \frac{1}{x^2} \; dx = \phi(0) -\frac{1}{x} |_{e}^{\infty} = \frac{\phi(0)}{e}$
+  \item $<u'', \phi> = - <u, \phi''> = -\lim_{e \to 0} \left[ \int_{-\infty}^{e} \frac{\phi(x) - \phi(0)}{x^2} \; dx + \frac{\phi(0)}{e} \; dx + \int_{e}^{\infty} \frac{\phi(x) - \phi(0)}{x^2} \; dx - \frac{\phi(0)}{e} \right] = - vp \int_{\mathbb{R}} \frac{\phi(x) - \phi(0)}{x^2} \; dx$
+\end{enumerate}
