@@ -1,4 +1,4 @@
-# MultStadistic
+# MultStatistic
 
 A Python implementation for multivariate statistical analysis, contains various techniques for discriminant analysis, hypothesis testing, outlier detection, principal component analysis, and regression.
 
@@ -19,7 +19,7 @@ A Python implementation for multivariate statistical analysis, contains various 
 
 ## Overview
 
-MultStadistic is a collection of Python implementations for common multivariate statistical methods. It is good for
+MultStatistic is a collection of Python implementations for common multivariate statistical methods. It is good for
 
 - Classifying observations into groups
 - Testing hypotheses about multivariate means
@@ -29,13 +29,6 @@ MultStadistic is a collection of Python implementations for common multivariate 
 
 ## Installation
 
-1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/MultStadistic.git
-cd MultStadistic
-```
-
-2. Install required dependencies:
 ```bash
 pip install -r requirements.txt
 ```
@@ -472,7 +465,7 @@ where:
 ## Project Structure
 
 ```
-MultStadistic/
+MultStatistic/
 ├── DiscriminantAna/
 │   ├── Discriminant.py       # Linear Discriminant Analysis
 │   ├── Classification.py     # LDA and QDA classification
